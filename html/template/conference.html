@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Page Description">
+    <meta name="author" content="Administrator">
+    <title>会议记录型</title>
+    <script src="jquery/jquery.js"></script>
+    <link href="./bootstrap/bootstrap.css" rel="stylesheet">
+    <script src="bootstrap/bootstrap.js"></script>
+    <link href="./css/submit.css" rel="stylesheet">
+    <script type="text/javascript" src="../../script/api.js"></script>
+
+    <style>
+        #add_img {
+            height: 40px;
+        }
+
+        button {
+            margin: 0;
+        }
+
+        img {
+            width: 170px;
+            height: 120px;
+            display: none;
+        }
+        header{
+        	background: #f1f1f1;
+        	height: 50px;
+        	width: 100%;
+  margin-bottom: 5px;
+        }
+        header div{
+        	margin-left: 15px;
+        	width: 57%;
+        	height: 100%;
+        	display: flex;
+        	align-items: center;
+        	justify-content: space-between;
+        	font-size: 14px;
+        }
+        header img{
+        	width: 17px;
+        	height: 17px;
+          display: block;
+        }
+        header span{
+        	width: 40px;
+        	height: 100%;
+        	display: flex;
+        	align-items: center;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <div class="row col-xs-12">
+        <input type="hidden" value="" id="score">
+        <form class="form-horizontal" role="form" id="form">
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-1 control-label">会议标题</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="title" placeholder="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-1 control-label">会议时间</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="time" placeholder="">
+                </div>
+                <button type="button" class="btn btn-info" id="gain_time">获取时间</button>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-1 control-label">会议图片</label>
+                <div class="col-sm-2">
+                    <input id="lefile" type="file" style="display:none" name="photograph1">
+                    <div class="input-append">
+                        <img src="" alt="" width="" height="" id="img">
+                    </div>
+                </div>
+                <button for="photographs1" onclick="$('input[id=lefile]').click();" type="button"
+                        class="btn btn-primary" style="background:#009688">
+                    上传图片
+                </button>
+            </div>
+            </div>
+            <div class="form-group " >
+          <label  class="col-sm-2 control-label">完成进度</label>
+          <div class="col-sm-2">
+            <select class="form-control" name="zp_score" id="fraction">
+            <option value="25">25%</option>
+            <option value="50">50%</option>
+            <option value="75">75%</option>
+            <option value="100">100%</option>
+          </select>
+          </div>
+        </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-1 control-label">得分依据</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" disabled rows="6" id="work_basis" name="text_jianyi"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-1 control-label">会议要点</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="12" id="text_content" name="text_content"></textarea>
+                </div>
+            </div>
+
+            <input type="hidden" name="type" value="3">
+            <input type="hidden" name="work_id" value="" id="work_id">
+            <input type="hidden" name="tz_type" value="" id="tz_type">
+            <div class="submit">
+                <button type="button" class="btn btn-info" tapmode id="sub">提交</button>
+                <button type="reset" class="btn btn-default" id="ret">重新填写</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript">
+var ip=localStorage.getItem("ip")
+var Url=`http://${ip}/dutylist/src/job.php`
+    $('#gain_time').click(function () {
+        let time = new Date(+new Date() + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+        $('#time').val(time)
+    })
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+    var work_id = getQueryString("work_id");
+    var tz_type = getQueryString("tz_type");
+    $("#tz_type").val(tz_type);
+    $("#work_id").val(work_id);
+    $.ajax({
+        url: Url,
+        dataType: 'json',
+        type: 'post',
+        data: {
+            type: 2,
+            work_id: work_id
+        },
+        success: function (ret) {
+            $("#work_basis").html(ret.basis);
+            $("#q_score").val(ret.avg_score);
+        }
+    })
+
+    function getObjectURL(file) {
+        var url = null;
+        if (window.createObjectURL != undefined) { // basic
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    }
+
+    $("#lefile").on("change", function () {
+        var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
+        if (objUrl) {
+            $('#photograph1').val($(this).val());
+            $("#img").attr("src", objUrl); //将图片路径存入src中，显示出图片
+            $("#img").show();
+        }
+    });
+
+    $("#sub").click(function () {
+        var formData = new FormData($("#form")[0]);
+        // if (false){
+        //       alert("请填写检查人")
+        // }else if(false){
+        //     alert("分数")
+        // }
+        // else
+        // if($('#text_content').val()==''){
+        //     alert("请填写检查记录")
+        // }else
+        if ($('#text_content').val() == '') {
+            alert("请填写会议要点")
+        } else if ($("#fraction").val() == "" || $("#fraction").val() > parseFloat(($("#q_score").val()))) {
+            alert("自评分不能为空，并且不能大于该次总分");
+        } else {
+            $.ajax({
+                url: Url,
+                type: 'post',
+                data: formData,
+                // 告诉jQuery不要去处理发送的数据
+                processData: false,
+                dataType: "json",
+                // 告诉jQuery不要去设置Content-Type请求头
+                contentType: false,
+                // beforeSend: function () {
+                //     console.log("正在进行，请稍候");
+                // },
+                success: function (data) {
+                    var data=JSON.stringify(data.code)
+                    if (data == 200) {
+                        alert("提交成功！");
+                    } else if (data == 300) {
+                        alert("时间间隔未达标");
+                    } else if (data == 400) {
+                        alert("提交失败")
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            })
+        }
+    })
+    function comeBack(){
+    	    api.historyBack({
+    	    },function(ret,err){
+    		        if (!ret.status) {
+    			            api.closeWin();
+    		        }
+    	    });
+    }
+</script>
+</html>

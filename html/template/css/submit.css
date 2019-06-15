@@ -1,0 +1,27 @@
+body,div,p,label,ul,li{
+    margin:0;
+    padding: 0;
+}
+label{
+    font-size:13px;
+}
+.button{
+    margin: 0 auto;
+    width: 50%;
+   display: flex;
+    justify-content: space-around;
+
+}
+ button{
+    margin-left: 10px;
+}
+.submit{
+    margin: 15px auto;
+    width:20%;
+    display: flex;
+    justify-content: space-around;
+
+}
+.row{
+    margin: 0 auto;
+}

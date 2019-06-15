@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/inedxframe.css"/>
+      <script src="../js/jquery-1.10.2.min.js"></script>
+      <style>
+          body{
+
+          }
+          section{
+            width: 100%;
+            height: 750px;
+            display:flex;
+            flex-direction: column;
+            justify-content:space-around;
+            align-items: center;
+            background: #f1f2f6;
+          }
+          section .content{
+            width: 95%;
+            height: 48%;
+             display: flex;
+             flex-direction: column;
+             justify-content: space-between;
+             align-items: center;
+          }
+            section .content div{
+              width: 100%;
+              height: 32%;
+              display: flex;
+              justify-content: space-between;
+              background: #fff;
+              border-radius: 15px;
+              box-shadow: 1px 1px 4px #333;
+
+
+            }
+            .content div span{
+              width: 60%;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+            }
+          .content p{
+            width: 100%;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+          }
+            .content div:nth-of-type(1) span:nth-of-type(1){
+              width: 37%;
+                        background-color: #009688;
+                        border-radius: 15px 0 0 15px ;
+            }
+                .content div:nth-of-type(2) span:nth-of-type(1){
+                  width: 37%;
+    background-color: #FF5722;
+    border-radius: 15px 0 0 15px ;
+                }
+                    .content div:nth-of-type(3) span:nth-of-type(1){
+                      width: 37%;
+background-color: #F7B824;
+border-radius: 15px 0 0 15px ;
+                    }
+            .content div span img{
+              width:40px;
+              height:40px;
+            }
+          section .footer{
+            width: 95%;
+            height: 48%;
+             background: #e3e3e3;
+             display: flex;
+             flex-direction: column;
+             justify-content: space-around;;
+             align-items: center;
+          }
+          .footer p{
+            width: 95%;
+          }
+      </style>
+  </head>
+  <body>
+
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+       var i=api.pageParam.i
+       var content=$('body')
+       if(i==0){
+         content.html(
+           `
+           <section>
+             <div class="content">
+               <div tapmode onclick="dutylist()"><span><img src="../image/qdlb1.svg" alt="" /></span><span><p>2</p><p>清单列表</p></span></div>
+               <div tapmode onclick="koufenyujing()"><span><img src="../image/kfyj.svg" alt="" /></span><span><p>2</p><p>扣分预警</p></span></div>
+               <div tapmode onclick="zuixintaizhanglist()"><span><img src="../image/lzjl.svg" alt="" /></span><span><p>2</p><p>履责记录</p></span></div>
+             </div>
+             <div class="footer">
+                 <p style="text-indent:2em;">
+
+          《中华人民共和国消防法》、《中华人民共和国安全生产法》和党中央、国务院关于安全生产及消防安全的重要决策部署中，都提出要落实“党政同责、一岗双责、齐抓共管、失职追责”的工作要求，健全消防安全责任制，进一步落实各级政府和机关、团体、企业、事业单位的消防安全责任，提高公共消防安全水平，预防和减少火灾危害，保障人民群众生命财产安全。在这一形势下，实行安全责任制的信息化管理已刻不容缓。
+
+                 </p>
+                 <p style="margin-top:5px;text-indent:2em;">
+
+          责任清单系统采用责任区块链技术实现对各岗位“责权利”的共识，以及交易（责任评估打分），包括共识机制、共识类别、共识优先级、交易规则（打分规则）。使得相应的数据难以造假、便于验证工作的质量，有利于信任关系的建立。
+
+                 </p>
+             </div>
+           </section>
+           `
+         )
+       }
+       if(i==1){
+         content.html(`<ul id="lili">
+         <li onclick="user()">
+             <span>
+               <img src="../image/cylb.svg" alt="">
+             </span>
+             <h3>
+           成员列表
+         </h3>
+           </li>
+           <li onclick="organization()">
+             <span>
+               <img src="../image/zzjgb.svg" alt="">
+             </span>
+             <h3>
+           组织机构列表
+         </h3>
+           </li>
+           <li tapmode onclick="dutylist()">
+             <span>
+               <img src="../image/qdlb.svg" alt="">
+             </span>
+             <h3>
+           清单列表
+         </h3>
+           </li>
+           <li tapmode onclick="jianguanIndex()">
+             <span>
+               <img src="../image/zrrctx.svg" alt="">
+             </span>
+             <h3>
+           责任日常提醒
+         </h3>
+           </li>
+           <li tapmode onclick="jobsub()">
+             <span>
+               <img src="../image/jdgztj.svg" alt="">
+             </span>
+             <h3>
+           阶段工作提交
+         </h3>
+           </li>
+           <li tapmode onclick="temporary()">
+             <span>
+               <img src="../image/tjrw.svg" alt="">
+             </span>
+             <h3>
+           添加临时任务
+         </h3>
+           </li>
+           <li>
+             <span>
+               <img src="../image/lsrw.svg" alt="">
+             </span>
+             <h3>
+           我的临时任务
+         </h3>
+           </li>
+           <li onclick="duty_tree()">
+             <span>
+               <img src="../image/zrqds.svg" alt="">
+             </span>
+             <h3>
+           责任清单树
+         </h3>
+           </li>
+         </ul>`)
+
+       }
+       if(i==2){
+         content.html(`<ul id="lili">
+         <li onclick="summary()">
+             <span>
+               <img src="../image/fzhz.svg" alt="">
+             </span>
+             <h3>
+           分值汇总
+         </h3>
+           </li>
+           <li onclick="">
+             <span>
+               <img src="../image/lsjl.svg" alt="">
+             </span>
+             <h3>
+           历史记录
+         </h3>
+           </li>
+           <li tapmode onclick="">
+             <span>
+               <img src="../image/xsjl.svg" alt="">
+             </span>
+             <h3>
+           下属记录
+         </h3>
+           </li>
+           <li tapmode onclick="quxiantuindex()">
+             <span>
+               <img src="../image/qxt.svg" alt="">
+             </span>
+             <h3>
+           统计曲线图
+         </h3>
+           </li>
+           <li tapmode onclick="">
+             <span>
+               <img src="../image/wdjg.svg" alt="">
+             </span>
+             <h3>
+           我的监管
+         </h3>
+           </li>
+         </ul>`)
+       }
+
+      };
+    var ip=localStorage.getItem("ip")
+    function dutylist(){
+      api.openWin({
+          name: 'dutylist',
+          url: './duty/dutylist.html',
+          pageParam: {
+              index: 'test'
+          }
+      });
+
+    }
+    function jianguanIndex(){
+      api.openWin({
+          name: 'jianguanIndex',
+          url: './jianguan/index.html',
+          pageParam: {
+              index: 'test'
+          }
+      });
+
+    }
+    function temporary(){
+      api.openWin({
+          name: 'temporary',
+          url: './responset/temporary.html',
+          pageParam: {
+              index: 'test'
+          }
+      });
+
+    }
+    function duty_tree(){
+      api.openWin({
+          name: 'duty_tree',
+          url: './responset/duty_tree.html',
+          pageParam: {
+              index: 'test'
+          }
+      });
+
+    }
+    function jobsub(){
+      api.openWin({
+          name: 'jobsub',
+          url: './responset/jobsub.html',
+          pageParam: {
+              index: 'test'
+          }
+      });
+    }
+    function zuixintaizhanglist(){
+      api.openWin({
+          name: 'zuixintaizhanglist',
+          url: './zuixintaizhanglist/zuixintaizhanglist.html',
+          pageParam: {
+              index: 'test'
+          }
+      });
+    }
+    function koufenyujing(){
+      api.openWin({
+          name: 'koufenyujing',
+          url: './koufenyujing/koufenyujing.html',
+          pageParam: {
+              index: 'test'
+          }
+      });
+    }
+    function user(){
+      api.openWin({
+          name: 'user',
+          url: './Organization/user.html',
+          pageParam: {
+              index: 'test'
+          }
+      });
+    }
+    function organization(){
+      api.openWin({
+          name: 'organization',
+          url: './Organization/organization.html',
+          pageParam: {
+              index: 'test'
+          }
+      });
+    }
+function quxiantuindex(){
+  api.openWin({
+      name: 'quxiantuindex',
+      url: './quxiantu/index.html',
+      pageParam: {
+          index: 'test'
+      }
+  });
+}
+function summary(){
+  api.openWin({
+      name: 'summary',
+      url: './summary/summarylist.html',
+      pageParam: {
+          index: 'test'
+      }
+  });
+}
+  </script>
+  </html>

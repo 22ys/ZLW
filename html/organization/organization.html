@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>组织机构列表</title>
+</head>
+<style>
+
+	#add_post_con{
+		display: none
+	}
+	#look_post td{
+		vertical-align: initial;
+	}
+	#look_post input{
+		font-size: 12px;
+	}
+	#post_con input{
+		 font-size: 12px;
+	}
+	.btn-danger{
+		border-color:#f1f1f1;
+	}
+	.modal-header{
+		background: #0C0C0C;
+		color: #f1f1f1;
+	}
+	.button{
+         display: flex;
+		width: 50%;
+		justify-content: space-around;
+		margin: 10px auto;
+	}
+	.btn1{
+		margin-left:500px;
+		margin-top: 10px;
+		margin-bottom: 5px;
+	}
+	@media screen and (min-width: 320px) and (max-width: 480px){
+		table{
+			font-size: 10px;
+		}
+		#look_post{
+			width:100%;
+
+		}
+		#look_post tr{
+			width: 100%;
+		}
+		#look_post tr td{
+			padding: 0;
+
+		}
+
+
+	}
+	.mid{
+		margin-top: 10px;
+	}
+  header{
+  	background: #f1f1f1;
+  	height: 50px;
+  	width: 100%;
+
+  }
+  header div{
+  	margin-left: 15px;
+  	width: 57%;
+  	height: 100%;
+  	display: flex;
+  	align-items: center;
+  	justify-content: space-between;
+  	font-size: 14px;
+  }
+  header img{
+  	width: 17px;
+  	height: 17;
+  }
+  header span{
+  	width: 40px;
+  	height: 100%;
+  	display: flex;
+  	align-items: center;
+  }
+
+</style>
+<link rel="stylesheet" href="../template/bootstrap/bootstrap.css">
+<script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+<script src="../template/bootstrap/bootstrap.js"></script>
+<body>
+  <header>
+		<div>
+		<span tapmode onclick="comeBack()"><img src="../../image/fh.svg" alt="" ></span>
+		<h4>组织机构</h4>
+	</div>
+</header>
+	<table class="table table-hover table-bordered text-center col-xs-10"  >
+		<thead>
+		<tr>
+			<th class="text-center">ID</th>
+			<th class="text-center">组织名称</th>
+			<th class="text-center">组织负责人</th>
+			<th class="text-center">联系电话</th>
+			<th class="text-center">岗位设置</th>
+			<th class="text-center">组织设置</th>
+		</tr>
+		</thead>
+		<tbody id="look_post">
+
+		</tbody>
+	</table>
+
+	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content ">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true" style="color:#fff">×
+					</button>
+					<h3 class="modal-title">
+
+					</h3>
+				</div>
+				<div class="mid">
+					<input type="hidden" id="or_id1">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="or_name" class="col-sm-3 control-label">机构名称</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" id="or_name" placeholder="">
+							</div>
+						</div>
+						<div class="form-group " >
+							<label  class="col-sm-3 control-label" for="or_user">机构负责人</label>
+							<div class="col-sm-7">
+								<select class="form-control" id="or_user">
+
+								</select>
+							</div>
+						</div>
+						<div class="form-group " >
+							<label  class="col-sm-3 control-label" for="or_user">机构管理员</label>
+							<div class="col-sm-7">
+								<select class="form-control" id="or_admin">
+
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label"  for="or_brief">机构简介</label>
+							<div class="col-sm-7">
+								<textarea class="form-control" rows="3" id="or_brief"></textarea>
+							</div>
+						</div>
+						<div class="button">
+							<button id="or_save" class="btn btn-danger" type="button" style="background-color:#1E9FFF ">修改</button>
+
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content ">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true" style="color:#fff">×
+					</button>
+					<h3 class="modal-title">
+
+					</h3>
+				</div>
+				<div class="mid">
+					<div class="button">
+						<button type="button" id="set_post" class="btn btn-primary" style="background: #009688 " >
+							岗位设置
+						</button>
+						<button type="button" id="add_post" class="btn btn-primary" style="background: #009688 " >
+							添加岗位
+						</button>
+					</div>
+
+					<div id="set_post_con">
+						<table class="table table-hover table-bordered text-center gdt1">
+							<thead>
+							<tr>
+								<th class="text-center " >岗位id</th>
+								<th class="text-center ">岗位名称</th>
+								<th class="text-center ">岗位责任人</th>
+								<!-- <th>联系电话</th> -->
+								<th class="text-center ">删除岗位</th>
+							</tr>
+							</thead>
+							<tbody id="post_con"></tbody>
+						</table>
+					</div>
+					<div id="add_post_con">
+						<table class="table table-hover table-bordered text-center gdt1" style="margin-bottom: 0">
+							<thead>
+							<tr>
+								<th class="text-center ">岗位名称</th>
+
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td><input type="text" id="new_post"></td>
+							</tr>
+							</tbody>
+							<input type="hidden" id="or_id" value="">
+						</table>
+						<button type="button" id='post_add' class="btn btn-primary btn1" style="background: #009688 " >
+							确认添加
+						</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+var ip=localStorage.getItem("ip")
+  var url=`http://${ip}/dutylist/src/setorganization.php`
+$(function(){
+	$("#or_close").click(function(){
+		$("#organization").hide();
+	})
+	$.ajax({
+		type:"post",
+		url:url,
+		dataType:"json",
+		data:{
+			type:'0',
+		},
+		success:function(ret){
+			var html=''
+			$.each(ret,function(index,value){
+				html+="<tr>"
+				html+='<td class="or_id">'+value.id+'</td>'
+				html+='<td class="or_name">'+value.Organization_Name+'</td>'
+				html+='<td class="or_user">'+value.user_name+'</td>'
+				html+='<td>'+value.phone+'</td>'
+				html+='<td>'+'<input type="button" value="岗位设置" data="'+value.id+'" class="look_post btn btn-danger" or_name="'+value.Organization_Name+'" style="background-color:#1E9FFF;border-color: #ffffff" data-toggle="modal" data-target="#myModal" >'+'</td>'
+				html+='<td>'+'<input type="button" value="组织设置" data="'+value.id+'" class="look_or btn btn-danger" data-toggle="modal" data-target="#myModal2">'+'</td>'
+				html+='</tr>'
+			})
+			$("#look_post").html(html);
+			$(".look_post").click(function(){
+				$("#post").show();
+				var or_name=$(this).attr("or_name");
+				var or_id=$(this).attr("data");
+				$('h3').html(or_name);
+				$("#or_id").val(or_id);
+				$.ajax({
+					type:'post',
+					url:url,
+					dataType:'json',
+					data:{
+						type:'1',
+						or_id:or_id
+					},
+					success:function(re){
+						var con1=" ";
+					$.each(re[1],function(k,v){
+							con1+='<option value="'+v.user_id+'">'+v.user_name+'</option>'
+						})
+					$("#post_user").html(con1);
+					$("#or_user").html(con1);
+						var con="";
+						$.each(re[0],function(i,val){
+							con+='<tr>'
+							con+='<td>'+val.id+'</td>'
+							con+='<td>'+val.post_name+'</td>'
+							con+='<td>'+val.user+'</td>'
+
+							con+='<td><input type="button" value="删除" class="del btn btn-danger" data="'+val.id+'"></td>'
+							con+='<tr>'
+						})
+						$("#post_con").html(con);
+						// $(".save").click(function(){
+						// 	var post_id=$(this).attr("data");
+						// 	var new_name=$(this).parent().parent().find(".new_name").eq(0).val();
+						// 	var user_id=$(this).parent().parent().find(".user").eq(0).val();
+						// 	$.ajax({
+						// 		type:'post',
+						// 		url:'../../src/setorganization.php',
+						// 		dataType:'',
+						// 		data:{
+						// 			type:'2',
+						// 			post_id:post_id,
+						// 			new_name:new_name,
+						// 			user_id:user_id
+						// 		},
+						// 		success:function(data){
+						// 			if(data==200){
+						// 				alert("修改成功！");
+						// 			}else{
+						// 				alert("修改失败！");
+						// 			}
+						// 		}
+						// 	})
+						// })
+						$(".del").click(function(){
+								var post_id=$(this).attr("data");
+								if(confirm("您确定要删除此项吗？")){
+									$.ajax({
+										url:'../../src/setorganization.php',
+										type:'post',
+										dataType:'json',
+										data:{
+											type:'3',
+											post_id:post_id
+										},
+										success:function(data){
+											if(data==200){
+												alert('删除成功！');
+											}else{
+												alert("删除失败！");
+											}
+										}
+									})
+								}
+						})
+					}
+				})
+			})
+			$(".look_or").click(function(){
+				var or_id=$(this).attr("data");
+				var or_name=$(this).parent().parent().find('.or_name').html();
+				var or_user=$(this).parent().parent().find('.or_user').html();
+				$('h3').html(or_name);
+				$.ajax({
+					type:'post',
+					dataType:'json',
+					url:url,
+					data:{
+						type:'7',
+						or_id:or_id
+					},
+					success:function(ret){
+					var con1=" ";
+					$.each(ret.user,function(k,v){
+							con1+='<option value="'+v.user_id+'">'+v.user_name+'</option>'
+						})
+					$("#or_user").html(con1);
+					$("#or_admin").html(con1);
+					$("#or_brief").val(ret.or.Organization_Remark);
+					}
+				})
+				$("#organization").show();
+				$("#or_id1").val(or_id);
+				$("#or_name").val(or_name);
+				$("#or_user").val(or_user);
+			})
+		}
+	})
+	// $('#close_post').click(function(){
+	// 	$("#post").hide();
+	// })
+	$("#add_post").click(function(){
+		$("#add_post_con").show();
+		$("#set_post_con").hide();
+	})
+	$("#set_post").click(function(){
+		$("#add_post_con").hide();
+		$("#set_post_con").show();
+	})
+	$("#post_add").click(function(){
+		var new_post=$("#new_post").val();
+		var user_id=$("#post_user").val();
+		var or_id=$("#or_id").val();
+		if(new_post==false||user_id==false||or_id==false){
+			alert('请填写完整内容');
+		}
+		$.ajax({
+			type:'post',
+			dataType:'json',
+			url:url,
+			data:{
+				type:"4",
+				new_post:new_post,
+				user_id:user_id,
+				or_id:or_id
+			},
+			success:function(ret){
+				if(ret==200){
+					alert('添加岗位成功！');
+					history.go(0)
+				}else{
+					alert('添加岗位失败！');
+				}
+			}
+		})
+	})
+
+	$("#or_save").click(function(){
+		var or_id=$("#or_id1").val();
+		var or_name=$("#or_name").val();
+		var or_user=$("#or_user").val();
+		var or_admin=$("#or_admin").val();
+		var or_brief=$("#or_brief").val();
+		$.ajax({
+			url:url,
+			type:'post',
+			dataType:'json',
+			data:{
+				type:'5',
+				or_id:or_id,
+				or_name:or_name,
+				or_user:or_user,
+				or_admin:or_admin,
+				or_brief:or_brief
+			},
+			success:function(ret){
+				if(ret=="200"){
+					alert("修改成功！");
+					history.go(0)
+				}else{
+					alert("修改失败！");
+				}
+			}
+		})
+	})
+	$("#or_del").click(function(){
+		var or_id=$("#or_id1").val();
+		alert(or_id);
+		if(confirm("确定要删除吗？")){
+			$.ajax({
+				url:url,
+				dataType:'json',
+				type:'post',
+				data:{
+					type:"6",
+					or_id:or_id
+				},
+				success:function(ret){
+					if(ret==200){
+						alert('删除成功！');
+						history.go(0)
+					}else if(ret==300){
+						alert("此级还有下级机构，禁止删除！");
+					}else{
+						alert("删除失败！");
+					}
+				}
+			})
+		}
+	})
+})
+function comeBack(){
+	    api.historyBack({
+	    },function(ret,err){
+		        if (!ret.status) {
+			            api.closeWin();
+		        }
+	    });
+}
+
+</script>
+<script type="text/javascript">
+
+</script>
+</html>

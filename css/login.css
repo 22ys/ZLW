@@ -1,0 +1,96 @@
+div,ul,li,h1,h2,h3,span,input,p{
+ margin: 0;
+ padding: 0;
+}
+body{
+ background: #fff;
+}
+.top{
+ width: 100%;
+ height: 5.866666rem;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+.top .portrait{
+ width: 3.413333rem;
+ height: 3.413333rem;
+}
+.top .portrait img{
+ width: 100%;
+ height: 100%;
+}
+.mui-content{
+ background: #fff;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-around;
+ align-items: center;
+}
+.mui-input-group{
+ width: 90%;
+ height: 6.8rem;
+ display: flex;
+ flex-direction: column;
+ justify-content:space-between;
+ align-items: center;
+}
+.mui-input-group:before {
+ background: #fff;
+}
+.mui-input-group:after {
+ background: #fff;
+}
+.mui-input-row{
+ width: 90%;
+ display: flex;
+ justify-content:center;
+ align-items: center;
+}
+.mui-input-group .mui-input-row:after{
+ left: 40px;
+}
+
+.mui-input-group .mui-button-row{
+ width: 90%;
+ height: 3.2rem;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-around;
+}
+.mui-btn{
+ width: 100%;
+ height:1.2rem;
+ border-radius: 0.6rem;
+ box-shadow: 0px 0px 0.506666rem 0px salmon;
+}
+.mui-icon{
+ color: #999;
+}
+
+.footer{
+   height: 5rem;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-around;
+ align-items: center;
+}
+.footer div{
+ width: 5.6rem;
+ height: 2.133333rem;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+.footer div img{
+ width: 4.133333rem;
+ height: 1.18rem;
+}
+.footer span{
+ display: flex;
+ color: #8a959e;
+}
+.footer span p{
+ margin-left: 0.066666rem;
+ color:#fc5459;
+}

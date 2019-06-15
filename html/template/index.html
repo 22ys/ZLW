@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板</title>
+    <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+    <script src="../../js/jquery.cookie.js"></script>
+</head>
+<style>
+    #video_shooting1,#photograph1,#sound1,#photographs1,#sub{
+        display:none;
+    }
+    input{
+        width:40%;
+        height:40px;
+        margin-top:15px;
+    }
+    #text_content,#text_jianyi{
+        width:80%;
+        margin-left: 5%;
+        margin-top:20px;
+        height:200px;
+    }
+    #text_content_a,#text_jianyi_a{
+        position: relative;
+        top:-180px;
+    }
+    #sub_box{
+        padding:10px 40px;
+        color:#fff;
+        background: rgb(8,48,74);
+        border:0px;
+        display:inline-block;
+        position: relative;
+        margin-left:80%;
+        margin-top:8px;
+    }
+</style>
+<body>
+<form action="../../src/job.php" method="post" enctype="multipart/form-data" id="form1" >
+    <p id="work"></p>
+    <label for="text_content" id="text_content_a">文字说明</label><textarea name="text_content" id="text_content"></textarea><br>
+
+    <label for="text_jianyi" id="text_jianyi_a">相关建议</label><textarea name="text_jianyi" id="text_jianyi"></textarea>
+
+    <input type="hidden" name="type" value="3">
+    <input type="hidden" name="work_id" value="" id="work_id">
+
+    <input type="button" value="拍照" id="photograph">
+    <input type="file" accept="image/*" capture="camera" id="photograph1" name="photograph1"><br>
+
+    <input type="button" value="摄像" id="video_shooting">
+    <input type="file" accept="video/*" capture="camera" id="video_shooting1" name="video_shooting1"><br>
+
+    <input type="button" value="录音" id="sound">
+    <input type="file" accept="audio/*" capture="camera" id="sound1" name="sound1"><br>
+
+    <input type="button" value="选择图片" id="photographs">
+    <input type="file" name="photographs1[]"  id="photographs1"  multiple><br>
+
+    <span id="sub_box">提交</span>
+    <input type="button" id="sub"  value="提交">
+</form>
+<img src="">
+</body>
+<script type="text/javascript">
+    let test=$.cookie('test')
+    // console.log(test);
+    if (test!=1){
+        alert('请登录')
+        window.location.href = "../../login.html";
+    }
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    var work_id=getQueryString("work_id");
+    $("#work_id").val(work_id);
+    $.ajax({
+        url:'../../src/job.php',
+        dataType:'json',
+        type:'post',
+        data:{
+            type:2,
+            work_id:work_id
+        },
+        success:function(ret){
+            $("#work").html(ret.content);
+        }
+    })
+
+    $("#photograph").click(function(){
+        $("#photograph1").click().show();
+    })
+    $("#video_shooting").click(function(){
+        $("#video_shooting1").click().show();
+    })
+    $("#sound").click(function(){
+        $("#sound1").click().show();
+    })
+    $("#photographs").click(function(){
+        $("#photographs1").click().show();
+    })
+    $("#sub_box").click(function(){
+        $("#sub").click();
+    })
+
+    function getObjectURL(file) {
+        var url = null ;
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
+    }
+    $("#photograph1").on("change",function(){
+        var objUrl = getObjectURL(this.files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+        if (objUrl) {
+            $("img").attr("src", objUrl) ; //将图片路径存入src中，显示出图片
+        }
+    });
+    $("#sub").click(function(){
+        var formData = new FormData($("#form1")[0]);
+        $.ajax({
+            url: "../../src/job.php",
+            type: 'post',
+            data: formData,
+            // 告诉jQuery不要去处理发送的数据
+            processData: false,
+            dataType:"json",
+            // 告诉jQuery不要去设置Content-Type请求头
+            contentType: false,
+            // beforeSend: function () {
+            //     console.log("正在进行，请稍候");
+            // },
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    })
+</script>
+</html>

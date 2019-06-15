@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+      <style>
+      #navs{
+     list-style: none;
+     float: right;
+     position: fixed;
+     top:20px;
+     right: 100px;
+ }
+ #navs li{
+     float: left;
+     cursor: pointer;
+     background: rgb(8,48,74);
+     color: #fff;
+     padding:3px 5px;
+
+ }
+ #div1 {
+     width: 375px;
+     position: fixed;
+     top: 50px;
+     left: 20px;
+ }
+ #springydemo{
+   margin-top: 150px;
+ }
+ header{
+position: fixed;
+  background: #f1f1f1;
+  height: 50px;
+  width: 100%;
+
+ }
+ header div{
+  margin-left: 15px;
+  width: 56%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+ }
+ header img{
+  width: 17px;
+  height: 17;
+ }
+ header span{
+  width: 40px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+ }
+ .div{
+   width: 100%;
+   height: 50px;
+ }
+      </style>
+  </head>
+  <body>
+    <body>
+      <div class="div">
+      <header>
+        <div>
+        <span tapmode onclick="comeBack()"><img src="../../image/fh.svg" alt="" ></span>
+        <h4>责任清单树</h4>
+      </div>
+    </header>
+    <div>
+    <!-- <ul id="navs">
+    	<li id="look_all" style="background:rgb(90,150,105);color:#000">显示全部</li>
+    	<li id="look_guanlian">仅显示关联</li>
+    </ul> -->
+    <div style="text-align:center;font:normal 4px 'MicroSoft YaHei';width: 100%;height: 100%;">
+        <canvas id="springydemo" width="500" height="700"/>
+        </canvas>
+    </div>
+    <div id="div1"></div>
+    </body>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script src="jquery-1.3.1.js"></script>
+<script src="springy.js"></script>
+<script src="springyui.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        var ip=localStorage.getItem("ip")
+          var url=`http://${ip}/dutylist/src/duty_tree.php`
+        $.ajax({
+               url:url,
+               data: {
+                   type: 1
+               },
+               dataType: "json",
+               type: 'post',
+               success: function (ret) {
+                   // console.log(ret)
+                   var graph = new Springy.Graph();
+                   var duty = new Array();
+                   var duty_str = new Array();
+
+                   var duty_work = new Array();
+                   var duty_work_str = new Array();
+
+                   var work = new Array();
+                   var work_str = new Array();
+
+                   var prev_duty = new Array();
+                   var prev_duty_str = new Array();
+
+                   var prev_duty_work = new Array();
+                   var prev_duty_work_str = new Array();
+
+                   var prev_work = new Array();
+                   var prev_work_str = new Array();
+
+                   var next_duty = new Array();
+                   var next_duty_str = new Array();
+
+                   var next_duty_work = new Array();
+                   var next_duty_work_str = new Array();
+
+                   var next_work = new Array();
+                   var next_work_str = new Array();
+
+
+                   //添加个人清单
+                   for (var i = 0; i < ret.duty.length; i++) {
+                       duty_str[i] = ret.duty[i].title.substring(0, 5)
+                       duty[i] = graph.newNode({label: duty_str[i], title_str: ret.duty[i].title, co: "#98F5FF", type: 1});
+                   }
+
+                   //添加个人清单项
+                   for (var i = 0; i < ret.duty_work.length; i++) {
+                       duty_work_str[i] = ret.duty_work[i].content.substring(0, 5)
+                       duty_work[i] = graph.newNode({
+                           label: duty_work_str[i],
+                           title_str: ret.duty_work[i].content,
+                           co: "#FF4040",
+                           id: ret.duty_work[i].id,
+                           type: 2
+                       });
+                   }
+                   //添加个人工作项
+                   for (var i = 0; i < ret.work.length; i++) {
+                       work_str[i] = ret.work[i].content.substring(0, 5)
+                       work[i] = graph.newNode({
+                           label: work_str[i],
+                           title_str: ret.work[i].content,
+                           co: "#FFEC8B",
+                           id: ret.work[i].id
+                       });
+                   }
+                   // 添加上级清单
+                   for (var i = 0; i < ret.prev_duty.length; i++) {
+                       prev_duty_str[i] = ret.prev_duty[i].title.substring(0, 5)
+                       prev_duty[i] = graph.newNode({
+                           label: prev_duty_str[i],
+                           title_str: ret.prev_duty[i].title,
+                           co: "#98F5FF",
+                           id: ret.prev_duty[i].id
+                       });
+                   }
+                   // 添加上级清单项
+                   for (var i = 0; i < ret.prev_duty_work.length; i++) {
+                       prev_duty_work_str[i] = ret.prev_duty_work[i].content.substring(0, 5)
+                       prev_duty_work[i] = graph.newNode({
+                           label: prev_duty_work_str[i],
+                           title_str: ret.prev_duty_work[i].content,
+                           co: "#FF4040",
+                           id: ret.prev_duty_work[i].id
+                       });
+                   }
+                   //添加上级工作项
+                   for (var i = 0; i < ret.prev_work.length; i++) {
+                       prev_work_str[i] = ret.prev_work[i].content.substring(0, 5)
+                       prev_work[i] = graph.newNode({
+                           label: prev_work_str[i],
+                           title_str: ret.prev_work[i].content,
+                           co: "#FFEC8B",
+                           id: ret.prev_work[i].id
+                       });
+                   }
+                   // 添加下级清单
+                   for (var i = 0; i < ret.next_duty.length; i++) {
+                       next_duty_str[i] = ret.next_duty[i].title.substring(0, 5)
+                       next_duty[i] = graph.newNode({
+                           label: next_duty_str[i],
+                           title_str: ret.next_duty[i].title,
+                           co: "#98F5FF",
+                           id: ret.next_duty[i].id
+                       });
+                   }
+                   // 添加下级清单项
+                   for (var i = 0; i < ret.next_duty_work.length; i++) {
+                       next_duty_work_str[i] = ret.next_duty_work[i].content.substring(0, 5)
+                       next_duty_work[i] = graph.newNode({
+                           label: next_duty_work_str[i],
+                           title_str: ret.next_duty_work[i].content,
+                           co: "#FF4040",
+                           id: ret.next_duty_work[i].id
+                       });
+                   }
+                   //添加下级工作项
+                   for (var i = 0; i < ret.next_work.length; i++) {
+                       next_work_str[i] = ret.next_work[i].content.substring(0, 5)
+                       next_work[i] = graph.newNode({
+                           label: next_work_str[i],
+                           title_str: ret.next_work[i].content,
+                           co: "#FFEC8B",
+                           id: ret.next_work[i].id
+                       });
+                   }
+
+                   var arr1 = new Array();
+                   var arr2 = new Array();
+                   var arr3 = new Array();
+                   var arr4 = new Array();
+                   var arr5 = new Array();
+                   var arr6 = new Array();
+                   var arr7 = new Array();
+                   var arr8 = new Array();
+                   var k1 = 0
+                   var k2 = 0
+                   var k3 = 0
+                   var k4 = 0
+                   var k5 = 0
+                   var k6 = 0
+                   var k7 = 0
+                   var k8 = 0
+                   for (var i = 0; i < ret.duty.length; i++) {
+                       for (var k = 0; k < ret.duty_work.length; k++) {
+                           if (ret.duty[i].id == ret.duty_work[k].duty_id) {
+                               arr1[k] = graph.newEdge(duty[i], duty_work[k], {color: '#000', index: duty_work[k].data.id});
+                               k1++
+                           }
+                       }
+                   }
+
+                   for (var i = 0; i < ret.prev_duty.length; i++) {
+                       for (var k = 0; k < ret.prev_duty_work.length; k++) {
+                           if (ret.prev_duty[i].id == ret.prev_duty_work[k].duty_id) {
+                               arr2[k2] = graph.newEdge(prev_duty[i], prev_duty_work[k], {color: '#000'});
+                               k2++
+                           }
+                       }
+                   }
+                   for (var i = 0; i < ret.next_duty.length; i++) {
+                       for (var k = 0; k < ret.next_duty_work.length; k++) {
+                           if (ret.next_duty[i].id == ret.next_duty_work[k].duty_id) {
+                               arr3[k3] = graph.newEdge(next_duty[i], next_duty_work[k], {color: '#000'});
+                               k3++
+                           }
+                       }
+                   }
+                   for (var i = 0; i < ret.duty_work.length; i++) {
+                       for (var k = 0; k < ret.work.length; k++) {
+                           if (ret.duty_work[i].id == ret.work[k].duty_work_id) {
+                               arr4[k4] = graph.newEdge(duty_work[i], work[k], {color: '#000'});
+                               k4++
+                           }
+                       }
+                   }
+                   for (var i = 0; i < ret.prev_duty_work.length; i++) {
+                       for (var k = 0; k < ret.prev_work.length; k++) {
+                           if (ret.prev_duty_work[i].id == ret.prev_work[k].duty_work_id) {
+                               arr5[k5] = graph.newEdge(prev_duty_work[i], prev_work[k], {color: '#000'});
+                               k5++
+                           }
+                       }
+                   }
+                   for (var i = 0; i < ret.next_duty_work.length; i++) {
+                       for (var k = 0; k < ret.next_work.length; k++) {
+                           if (ret.next_duty_work[i].id == ret.next_work[k].duty_work_id) {
+                               arr6[k6] = graph.newEdge(next_duty_work[i], next_work[k], {color: '#000'});
+                               k6++
+                           }
+                       }
+                   }
+                   for (var i = 0; i < ret.prev_work.length; i++) {
+                       for (var k = 0; k < ret.work.length; k++) {
+                           if (ret.prev_work[i].id == ret.work[k].jianguan) {
+                               arr7[k7] = graph.newEdge(prev_work[i], work[k], {color: '#000'});
+                               k7++
+                           }
+                       }
+                   }
+                   for (var i = 0; i < ret.work.length; i++) {
+                       for (var k = 0; k < ret.next_work.length; k++) {
+                           if (ret.work[i].id == ret.next_work[k].jianguan) {
+                               arr8[k8] = graph.newEdge(work[i], next_work[k], {color: '#000'});
+                               k8++
+                           }
+                       }
+                   }
+
+                   var springy = window.springy = jQuery('#springydemo').springy({
+                       graph: graph,
+                       nodeSelected: function (node) {
+                           $("#div1").text(JSON.stringify(node.data.title_str));
+                           if (JSON.stringify(node.data.type) == 1) {
+                               redies()
+                               for (var i = 0; i < arr1.length; i++) {
+                                   if (arr1[i]) {
+                                       arr1[i].data.color = "red";
+                                   }
+                               }
+                               for (var i = 0; i < arr4.length; i++) {
+                                   if (arr4[i]) {
+                                       arr4[i].data.color = "red";
+                                   }
+                               }
+                               for (var i = 0; i < arr8.length; i++) {
+                                   if (arr8[i]) {
+                                       arr8[i].data.color = "red";
+                                   }
+                               }
+                           } else if (JSON.stringify(node.data.type) == 2) {
+                               redies()
+                               var index = JSON.stringify(node.data.id);
+                               for (var i = 0; i < arr1.length; i++) {
+                                   index1 = '"' + arr1[i].data.index + '"';
+                                   if (index == index1) {
+                                       arr1[i].data.color = "red";
+                                   }
+                               }
+                           }
+                       }
+                   });
+
+                   function redies() {
+                       for (var i = 0; i < arr1.length; i++) {
+                           arr1[i].data.color = "#000";
+                       }
+                       for (var i = 0; i < arr2.length; i++) {
+                           arr2[i].data.color = "#000";
+                       }
+                       for (var i = 0; i < arr3.length; i++) {
+                           arr3[i].data.color = "#000";
+                       }
+                       for (var i = 0; i < arr4.length; i++) {
+                           arr4[i].data.color = "#000";
+                       }
+                       for (var i = 0; i < arr5.length; i++) {
+                           arr5[i].data.color = "#000";
+                       }
+                       for (var i = 0; i < arr6.length; i++) {
+                           arr6[i].data.color = "#000";
+                       }
+                       for (var i = 0; i < arr7.length; i++) {
+                           arr7[i].data.color = "#000";
+                       }
+                       for (var i = 0; i < arr8.length; i++) {
+                           arr8[i].data.color = "#000";
+                       }
+
+                   }
+
+               }
+           })
+
+      };
+
+  var canvas = $('#springydemo')[0];
+var ctx = canvas.getContext('2d');
+ctx.shadowColor="#000";                //设置或返回用于阴影的颜色
+ctx.shadowBlur=5;                        //设置或返回用于阴影的模糊级别
+ctx.shadowOffsetX=1;                //设置或返回阴影距形状的水平距离
+ctx.shadowOffsetY=1;
+function comeBack(){
+	    api.historyBack({
+	    },function(ret,err){
+		        if (!ret.status) {
+			            api.closeWin();
+		        }
+	    });
+}
+  </script>
+  </html>

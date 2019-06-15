@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <title>title</title>
+  <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+  <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+  <style>
+  body{
+
+  }
+  #containet{
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+  }
+  #pageMain{
+    width: 100%;
+    height:550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+  }
+  #pageBox{
+    width: 100%;
+    height: 100px;
+    position:absolute;
+    bottom:0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  #pageMain li{
+    background: #fff;
+    box-shadow: 2px 2px 10px #e3e3e3;
+    width:95%;
+    height: 60px;
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+    border-radius: 5px;
+  }
+  #pageMain li span{
+    display: flex;
+    justify-content: center;
+    margin-left: 10px;
+  }
+  #pageMain li p,textarea{
+   width: 67%;
+   height: 40px;
+   display: flex;
+   align-items: center;
+   background: #e3e3e3;
+   padding-left: 5px;
+   font-size: 12px;
+   color: #333;
+   margin-left: 5px;
+ }
+ #pageMain>.button{
+  display: flex;
+  justify-content: center;
+  background: #f1f2f6;
+  box-shadow: none;
+}
+body{
+  background: #f1f2f6;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+}
+#pageMain>.button{
+ display: flex;
+ justify-content: center;
+ background: #f1f2f6;
+ box-shadow: none;
+}
+
+</style>
+</head>
+<body>
+  <header class="mui-bar mui-bar-nav" id="header">
+    <span class="mui-icon mui-icon-back mui-pull-left" tapmode onclick="comeBack()"></span>
+    <h1 class="mui-title">清单列表</h1>
+    <span class="mui-icon mui-icon-person mui-pull-right" tapmode onclick="personal()"></span>
+  </header>
+  <div id="containet">
+    <ul id="pageMain">
+
+    </ul>
+  </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+  apiready = function(){
+    id= api.pageParam.id;
+    var ip=localStorage.getItem("ip")
+    var url=`http://${ip}/dutylist/src/workDisciplineList.php`
+    $.ajax({
+      url:url,
+      dataType:'json',
+      type:'post',
+      data:{
+       duty_id:id,
+       type:1
+     },
+     success:function(ret){
+       var pageMain=$('#pageMain')
+       var li='';
+       $.each(ret.work,function(index,value){
+         li+=`
+         <li><span>序号</span><p>${value.Work_Discipline_ID}</p></li>
+         <li><span>工作内容</span><textarea name="">${value.content}</textarea></li>
+         <li><span>添加时间</span><p>${value.addtime}</p></li>
+         <li class="button"><button type="button" class="mui-btn mui-btn-primary" style="width:180px;height:45px;border-radius:25px;" tapmode onclick=workAction('${value.Work_Discipline_ID}','${value.content}')>查看细项</button></li>
+         `
+       })
+       $('#containet').html(`<ul id="pageMain">${li}</ul>`+`<div id="pageBox">
+        <button class="mui-btn" id="prev" style="border-radius:20px;">上一页</button>
+        <button class="mui-btn" id="next" style="border-radius:20px;">下一页</button>
+        </div>`)
+      //分页
+       $(function () {
+        tabPage({
+          pageMain: '#pageMain',
+          pageNav: '#pageNav',
+          pagePrev: '#prev',
+          pageNext: '#next',
+          curNum:4, /*每页显示的条数*/
+          activeClass: 'active', /*高亮显示的class*/
+          ini: 0/*初始化显示的页面*/
+        });
+        function tabPage(tabPage) {
+          var pageMain = $(tabPage.pageMain);
+          /*获取内容列表*/
+          var pageNav = $(tabPage.pageNav);
+          /*获取分页*/
+          var pagePrev = $(tabPage.pagePrev);
+          /*上一页*/
+          var pageNext = $(tabPage.pageNext);
+          /*下一页*/
+          var curNum = tabPage.curNum;
+          /*每页显示数*/
+          var len = Math.ceil(pageMain.find("li").length / curNum);
+          /*计算总页数*/
+          // var pageList = '';
+          /*生成页码*/
+          var iNum = 0;
+          /*当前的索引值*/
+
+          // for (var i = 0; i < len; i++) {
+          //   pageList += '<a href="javascript:;">' + (i + 1) + '</a>';
+          // }
+          // pageNav.html(pageList);
+          /*头一页加高亮显示*/
+          // pageNav.find("a:first").addClass(tabPage.activeClass);
+
+          /*******标签页的点击事件*******/
+          // pageNav.find("a").each(function(){
+          //   $(this).click(function () {
+          //     pageNav.find("a").removeClass(tabPage.activeClass);
+          //     $(this).addClass(tabPage.activeClass);
+          //     iNum = $(this).index();
+          //     $(pageMain).find("li").hide();
+          //     for (var i = ($(this).html() - 1) * curNum; i < ($(this).html()) * curNum; i++) {
+          //       $(pageMain).find("li").eq(i).show()
+          //     }
+          //
+          //   });
+          // })
+
+
+          $(pageMain).find("li").hide();
+          /************首页的显示*********/
+          for (var i = 0; i < curNum; i++) {
+            $(pageMain).find("li").eq(i).show()
+          }
+
+
+          /*下一页*/
+          pageNext.click(function () {
+            $(pageMain).find("li").hide();
+            if (iNum == len - 1) {
+              alert('已经是最后一页');
+              for (var i = (len - 1) * curNum; i < len * curNum; i++) {
+                $(pageMain).find("li").eq(i).show()
+              }
+              return false;
+            } else {
+              pageNav.find("a").removeClass(tabPage.activeClass);
+              iNum++;
+              pageNav.find("a").eq(iNum).addClass(tabPage.activeClass);
+//                    ini(iNum);
+}
+for (var i = iNum * curNum; i < (iNum + 1) * curNum; i++) {
+  $(pageMain).find("li").eq(i).show()
+
+}
+});
+          /*上一页*/
+          pagePrev.click(function () {
+            $(pageMain).find("li").hide();
+            if (iNum == 0) {
+              alert('当前是第一页');
+              for (var i = 0; i < curNum; i++) {
+                $(pageMain).find("li").eq(i).show()
+              }
+              return false;
+            } else {
+              pageNav.find("a").removeClass(tabPage.activeClass);
+              iNum--;
+              pageNav.find("a").eq(iNum).addClass(tabPage.activeClass);
+            }
+            for (var i = iNum * curNum; i < (iNum + 1) * curNum; i++) {
+              $(pageMain).find("li").eq(i).show()
+            }
+          })
+
+        }
+
+
+      })
+
+    },
+     error:function(a){
+      //  console.log( JSON.stringify(a))
+     }
+   })
+};
+function workAction(a,b) {
+  api.openWin({
+    name: 'workAction',
+    url: './workAction.html',
+    pageParam: {
+      id:a,
+      content:b
+    }
+  })
+}
+
+function comeBack(){
+      api.historyBack({
+      },function(ret,err){
+            if (!ret.status) {
+                  api.closeWin();
+            }
+      });
+}
+
+</script>
+</html>

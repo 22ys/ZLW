@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+
+      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css" href="../../css/dutylistFrame.css"/>
+      <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+      <style>
+          body{
+
+
+          }
+      </style>
+  </head>
+  <body>
+
+
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+            id= api.pageParam.id;
+        var ip=localStorage.getItem("ip")
+        var url=`http://${ip}/dutylist/src/dutylist.php`
+            $.ajax({
+            url:url,
+            dataType:'json',
+            type:'post',
+            data:{
+
+            },
+            success:function(ret){
+             var body=$('body')
+            $.each(ret,function(index,value){
+              if(id==value.List_Allot_ID){
+              body.html(`
+                       <h3>${value.Content}</h3>
+                       <ul>
+                       <li><span>所属部门</span><p>${value.department}</p></li>
+                       <li><span>岗位</span><p>${value.post_name}</p></li>
+                       <li><span>责任人</span><p>${value.Next_user}</p></li>
+                       <li><span>清单类型</span><p>${value.duty_type}</p></li>
+                       <li><span>单前得分</span><p>${value.fraction}</p></li>
+                       </ul>
+                      <button type="button" tapmode onclick="dutyGuiCheng()">查看细项</button>
+                       `)
+              }
+            })
+
+      }})
+}
+    function comeBack(){
+        api.historyBack({
+        },function(ret,err){
+            if (!ret.status) {
+                api.closeWin();
+            }
+        });
+    }
+    var id;
+function dutyGuiCheng() {
+  api.openWin({
+      name: 'dutyGuiCheng',
+      url: './dutyGuiCheng.html',
+      pageParam: {
+          id:id
+      }
+  })
+}
+
+  </script>
+  </html>

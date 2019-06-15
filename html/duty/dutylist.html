@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <script src="../js/mui.js"></script>
+      <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
+      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+      <link rel="stylesheet" href="../../css/dutylist.css">
+    <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+      <style>
+          body{
+
+          }
+   li{
+     width: 80px;
+     overflow: hidden;
+       text-overflow:ellipsis;
+       white-space: nowrap;
+   }
+
+      </style>
+      <script>
+
+          </script>
+  </head>
+  <body>
+    <header class="mui-bar mui-bar-nav" id="header">
+      	<span class="mui-icon mui-icon-back mui-pull-left" tapmode onclick="comeBack()"></span>
+	<h1 class="mui-title">清单列表</h1>
+		<span class="mui-icon mui-icon-person mui-pull-right" tapmode onclick="personal()"></span>
+</header>
+                 <ul id="nav">
+
+
+                 </ul>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        var ip=localStorage.getItem("ip")
+        var url=`http://${ip}/dutylist/src/dutylist.php`
+            $.ajax({
+            url:url,
+            dataType:'json',
+            type:'post',
+            data:{
+
+            },
+            success:function(ret){
+                var li=''
+                var i=0
+              $.each(ret,function(index,value){
+               li+=`<li class="menu">${value.Content}</li><input type='hidden' value='${value.List_Allot_ID}' class="id${i}">`
+                 i++;
+              })
+              $('#nav').html(li)
+              var nav=$api.byId("nav")
+              var header=$api.byId("header")
+              var navH=$api.offset(nav).h
+              var headerH=$api.offset(header).h
+              menus=$api.domAll(nav,'.menu')
+              var menuss=[]
+              var arr=[];
+            for(var i=0;i<menus.length;i++){
+              menuss.push($(`.id${i}`).val())
+            arr.push({
+              name:'frame1'+i,
+              url:'./dutylistFrame.html',
+              pageParam: {
+                  id:menuss[i]
+              }
+            })
+            }
+              api.openFrameGroup ({
+                  name: 'dutylistFrameGroup',
+                  scrollEnabled: true,
+                  rect: {
+                       x: 0,
+                       y: navH+headerH,
+                       w: 'auto',
+                       h: 'auto'
+                  },
+                  index: 0,
+                  frames: arr
+              }, function(ret, err){
+                fn(ret.index)
+              });
+            }})
+
+
+
+
+}
+
+
+
+var menus;
+function fn1(i){
+    fn(i)
+  api.setFrameGroupIndex({
+      name: 'dutylistFrameGroup',
+      index: i,
+      scroll: true
+  });
+
+}
+function fn(j) {
+  for(var i=0;i<menus.length;i++){
+         if(j==i){
+        $api.addCls(menus[i],'selected')
+      }else{
+        $api.removeCls(menus[i], 'selected');
+
+      }
+  }
+}
+function personal(){
+  api.openWin({
+      name: 'personal',
+      url: './personal.html',
+      pageParam: {
+          name: 'test'
+      }
+  });
+}
+function comeBack(){
+    api.historyBack({
+    },function(ret,err){
+        if (!ret.status) {
+            api.closeWin();
+        }
+    });
+}
+
+  </script>
+  <script src="
+http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+  </html>
+  </html>

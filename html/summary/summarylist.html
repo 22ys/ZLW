@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <title>title</title>
+  <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../template/bootstrap/bootstrap.css"/>
+  <script type="text/javascript" src="echarts.min.js"></script>
+  <style>
+  header{
+   background: #f1f1f1;
+   height: 50px;
+   width: 100%;
+
+ }
+ header div{
+   margin-left: 15px;
+   width: 55%;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   font-size: 14px;
+ }
+ header img{
+   width: 17px;
+   height: 17;
+ }
+ header span{
+   width: 40px;
+   height: 100%;
+   display: flex;
+   align-items: center;
+ }
+ .top{
+   margin-top:25px;
+  width: 100%;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.top h4{
+    font-size: 14px;
+}
+</style>
+</head>
+<body>
+  <header>
+    <div>
+      <span tapmode onclick="comeBack()"><img src="../../image/fh.svg" alt="" ></span>
+      <h4>统计曲线图</h4>
+    </div>
+  </header>
+  <div class="top">
+    <h4>近期一年每月分数平均分（默认显示当前登录人员分数）</h4>
+  </div>
+  <div id="chart" style="width:93%;height:350px; margin:0 auto;" ></div>
+  <table class="table table-hover table-bordered" style="margin:8px auto;width:93%;">
+   <thead>
+    <tr>
+      <th>张教维</th>
+      <th>85</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+     <td>主机在线处理</td>
+     <td>20</td>
+   </tr>
+   <tr>
+     <td>视屏联动</td>
+     <td>30</td>
+   </tr>
+   <tr>
+     <td>电池电量显示</td>
+     <td>20</td>
+   </tr>
+   <tr>
+     <td>水压数据库修复</td>
+     <td>15</td>
+   </tr>
+ </tbody>
+</table>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+  apiready = function(){
+
+  };
+  var option = {
+    color: ['#3398DB'],
+    tooltip : {
+      trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                      }
+                    },
+                    grid: {
+                      left: '3%',
+                      right: '4%',
+                      bottom: '3%',
+                      containLabel: true
+                    },
+                    xAxis : [
+                    {
+                      type : 'category',
+                      data : ['张教维', '吴金莉', '王琳', '王梓涛'],
+                      axisTick: {
+                        alignWithLabel: true
+                      }
+                    }
+                    ],
+                    yAxis : [
+                    {
+                      type : 'value'
+                    }
+                    ],
+                    series : [
+                    {
+                      name:'分数',
+                      type:'bar',
+                      barWidth: '60%',
+                      data:[85,90, 96, 90]
+                    }
+                    ]
+                  };
+                  var myChart = echarts.init(document.getElementById('chart'));
+                  myChart.setOption(option);
+                  function comeBack(){
+                        api.historyBack({
+                        },function(ret,err){
+                              if (!ret.status) {
+                                    api.closeWin();
+                              }
+                        });
+                  }
+                </script>
+                </html>

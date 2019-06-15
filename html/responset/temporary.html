@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>添加责任项</title>
+	<script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+	<link rel="stylesheet" href="../template/bootstrap/bootstrap.css">
+	<script src="../template/bootstrap/bootstrap.js"></script>
+  <script type="text/javascript" src="../../script/api.js"></script>
+
+</head>
+<style type="text/css">
+	.form-horizontal .form-group{
+		margin: 0;
+		margin-top: 15px;
+	}
+	.btn_position{
+		width: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+    margin: 0 auto;
+    margin-bottom: 15px;
+	}
+	.btn_position div{
+		width: 200px;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+	}
+header{
+	background: #f1f1f1;
+	height: 50px;
+	width: 100%;
+
+}
+header div{
+	margin-left: 15px;
+	width: 57%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-size: 14px;
+}
+header img{
+	width: 17px;
+	height: 17;
+}
+header span{
+	width: 40px;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+</style>
+<body>
+	<header>
+		<div>
+		<span tapmode onclick="comeBack()"><img src="../../image/fh.svg" alt="" ></span>
+		<h4>添加临时任务</h4>
+	</div>
+</header>
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label for="" class="col-sm-2 col-md-2 col-lg-1  control-label">组织机构</label>
+			<div class="col-sm-4">
+				<select class="form-control" id="organization">
+
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="" class="col-sm-2 col-md-2 col-lg-1 control-label">岗位</label>
+			<div class="col-sm-4">
+				<select class="form-control" id="post">
+
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="user" class="col-sm-2 col-md-2 col-lg-1 control-label">责任人</label>
+			<div class="col-sm-4">
+				<select class="form-control" id="user">
+
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="duty_list" class=" col-sm-2 col-md-2 col-lg-1 control-label">责任人清单</label>
+			<div class="col-sm-4">
+				<select class="form-control" id="duty_list">
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="user" class="col-sm-2 col-md-2 col-lg-1 control-label ">具体要求</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="content" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="" class="col-sm-2 col-md-2 col-lg-1 control-label">得分方式</label>
+			<div class="col-sm-5  col-md-4" >
+				<label class="radio-inline">
+					<input type="radio" name="mode" value="1" checked> 自动
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="mode"  value="2"  > 审核
+				</label>
+
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="" class="col-sm-2 col-md-2 col-lg-1 control-label">工作周期</label>
+			<div class="col-sm-4">
+				<label class="radio-inline">
+					<input type="radio" name="periodicity"  value="1" checked>非周期性
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="periodicity" value="2" >周期性
+				</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="" class="col-sm-2 col-md-2 col-lg-1 control-label">任务等级</label>
+			<div class="col-sm-5  col-md-4">
+				<label class="radio-inline">
+					<input type="radio" name="work_grade" value="1" checked> A级任务
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="work_grade"  value="2"  > B级任务
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="work_grade"  value="3"  > C级任务
+				</label>
+			</div>
+		</div>
+		<div class="form-group" >
+			<label for="user" class="col-sm-2 col-md-2 col-lg-1 control-label" id="bz">工作项比重</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="proportion" placeholder="" >
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="" class="col-sm-2 col-md-2 col-lg-1 control-label">完成时间</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="duration" placeholder="天" >
+		</div>
+		</div>
+		<div class="form-group">
+			<label for="template" class="col-sm-2 col-md-2 col-lg-1 control-label">提交模板</label>
+			<div class="col-sm-4">
+				<select class="form-control" id="template">
+						<option value=' '>空模板</option>
+			  			<option value='conference.html'>会议记录型</option>
+			  			<option value='examine.html'>材料检查型</option>
+			  		    <option value='group.html'>演练类型</option>
+			  		    <option value='patrol.html'>地点巡查型</option>
+			  			<option value='report.html'>上传报告型</option>
+				</select>
+			</div>
+		</div>
+		<div style="height:20px"></div>
+		<div class="btn_position">
+			<div>
+				<button type="button" class="btn btn-info" tapmode id="sub">提交</button>
+				<button type="reset" class="btn btn-danger" >重置</button>
+			</div>
+
+		</div>
+	</form>
+</body>
+	<script>
+  var ip=localStorage.getItem("ip")
+  var url=`http://${ip}/dutylist/src/add_temporary_task.php`
+$.ajax({
+	url:url,
+	dataType:'json',
+	type:'post',
+	data:{
+		type:1,
+	},
+	success:function(ret){
+			var html="<option value='0'>"+"请选择部门"+"</option>";
+			$.each(ret.or,function(index,value){
+				html+="<option value='"+value.id+"'>"+value.Organization_Name+"</option>"
+			})
+			$("#organization").html(html);
+			var con="<option value='0'>"+"请选着岗位"+"</option>";;
+			$.each(ret.post,function(index,value){
+				con+="<option value='"+value.id+"'>"+value.post_name+"</option>"
+			})
+			$("#post").html(con);
+	}
+})
+$("#post").change(function(){
+	var post_id=$(this).val();
+	$.ajax({
+		url:url,
+		dataType:'json',
+		type:'post',
+		data:{
+			type:2,
+			post_id:post_id
+		},
+		success:function(ret){
+			var user_str="<option value='0'>请选择责任人</option>";
+			$.each(ret,function(index,value){
+				user_str+="<option value='"+value.user_id+"'>"+value.user_name+"</option>"
+			})
+			$("#user").html(user_str);
+		}
+	})
+})
+$("#user").change(function(){
+	var user_id=$(this).val();
+	$.ajax({
+		url:url,
+		dataType:'json',
+		type:'post',
+		data:{
+			type:4,
+			user_id:user_id
+		},
+		success:function(ret){
+			var duty_str="<option value='0'>选择责任清单</option>";
+			$.each(ret,function(index,value){
+				duty_str+="<option value='"+value.id+"'>"+value.title+"</option>"
+			})
+			$("#duty_list").html(duty_str);
+		}
+	})
+})
+$('input[name="work_grade"]').click(function(){
+	var work_grade=$(this).val();
+	if(work_grade==3){
+		$("#bz").html("工作项分值");
+	}else{
+		$("#bz").html("工作项比重");
+	}
+})
+$("#sub").click(function(){
+		var content     =$('#content').val();//工作内容
+		var duration    =$("#duration").val();//完成时间
+        var proportion  =$('#proportion').val();//比重/分值
+        var score_type  =$('input[name="mode"]:checked').val(); //得分方式
+        var template    =$("#template").val();//提交模板
+        var user_id     =$("#user").val();//责任人
+        var duty_id     =$("#duty_list").val();//清单id
+        var work_grade  =$('input[name="work_grade"]:checked').val(); //工作等级
+        var periodicity =$('input[name="periodicity"]:checked').val(); //工作周期性
+
+$.ajax({
+	url:url,
+	data:{
+		content:content,
+		proportion:proportion,
+		duration:duration,
+		score_type:score_type,
+		template:template,
+		user_id:user_id,
+		duty_id:duty_id,
+		work_grade:work_grade,
+		periodicity:periodicity,
+		type:3
+	},
+	type:'post',
+	dataType:"json",
+	success:function(ret){
+		if(ret==200){
+			if(confirm("添加成功，是否继续添加？")){
+				window.location.reload();
+			}
+
+		}else{
+			alert("添加失败");
+		}
+	}
+
+})
+})
+function comeBack(){
+	    api.historyBack({
+	    },function(ret,err){
+		        if (!ret.status) {
+			            api.closeWin();
+		        }
+	    });
+}
+
+	</script>
+</html>
