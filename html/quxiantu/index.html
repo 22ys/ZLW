@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script type="text/javascript" src="jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src = "highcharts.js"> </script>
+      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
@@ -20,7 +21,7 @@ var ip=localStorage.getItem("ip")
                     type:1,
                  },
                  success:function(ret){
-  
+
             //曲线图初始化
             chart = new Highcharts.Chart({
                 chart: {
@@ -258,6 +259,7 @@ header span{
             </table>
  </div>
 </body>
+<script type="text/javascript" src="../../script/api.js"></script>
 <script>
 function comeBack(){
       api.historyBack({
