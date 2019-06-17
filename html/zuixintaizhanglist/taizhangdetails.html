@@ -66,11 +66,15 @@ header span{
     #audio_father {
         display:none;
     }
+		#img img{
+			width: 180px;
+			height: 120px;
+		}
 </style>
 <body>
 	<header>
 		<div>
-		<span tapmode onclick="comeBack()"><img src="../../image/fh.svg" alt="" ></span>
+		<span tapmode onclick="comeBack()"><img src="../../images/fh.svg" alt="" ></span>
 		<h4>履责记录</h4>
 	</div>
 </header>
@@ -109,8 +113,8 @@ header span{
   </div>
   <div class="form-group" id="img_father">
     <label for="name" class="col-sm-2 col-md-2 col-lg-1 control-label ">图片预览</label>
-      <div>
-          <audio src="" id="audio" style="width: 300px;height: 60px"></audio>
+      <div id="img" style="margin-left:14px;">
+
       </div>
   </div>
   <div class="form-group" id="video_father">
@@ -173,7 +177,7 @@ header span{
 
     </div>
 
-
+ <input type="hidden" id="tz_id" value=''>
 		<div style="height:20px"></div>
 		<div class="btn_position">
 			<div>
@@ -199,7 +203,12 @@ header span{
      success: function (data) {
          var img1=''
         $.each(data.action,function (index,value) {
-           img1+="<img src='"+value.fil_path+"' class='img' style='width: 150px' height='100px'>"
+					var imgurl=value.fil_path
+					var subStr=new RegExp('../../');//创建正则表达式对象
+		      var result=imgurl.replace(subStr,"");//把'is'替换为空字符串
+	        var imgUrl=`http://${ip}/dutylist/${result}`
+           img1+="<img src='"+imgUrl+"' class='img' >"
+
         })
          // console.log(data);
          $("#post").val(data.post_name);
@@ -239,13 +248,37 @@ header span{
  })
 
 
-
-
-
-
   }
 
 
+	$("#sub").click(function () {
+		ip=localStorage.getItem("ip")
+		let url=`http://${ip}/dutylist/src/shenghe.php`
+			console.log(url)
+         var id = $('#tz_id').val();
+         var num=$('#zp_score').val()
+         var basis=$("#basis").val()
+         $.ajax({
+             type: 'POST',
+             url: url,
+             dataType: 'json',
+             data: {
+                 id:id,
+                 num:num,
+                 basis:basis
+             },
+             success: function (res) {
+                 if (res == 200) {
+                     alert("审核成功！");
+                 } else if (res == 300) {
+                     alert("已审核！");
+                 } else {
+                    alert("审核失败！");
+                 }
+
+             }
+         })
+     })
 
 
 function comeBack(){

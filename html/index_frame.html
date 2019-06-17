@@ -98,9 +98,9 @@ border-radius: 15px 0 0 15px ;
            `
            <section>
              <div class="content">
-               <div tapmode onclick="dutylist()"><span><img src="../image/qdlb1.svg" alt="" /></span><span><p>2</p><p>清单列表</p></span></div>
-               <div tapmode onclick="koufenyujing()"><span><img src="../image/kfyj.svg" alt="" /></span><span><p>2</p><p>扣分预警</p></span></div>
-               <div tapmode onclick="zuixintaizhanglist()"><span><img src="../image/lzjl.svg" alt="" /></span><span><p>2</p><p>履责记录</p></span></div>
+               <div tapmode onclick="dutylist()"><span><img src="../images/qdlb1.svg" alt="" /></span><span><p>2</p><p>清单列表</p></span></div>
+               <div tapmode onclick="koufenyujing()"><span><img src="../images/kfyj.svg" alt="" /></span><span><p>2</p><p>扣分预警</p></span></div>
+               <div tapmode onclick="zuixintaizhanglist()"><span><img src="../images/lzjl.svg" alt="" /></span><span><p>2</p><p>履责记录</p></span></div>
              </div>
              <div class="footer">
                  <p style="text-indent:2em;">
@@ -122,7 +122,7 @@ border-radius: 15px 0 0 15px ;
          content.html(`<ul id="lili">
          <li onclick="user()">
              <span>
-               <img src="../image/cylb.svg" alt="">
+               <img src="../images/cylb.svg" alt="">
              </span>
              <h3>
            成员列表
@@ -130,7 +130,7 @@ border-radius: 15px 0 0 15px ;
            </li>
            <li onclick="organization()">
              <span>
-               <img src="../image/zzjgb.svg" alt="">
+               <img src="../images/zzjgb.svg" alt="">
              </span>
              <h3>
            组织机构列表
@@ -138,7 +138,7 @@ border-radius: 15px 0 0 15px ;
            </li>
            <li tapmode onclick="dutylist()">
              <span>
-               <img src="../image/qdlb.svg" alt="">
+               <img src="../images/qdlb.svg" alt="">
              </span>
              <h3>
            清单列表
@@ -146,7 +146,7 @@ border-radius: 15px 0 0 15px ;
            </li>
            <li tapmode onclick="jianguanIndex()">
              <span>
-               <img src="../image/zrrctx.svg" alt="">
+               <img src="../images/zrrctx.svg" alt="">
              </span>
              <h3>
            责任日常提醒
@@ -154,7 +154,7 @@ border-radius: 15px 0 0 15px ;
            </li>
            <li tapmode onclick="jobsub()">
              <span>
-               <img src="../image/jdgztj.svg" alt="">
+               <img src="../images/jdgztj.svg" alt="">
              </span>
              <h3>
            阶段工作提交
@@ -162,7 +162,7 @@ border-radius: 15px 0 0 15px ;
            </li>
            <li tapmode onclick="temporary()">
              <span>
-               <img src="../image/tjrw.svg" alt="">
+               <img src="../images/tjrw.svg" alt="">
              </span>
              <h3>
            添加临时任务
@@ -170,7 +170,7 @@ border-radius: 15px 0 0 15px ;
            </li>
            <li>
              <span>
-               <img src="../image/lsrw.svg" alt="">
+               <img src="../images/lsrw.svg" alt="">
              </span>
              <h3>
            我的临时任务
@@ -178,7 +178,7 @@ border-radius: 15px 0 0 15px ;
            </li>
            <li onclick="duty_tree()">
              <span>
-               <img src="../image/zrqds.svg" alt="">
+               <img src="../images/zrqds.svg" alt="">
              </span>
              <h3>
            责任清单树
@@ -191,7 +191,7 @@ border-radius: 15px 0 0 15px ;
          content.html(`<ul id="lili">
          <li onclick="summary()">
              <span>
-               <img src="../image/fzhz.svg" alt="">
+               <img src="../images/fzhz.svg" alt="">
              </span>
              <h3>
            分值汇总
@@ -199,7 +199,7 @@ border-radius: 15px 0 0 15px ;
            </li>
            <li onclick="">
              <span>
-               <img src="../image/lsjl.svg" alt="">
+               <img src="../images/lsjl.svg" alt="">
              </span>
              <h3>
            历史记录
@@ -207,7 +207,7 @@ border-radius: 15px 0 0 15px ;
            </li>
            <li tapmode onclick="">
              <span>
-               <img src="../image/xsjl.svg" alt="">
+               <img src="../images/xsjl.svg" alt="">
              </span>
              <h3>
            下属记录
@@ -215,7 +215,7 @@ border-radius: 15px 0 0 15px ;
            </li>
            <li tapmode onclick="quxiantuindex()">
              <span>
-               <img src="../image/qxt.svg" alt="">
+               <img src="../images/qxt.svg" alt="">
              </span>
              <h3>
            统计曲线图
@@ -223,7 +223,7 @@ border-radius: 15px 0 0 15px ;
            </li>
            <li tapmode onclick="">
              <span>
-               <img src="../image/wdjg.svg" alt="">
+               <img src="../images/wdjg.svg" alt="">
              </span>
              <h3>
            我的监管
@@ -231,7 +231,7 @@ border-radius: 15px 0 0 15px ;
            </li>
            <li tapmode onclick="policeMessage()">
              <span>
-               <img src="../image/bjxx.svg" alt="">
+               <img src="../images/bjxx.svg" alt="">
              </span>
              <h3>
            报警信息
@@ -242,7 +242,7 @@ border-radius: 15px 0 0 15px ;
 
       };
     var ip=localStorage.getItem("ip")
-    
+
     function dutylist(){
       api.openWin({
           name: 'dutylist',
