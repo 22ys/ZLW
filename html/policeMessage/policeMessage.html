@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <script src="../template/jquery/jquery.js"></script>
+     <link href="../template/bootstrap/bootstrap.css" rel="stylesheet">
+     <script src="../template/bootstrap/bootstrap.js"></script>
+      <style>
+          body{
+
+          }
+
+     #div{
+         width: 100%;
+         height: 500px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         flex-direction: column;
+
+     }
+        #div img{
+            width: 150px;
+            height: 150px;
+            margin-bottom: 30px;
+        }
+     table{
+         display: none;
+         font-size: 10px;
+     }
+     .btn{
+      font-size: 8px;
+         width: 40px;
+     }
+     #tbody tr td{
+     vertical-align: initial;
+    }
+    header{
+      background: #f1f1f1;
+      height: 50px;
+      width: 100%;
+      margin-bottom: 5px;
+
+    }
+    header div{
+      margin-left: 15px;
+      width: 57%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+    header img{
+      width: 17px;
+      height: 17px;
+      display: block;
+    }
+    header span{
+      width: 40px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+      </style>
+  </head>
+  <body>
+
+    <header>
+      <div>
+      <span tapmode onclick="comeBack()"><img src="../../image/fh.svg" alt="" ></span>
+      <h4>报警信息</h4>
+    </div>
+  </header>
+    <div id="div">
+            <img src="../../image/kx.svg" alt="">
+            <p>暂无报警信息</p>
+        </div>
+
+
+        <table class="table table-hover table-bordered ">
+            <thead class="text-center">
+            <tr>
+                <th class="text-center" >报警信息</th>
+                <th class="text-center" >设备地址</th>
+                <th class="text-center" >主机号</th>
+                <th class="text-center" >报警时间</th>
+                <th class="text-center" >操作</th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+
+      };
+      $('#div').show()
+         var arr=[];
+
+         var mySocket;
+         (function Star() {
+             mySocket = new WebSocket("ws://192.168.0.105:50020");
+             mySocket.onopen = function Open() {
+                 // Show("连接打开");
+             };
+             mySocket.onmessage = function (evt) {
+                 var msg=evt.data
+                 var data = eval('(' + msg + ')');
+                 arr.push(data)
+                 if(data) {
+                   localStorage.setItem("policeMessage",1)
+                     $('.table').show()
+                     $('#div').hide()
+                     var tr = '';
+                     $.each(arr, function (index, value) {
+                         if (value.Mtype == 1) {
+                             var Mtype = "火警"
+                         }
+                         if (value.Mtype == 2) {
+                             var Mtype = "故障"
+                         }
+                         if (value.Mtype == 3) {
+                             var Mtype = "屏蔽"
+                         }
+                         if (value.Mtype == 4) {
+                             var Mtype = "反馈"
+                         }
+                         if (value.Mtype == 5) {
+                             var Mtype = "离线"
+                         }
+                         tr += ` <tr class="text-center">
+                       <td>${Mtype}</td>
+                       <td>${value.Addr}</td>
+                       <td>${value.DeviceNo}</td>
+                       <td>${value.DateT}</td>
+                       <td><button type="button" class="btn btn-primary" onclick="bj('${value.DateT}')">报警</button></td>
+                     </tr>`
+                     })
+                     $('tbody').html(tr)
+
+                 }
+
+
+             };
+             mySocket.onclose = function Close() {
+                 // Show("连接关闭");
+                 mySocket.close();
+             };
+             // window.setInterval(function(){ //每隔5秒钟发送一次心跳，避免websocket连接因超时而自动断开
+             //     var ping = {"type":"ping"};
+             //     mySocket.send(JSON.stringify(ping));
+             // },5000)
+         }())
+         function comeBack(){
+               api.historyBack({
+               },function(ret,err){
+                     if (!ret.status) {
+                           api.closeWin();
+                     }
+               });
+         }
+         function bj(time){
+           api.openWin({
+               name: 'policeMessageSub',
+               url: './policeMessageSub.html',
+               pageParam: {
+                   policeTime: time
+               }
+           });
+
+         }
+  </script>
+  </html>

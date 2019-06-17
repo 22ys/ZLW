@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>添加责任项</title>
+	<script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+	<link rel="stylesheet" href="../template/bootstrap/bootstrap.css">
+	<script src="../template/bootstrap/bootstrap.js"></script>
+  <script type="text/javascript" src="../../script/api.js"></script>
+
+</head>
+<style type="text/css">
+	.form-horizontal .form-group{
+		margin: 0;
+		margin-top: 15px;
+	}
+	.btn_position{
+		width: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+    margin: 0 auto;
+    margin-bottom: 15px;
+	}
+	.btn_position div{
+		width: 200px;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+	}
+header{
+	background: #f1f1f1;
+	height: 50px;
+	width: 100%;
+
+}
+header div{
+	margin-left: 15px;
+	width: 57%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-size: 14px;
+}
+header img{
+	width: 17px;
+	height: 17;
+}
+header span{
+	width: 40px;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+</style>
+<body>
+	<header>
+		<div>
+		<span tapmode onclick="comeBack()"><img src="../../image/fh.svg" alt="" ></span>
+		<h4>报警信息提交</h4>
+	</div>
+</header>
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label for="user" class="col-sm-2 col-md-2 col-lg-1 control-label ">开始时间</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="policeTime" disabled placeholder="">
+			</div>
+		</div>
+
+	</form>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+	<script>
+  apiready = function(){
+    var ip=localStorage.getItem("ip")
+    var url=`http://${ip}/dutylist/src/add_temporary_task.php`
+    var policeTime=api.pageParam.policeTime;
+    $('#policeTime').val(policeTime)
+    var audioRecorder = api.require('audioRecorder');
+    audioRecorder.startRecord({
+        savePath:'fs://test.amr',
+        format:'amr'
+    }, function(ret, err){
+        alert(JSON.stringify(ret));
+    });
+  };
+
+
+function comeBack(){
+	    api.historyBack({
+	    },function(ret,err){
+		        if (!ret.status) {
+			            api.closeWin();
+		        }
+	    });
+}
+
+	</script>
+</html>
