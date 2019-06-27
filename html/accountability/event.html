@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+      <link rel="stylesheet" href="../template/bootstrap/bootstrap.css">
+      <script src="../template/bootstrap/bootstrap.js"></script>
+      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+      <style>
+          body{
+
+          }
+          .table{
+            font-size: 10px;
+          }
+          tr td:nth-of-type(1){
+  width: 50px;
+  text-align: center;
+
+}
+tr td:nth-of-type(3){
+  width: 70px;
+  text-align: center;
+}
+tr td:nth-of-type(4){
+  width: 100px;
+  text-align: center;
+}
+.table>tbody>tr>td {
+     vertical-align: inherit;
+}
+#highest_zq tr:nth-of-type(1) td:nth-of-type(1){
+  color:#FF0000;
+  font-size: 15px;
+  font-weight: bold;
+}
+#highest_zq tr:nth-of-type(2) td:nth-of-type(1){
+  color:#FF4040;
+  font-size: 13px;
+  font-weight: bold;
+}
+#highest_zq tr:nth-of-type(3) td:nth-of-type(1){
+  color:#FA8072;
+  font-size: 11px;
+  font-weight: bold;
+}
+#highest_nzq tr:nth-of-type(1) td:nth-of-type(1){
+  color:#FF0000;
+  font-size: 15px;
+  font-weight: bold;
+}
+#highest_nzq tr:nth-of-type(2) td:nth-of-type(1){
+    color:#FF4040;
+  font-size: 13px;
+  font-weight: bold;
+}
+#highest_nzq tr:nth-of-type(3) td:nth-of-type(1){
+  color:#FA8072;
+  font-size: 11px;
+  font-weight: bold;
+}
+      </style>
+  </head>
+  <body>
+    <div class="container">
+     <div class="row">
+        <div class="col-xs-12">
+        	<table class="table table-hover table-bordered highest">
+  	<caption>循环任务最高排行榜</caption>
+  	<thead>
+  		<tr>
+  			<th>排行</th>
+  			<th>工作项</th>
+  			<th>责任人</th>
+  			<th>完成百分比</th>
+  		</tr>
+  	</thead>
+  	<tbody id="highest_zq">
+
+  	</tbody>
+  </table>
+        </div>
+        <div class="col-xs-12">
+        	<table class="table table-hover table-bordered minimum">
+  	<caption>循环最低排行榜</caption>
+  	<thead>
+  		<tr>
+  			<th>排行</th>
+  			<th>工作项</th>
+  			<th>责任人</th>
+  			<th>完成百分比</th>
+  		</tr>
+  	</thead>
+  	<tbody id="minimum_zq">
+
+  	</tbody>
+  </table>
+        </div>
+     </div>
+     <div class="row">
+     	<div class="col-xs-12">
+     		<table class="table table-hover table-bordered highest">
+  	<caption>上月非循环最高排行榜</caption>
+  	<thead>
+  		<tr>
+  			<th>排行</th>
+  			<th>工作项</th>
+  			<th>责任人</th>
+  			<th>完成百分比</th>
+  		</tr>
+  	</thead>
+  	<tbody id="highest_nzq">
+
+  	</tbody>
+  </table>
+     	</div>
+        <div class="col-xs-12">
+        	<table class="table table-hover table-bordered minimum">
+  	<caption>上月非循环最低排行榜</caption>
+  	<thead>
+  		<tr>
+  			<th>排行</th>
+  			<th>工作项</th>
+  			<th>责任人</th>
+  			<th>完成百分比</th>
+  		</tr>
+  	</thead>
+  	<tbody id="minimum_nzq">
+
+  	</tbody>
+  </table>
+
+        </div>
+  </div>
+  </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        var ip=localStorage.getItem("ip")
+        var Url=`http://${ip}/dutylist/src/event_account.php`
+        $.ajax({
+        			url:Url,
+        			dataType:'json',
+        			type:'post',
+        			data:{
+
+        			},
+        			success:function(ret){
+        				var work_zq_up=' ';
+        				var work_zq_down=' ';
+        				var work_nzq_up=' ';
+        				var work_nzq_down=' ';
+        				$.each(ret.zq_work_up,function(index,value){
+        					if(index<10){
+        					work_zq_up+="<tr>";
+        					work_zq_up+="<td>"+(index+1)+"</td>";
+        					work_zq_up+="<td>"+value.content+"</td>";
+        					work_zq_up+="<td>"+value.user_name+"</td>";
+        					work_zq_up+="<td>"+value['completion']+"</td>";
+        					work_zq_up+="</tr>";
+        					}
+        				})
+        					$.each(ret.zq_work_down,function(index,value){
+        					if(index<10){
+        					work_zq_down+="<tr>";
+        					work_zq_down+="<td>"+(index+1)+"</td>";
+        					work_zq_down+="<td>"+value.content+"</td>";
+        					work_zq_down+="<td>"+value.user_name+"</td>";
+        					work_zq_down+="<td>"+value['completion']+"</td>";
+        					work_zq_down+="</tr>";
+        					}
+        				})
+        					$.each(ret.nzq_work_up,function(index,value){
+        					if(index<10){
+        					work_nzq_up+="<tr>";
+        					work_nzq_up+="<td>"+(index+1)+"</td>";
+        					work_nzq_up+="<td>"+value.content+"</td>";
+        					work_nzq_up+="<td>"+value.user_name+"</td>";
+        					work_nzq_up+="<td>"+value['completion']+"</td>";
+        					work_nzq_up+="</tr>";
+        					}
+        				})
+        				    $.each(ret.nzq_work_down,function(index,value){
+        					if(index<10){
+        					work_nzq_down+="<tr>";
+        					work_nzq_down+="<td>"+(index+1)+"</td>";
+        					work_nzq_down+="<td>"+value.content+"</td>";
+        					work_nzq_down+="<td>"+value.user_name+"</td>";
+        					work_nzq_down+="<td>"+value['completion']+"</td>";
+        					work_nzq_down+="</tr>";
+        					}
+        				})
+        				$("#highest_zq").html(work_zq_up);
+        				$("#minimum_zq").html(work_zq_down);
+        				$("#highest_nzq").html(work_nzq_up);
+        				$("#minimum_nzq").html(work_nzq_down);
+        			}
+        		})
+
+      };
+
+  </script>
+  </html>

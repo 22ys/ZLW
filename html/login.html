@@ -101,7 +101,9 @@ data:{
   pwd:pwd,
 },
 success:function(ret){
-  // console.log(JSON.shringify(ret))
+  localStorage.setItem("user_id",ret.msg.user_id)
+  localStorage.setItem("user_name",ret.msg.user_name)
+  localStorage.setItem("pwd",ret.msg.pwd)
   api.openWin({
       name: 'index',
       url: './index.html',

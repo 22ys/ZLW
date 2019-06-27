@@ -26,23 +26,41 @@
             height: 150px;
             margin-bottom: 30px;
         }
-     table{
+     #control_father,#pressure_father{
          display: none;
          font-size: 10px;
+          margin: 0 auto;
+         margin-top: 10px;
+         width: 95%;
+
      }
      .btn{
       font-size: 8px;
          width: 40px;
      }
-     #tbody tr td{
-     vertical-align: initial;
+     #control tr td{
+     vertical-align: inherit;
     }
+  #pressure tr td{
+  vertical-align: inherit;
+ }
+  #header{
+    width: 100%;
+    height: 50px;
+  }
     header{
-      background: #f1f1f1;
       height: 50px;
       width: 100%;
       margin-bottom: 5px;
-
+      background: url(../../images/navbar.png);
+      color:#f1f1f1;
+      text-shadow: 1px 1px 3px #000;
+      position: fixed;
+      z-index: 999;
+    }
+    h4{
+      color:#f1f1f1;
+      text-shadow: 1px 1px 3px #000;
     }
     header div{
       margin-left: 15px;
@@ -67,30 +85,45 @@
       </style>
   </head>
   <body>
-
+    <div id="header">
     <header>
       <div>
       <span tapmode onclick="comeBack()"><img src="../../images/fh.svg" alt="" ></span>
       <h4>报警信息</h4>
     </div>
   </header>
+  </div>
     <div id="div">
             <img src="../../images/kx.svg" alt="">
             <p>暂无报警信息</p>
         </div>
-
-
-        <table class="table table-hover table-bordered ">
+        <table class="table table-hover table-bordered " id="control_father">
+           <caption>消控报警信息</caption>
             <thead class="text-center">
             <tr>
                 <th class="text-center" >报警信息</th>
                 <th class="text-center" >设备地址</th>
-                <th class="text-center" >主机号</th>
                 <th class="text-center" >报警时间</th>
                 <th class="text-center" >操作</th>
             </tr>
             </thead>
-            <tbody id="tbody">
+            <tbody id="control">
+
+            </tbody>
+        </table>
+
+        <table class="table table-hover table-bordered" id="pressure_father">
+          <caption>水压报警信息</caption>
+            <thead class="text-center">
+            <tr>
+                <th class="text-center" >报警信息</th>
+                <th class="text-center" >设备地址</th>
+                <th class="text-center" >水压值</th>
+                <th class="text-center" >报警时间</th>
+                <th class="text-center" >操作</th>
+            </tr>
+            </thead>
+            <tbody id="pressure">
 
             </tbody>
         </table>
@@ -101,79 +134,105 @@
 
       };
       $('#div').show()
-         var arr=[];
+       url="http://192.168.0.127/dutylist/src/api/xiaokong.php"
+      var user_id=localStorage.getItem("user_id")
+      $.ajax({
+        url:url,
+        type:'post',
+        dataType:"json",
+        data:{
+          type:2,
+          user_id:user_id
+        },
+        success:function (ret) {
+          if(ret) {
+              $('#div').hide()
+              var controltr = '';
+              var pressuretr = '';
+              $.each(ret,function (index,value) {
+                if(value.appid==0){
+                $('#control_father').show()
+                  if (value.alarm_content == 1) {
+                      var alarm_content = "火警"
+                  }
+                  if (value.alarm_content == 2) {
+                      var alarm_content = "故障"
+                  }
+                  if (value.alarm_content == 3) {
+                      var alarm_content = "屏蔽"
+                  }
+                  if (value.alarm_content == 4) {
+                      var alarm_content = "反馈"
+                  }
+                  if (value.alarm_content == 5) {
+                      var alarm_content = "离线"
+                  }
+                  controltr += ` <tr class="text-center">
+                <td>${alarm_content}</td>
+                <td>${value.address}</td>
+                <td>${value.add_time}</td>
+                <td><button type="button" class="btn btn-primary" onclick="controlbj('${value.add_time}','${alarm_content}','${value.address}')">操作</button></td>
+              </tr>`
+                }
+                if(value.appid==1){
+                  $('#pressure_father').show()
+                  if (value.alarm_content == 11) {
+                      var alarm_content = "水压高"
+                  }
+                  if (value.alarm_content == 12) {
+                      var alarm_content = "水压低"
+                  }
+                  pressuretr += ` <tr class="text-center">
+                <td>${alarm_content}</td>
+                <td>${value.address}</td>
+                <td>${value.parameter}</td>
+                <td>${value.add_time}</td>
+                <td><button type="button" class="btn btn-primary" onclick="pressurebj('${value.add_time}','${value.parameter}','${alarm_content}','${value.address}')">操作</button></td>
+                </tr>`
+                }
 
-         var mySocket;
-         (function Star() {
-             mySocket = new WebSocket("ws://192.168.0.105:50020");
-             mySocket.onopen = function Open() {
-                 // Show("连接打开");
-             };
-             mySocket.onmessage = function (evt) {
-                 var msg=evt.data
-                 var data = eval('(' + msg + ')');
-                 arr.push(data)
-                 if(data) {
-                   localStorage.setItem("policeMessage",1)
-                     $('.table').show()
-                     $('#div').hide()
-                     var tr = '';
-                     $.each(arr, function (index, value) {
-                         if (value.Mtype == 1) {
-                             var Mtype = "火警"
-                         }
-                         if (value.Mtype == 2) {
-                             var Mtype = "故障"
-                         }
-                         if (value.Mtype == 3) {
-                             var Mtype = "屏蔽"
-                         }
-                         if (value.Mtype == 4) {
-                             var Mtype = "反馈"
-                         }
-                         if (value.Mtype == 5) {
-                             var Mtype = "离线"
-                         }
-                         tr += ` <tr class="text-center">
-                       <td>${Mtype}</td>
-                       <td>${value.Addr}</td>
-                       <td>${value.DeviceNo}</td>
-                       <td>${value.DateT}</td>
-                       <td><button type="button" class="btn btn-primary" onclick="bj('${value.DateT}')">报警</button></td>
-                     </tr>`
-                     })
-                     $('tbody').html(tr)
+              })
+              $('#control').html(controltr)
+              $('#pressure').html(pressuretr)
+          }
+        },
+        error:function(ret){
+          console.log(JSON.stringify(ret))
+        }
 
-                 }
+      })
 
-
-             };
-             mySocket.onclose = function Close() {
-                 // Show("连接关闭");
-                 mySocket.close();
-             };
-             // window.setInterval(function(){ //每隔5秒钟发送一次心跳，避免websocket连接因超时而自动断开
-             //     var ping = {"type":"ping"};
-             //     mySocket.send(JSON.stringify(ping));
-             // },5000)
-         }())
          function comeBack(){
-               api.historyBack({
-               },function(ret,err){
-                     if (!ret.status) {
-                           api.closeWin();
-                     }
-               });
+           api.openWin({
+                  name: 'policeMessageSub',
+                  url: '../index.html',
+                  pageParam: {
+                    
+                  }
+              });
          }
-         function bj(time){
+         function controlbj(time,alarm_content,Addr){
            api.openWin({
                name: 'policeMessageSub',
                url: './policeMessageSub.html',
                pageParam: {
-                   policeTime: time
+                   policeTime:time,
+                   Addr:Addr,
+                   alarm_content:alarm_content
                }
            });
-
+         }
+         function pressurebj(time,parameter,alarm_content,Addr){
+           api.openWin({
+               name: 'policeMessageSub',
+               url: './policeMessageSub.html',
+               pageParam: {
+                   policeTime:time,
+                   Addr:Addr,
+                   alarm_content:alarm_content,
+                   parameter:parameter
+               }
+           });
          }
   </script>
   </html>

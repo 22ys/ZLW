@@ -7,6 +7,7 @@
       <link rel="stylesheet" type="text/css" href="../css/api.css"/>
       <link rel="stylesheet" type="text/css" href="../css/inedxframe.css"/>
       <script src="../js/jquery-1.10.2.min.js"></script>
+
       <style>
           section{
             width: 100%;
@@ -120,6 +121,22 @@ border-radius: 15px 0 0 15px ;
        }
        if(i==1){
          content.html(`<ul id="lili">
+         <li tapmode onclick="jobsub()">
+           <span>
+             <img src="../images/jdgztj.svg" alt="">
+           </span>
+           <h3>
+         阶段工作提交
+       </h3>
+         </li>
+         <li tapmode onclick="jianguanIndex()">
+           <span>
+             <img src="../images/zrrctx.svg" alt="">
+           </span>
+           <h3>
+         责任日常提醒
+       </h3>
+         </li>
          <li onclick="user()">
              <span>
                <img src="../images/cylb.svg" alt="">
@@ -142,22 +159,6 @@ border-radius: 15px 0 0 15px ;
              </span>
              <h3>
            清单列表
-         </h3>
-           </li>
-           <li tapmode onclick="jianguanIndex()">
-             <span>
-               <img src="../images/zrrctx.svg" alt="">
-             </span>
-             <h3>
-           责任日常提醒
-         </h3>
-           </li>
-           <li tapmode onclick="jobsub()">
-             <span>
-               <img src="../images/jdgztj.svg" alt="">
-             </span>
-             <h3>
-           阶段工作提交
          </h3>
            </li>
            <li tapmode onclick="temporary()">
@@ -197,7 +198,15 @@ border-radius: 15px 0 0 15px ;
            分值汇总
          </h3>
            </li>
-           <li onclick="">
+           <li tapmode onclick="quxiantuindex()">
+             <span>
+               <img src="../images/qxt.svg" alt="">
+             </span>
+             <h3>
+           统计曲线图
+         </h3>
+           </li>
+           <li onclick="historicalIndex()">
              <span>
                <img src="../images/lsjl.svg" alt="">
              </span>
@@ -213,14 +222,7 @@ border-radius: 15px 0 0 15px ;
            下属记录
          </h3>
            </li>
-           <li tapmode onclick="quxiantuindex()">
-             <span>
-               <img src="../images/qxt.svg" alt="">
-             </span>
-             <h3>
-           统计曲线图
-         </h3>
-           </li>
+
            <li tapmode onclick="">
              <span>
                <img src="../images/wdjg.svg" alt="">
@@ -239,7 +241,64 @@ border-radius: 15px 0 0 15px ;
            </li>
          </ul>`)
        }
+       if(i==3){
+         content.html(`<ul id="lili">
+         <li tapmode onclick="jianzeIndex()">
+             <span>
+               <img src="../images/jzjz.svg" alt="">
+             </span>
+             <h3>
+           尽职减责
+         </h3>
+           </li>
+           <li tapmode onclick="jianzemap()">
+               <span>
+                 <img src="../img/ditu.svg" alt="">
+               </span>
+               <h3>
+             安全评估
+           </h3>
+             </li>
+         </ul>`)
+       }
 
+       if(i==4){
+         content.html(`<ul id="lili">
+         <li tapmode onclick="Event()">
+             <span>
+               <img src="../images/sjzz.svg" alt="">
+             </span>
+             <h3>
+           事件追责
+         </h3>
+           </li>
+           <li onclick="">
+             <span>
+               <img src="../images/bmzz.svg" alt="">
+             </span>
+             <h3>
+           部门追责
+         </h3>
+           </li>
+           <li tapmode onclick="">
+             <span>
+               <img src="../images/grzz.svg" alt="">
+             </span>
+             <h3>
+           个人追责
+         </h3>
+           </li>
+           <li tapmode onclick="">
+             <span>
+               <img src="../images/mnzz.svg" alt="">
+             </span>
+             <h3>
+           模拟追责
+         </h3>
+           </li>
+
+         </ul>`)
+       }
       };
     var ip=localStorage.getItem("ip")
 
@@ -328,6 +387,16 @@ border-radius: 15px 0 0 15px ;
           }
       });
     }
+    function historicalIndex(){
+      api.openWin({
+          name: 'historicalIndex',
+          url: './historical/index.html',
+          pageParam: {
+              index: 'test'
+          }
+      });
+    }
+
 function quxiantuindex(){
   api.openWin({
       name: 'quxiantuindex',
@@ -350,6 +419,33 @@ function policeMessage(){
   api.openWin({
       name: 'policeMessage',
       url: './policeMessage/policeMessage.html',
+      pageParam: {
+          index: 'test'
+      }
+  });
+}
+function Event(){
+  api.openWin({
+      name: 'event',
+      url: './accountability/event.html',
+      pageParam: {
+          index: 'test'
+      }
+  });
+}
+function jianzeIndex(){
+  api.openWin({
+      name: 'jianzeIndex',
+      url: './jianze/index.html',
+      pageParam: {
+          index: 'test'
+      }
+  });
+}
+function jianzemap(){
+  api.openWin({
+      name: 'map',
+      url: './jianze/map.html',
       pageParam: {
           index: 'test'
       }

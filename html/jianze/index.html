@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../template/bootstrap/bootstrap.css" />
+    <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../template/bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/echarts.min.js"></script>
+    <!-- <script type="text/javascript" src="https://echarts.baidu.com/resource/echarts-liquidfill-latest/dist/echarts-liquidfill.min.js"></script> -->
+    <script>
+    </script>
+    <style>
+        #header {
+            width: 100%;
+            background: url(../../images/navbar.png);
+            color: #f1f1f1;
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        .mui-title {
+            color: #f1f1f1;
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        .mui-bar .mui-icon {
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        .top {
+            width: 100%;
+            height: 130px;
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+            border-bottom: solid 1px #e3e3e3;
+        }
+
+        .top_letf {
+            width: 40%;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        .top_left div {
+            width: 120px;
+            height: 60px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .top_left div p {
+            font-size: 26px;
+            color: #FF6347;
+        }
+
+        .top_right {
+            width: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .top_right img {
+            width: 80px;
+            height: 60px;
+        }
+
+        .top_right h4 {
+            font-size: 16px;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .ranking {
+            width: 96%;
+            height: 60px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ranking span {
+            width: 25%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ranking span p {
+            font-size: 16px;
+        }
+
+        p {
+            color: #000;
+        }
+
+        .ranking img {
+            width: 15px;
+            height: 15px;
+        }
+
+        .ranking span p:nth-of-type(2) {
+            font-weight: bold;
+        }
+
+        .content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            border-top: solid 5px #f1f1f1;
+        }
+
+        .content_top {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content .content_top h4 {
+            font-size: 14px;
+        }
+        #chart1{
+          border-top: 2px solid #f1f1f1;
+        }
+        .p{
+          width: 100%;
+          text-align: center;
+          margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="mui-bar mui-bar-nav" id="header">
+        <span class="mui-icon mui-icon-back mui-pull-left" tapmode onclick="comeBack()"></span>
+        <h1 class="mui-title">尽职减责</h1>
+        <span class="mui-icon mui-icon-person mui-pull-right" tapmode onclick="personal()"></span>
+    </header>
+    <div class="top">
+        <div class="top_left">
+            <h4>
+         当前履职分
+       </h4>
+            <div>
+                <p>400</p>
+            </div>
+        </div>
+        <div class="top_right">
+            <img src="../../img/ss.svg" alt="">
+            <h4>进步了1名</h4>
+        </div>
+    </div>
+
+    <div class="ranking" onclick="ranking()">
+        <span>
+     <p>今日排名</p>
+     <p>5</p>
+   </span>
+        <img src="../../images/qj.svg" alt="">
+    </div>
+  <div id="chart1" style="width:100%;height:60px;"></div>
+   <p class="p">距离进入<strong style="font-size:19px">减责</strong >行列还有<strong style="color:#FF6347;font-size:19px">400分</strong></p>
+    <div class="content">
+        <div class="content_top">
+            <h4>近7天完成分数</h4>
+        </div>
+        <div id="chart" style="width:95%;height:350px; margin:0 auto;"></div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+
+    apiready = function() {
+        ip = localStorage.getItem("ip")
+        url = `http://${ip}/dutylist/src/user.php`
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: 'post',
+            data: {
+                type: 0
+            },
+            success: function(ret) {
+
+            }
+
+        })
+
+    }
+
+    function comeBack() {   
+        api.historyBack({  }, function(ret, err) {     
+            if (!ret.status) {       
+                api.closeWin();     
+            }  
+        });
+    }
+
+    var option = {
+        color: ['#3398DB'],
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [{
+            type: 'category',
+            data: ['1', '2', '3', '4', '5', '6', '7'],
+            axisTick: {
+                alignWithLabel: true
+            }
+        }],
+        yAxis: [{
+            type: 'value'
+        }],
+        series: [{
+            name: '分数',
+            type: 'bar',
+            barWidth: '60%',
+            data: [85, 90, 96, 90, 123, 23, 44]
+        }]
+    };
+    var myChart = echarts.init(document.getElementById('chart'));
+    myChart.setOption(option);
+
+function functionName() {
+  var data = [50];
+var xMax = 100;
+var axisColor = '#fff';
+option1 = {
+tooltip: {
+    show: true,
+    formatter: "{b} <br> {c}件"
+
+},
+
+xAxis: [{
+    axisTick: {
+        show: false,
+        // color:'#fff',
+    },
+    axisLine: {
+        show: false,
+    },
+    axisLabel: {
+        show: false
+            //color:'#fff',
+    },
+    splitLine: {
+        show: false,
+        // color:'#fff',
+    }
+}],
+yAxis: [{
+    type: 'category',
+    data: ['其他来源'],
+
+    axisTick: {
+        // color:'#fff',
+        show: false,
+    },
+    axisLine: {
+        //  color:'#fff',
+        show: false,
+    },
+    axisLabel: {
+        textStyle: {
+            color: '#fff',
+        }
+    }
+
+}],
+series: [{
+    name: ' ',
+    type: 'bar',
+    barWidth: 16,
+    silent: true,
+    itemStyle: {
+        normal: {
+            color: '#0B2A54',
+            barBorderRadius: [0, 5, 5, 0],
+
+        }
+
+    },
+    barGap: '-100%',
+    barCategoryGap: '50%',
+    data: data.map(function(d) {
+        return xMax
+    }),
+}, {
+    name: ' ',
+    type: 'bar',
+    barWidth: 16,
+    label: {
+        normal: {
+            show: true,
+            position: 'top',
+            formatter: '{c}%',
+        }
+    },
+    data: [{
+        value: 100,
+        itemStyle: {
+            normal: {
+                barBorderRadius: [0, 10, 10, 0],
+                color: {
+                    type: 'bar',
+                    colorStops: [{
+                        offset: 0,
+                        color: 'rgba(11,42,84,.3)' // 0% 处的颜色
+                    }, {
+                        offset: 1,
+                        color: '#ffa800' // 100% 处的颜色
+                    }],
+                    globalCoord: false, // 缺省为 false
+
+                }
+            }
+        }
+    },
+      ],
+}]
+};
+var myChart = echarts.init(document.getElementById('chart1'));
+myChart.setOption(option1);
+}
+functionName();
+
+    function comeBack() {   
+        api.historyBack({  }, function(ret, err) {     
+            if (!ret.status) {       
+                api.closeWin();     
+            }  
+        });
+    }
+
+    function ranking() {
+        api.openWin({
+            name: 'ranking',
+            url: './ranking.html',
+            pageParam: {
+                index: 'test'
+            }
+        });
+    }
+</script>
+
+</html>

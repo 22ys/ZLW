@@ -28,15 +28,28 @@
 		justify-content: space-around;
 		align-items: center;
 	}
+
 header{
-	background: #f1f1f1;
 	height: 50px;
 	width: 100%;
-
+	background: url(../../images/navbar.png);
+	color:#f1f1f1;
+	text-shadow: 1px 1px 3px #000;
+}
+h4{
+	color:#f1f1f1;
+	text-shadow: 1px 1px 3px #000;
+}
+h5{
+	width: 100%;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 header div{
 	margin-left: 15px;
-	width: 57%;
+	width: 59%;
 	height: 100%;
 	display: flex;
 	align-items: center;
@@ -53,6 +66,10 @@ header span{
 	display: flex;
 	align-items: center;
 }
+.form-horizontal{
+	width: 95%;
+	margin: 0 auto;
+}
 </style>
 <body>
 	<header>
@@ -61,14 +78,45 @@ header span{
 		<h4>报警信息提交</h4>
 	</div>
 </header>
+<h5>消控报警信息</h5>
 	<form class="form-horizontal">
 		<div class="form-group">
-			<label for="user" class="col-sm-2 col-md-2 col-lg-1 control-label ">开始时间</label>
-			<div class="col-sm-4">
+			<label for="Mtype" class=" control-label ">报警信息</label>
+			<div class="">
+				<input type="text" class="form-control" id="Mtype" disabled placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="Addr" class=" control-label ">设备地址</label>
+			<div class="">
+				<input type="text" class="form-control" id="Addr" disabled placeholder="">
+			</div>
+		</div>
+		<div class="form-group" id="ValueVal_father">
+			<label for="ValueVal" class=" control-label ">水压值</label>
+			<div class="">
+				<input type="text" class="form-control" id="ValueVal" disabled placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="policeTime" class=" control-label ">报警时间</label>
+			<div class="">
 				<input type="text" class="form-control" id="policeTime" disabled placeholder="">
 			</div>
 		</div>
-
+		<div class="form-group">
+	 		<div class="">
+	 				<input id="lefile" type="file" style="display:none" name="photograph1" accept="audio/*" capture="microphone" multiple>
+	 		</div>
+	 		<button for="" onclick="$('input[id=lefile]').click();" type="button" class="btn btn-primary"
+	 		style="background:#009688">
+	 		上传录音
+	 		</button>
+			<button for="" id=sub type="button" class="btn btn-primary"
+			style="margin-left:10px">
+			完成提交
+			</button>
+	 	</div>
 	</form>
 </body>
 <script type="text/javascript" src="../../script/api.js"></script>
@@ -77,14 +125,18 @@ header span{
     var ip=localStorage.getItem("ip")
     var url=`http://${ip}/dutylist/src/add_temporary_task.php`
     var policeTime=api.pageParam.policeTime;
+		var Mtype=api.pageParam.Mtype;
+		var ValueVal=api.pageParam.ValueVal;
+		var Addr=api.pageParam.Addr;
     $('#policeTime').val(policeTime)
-    var audioRecorder = api.require('audioRecorder');
-    audioRecorder.startRecord({
-        savePath:'fs://test.amr',
-        format:'amr'
-    }, function(ret, err){
-        alert(JSON.stringify(ret));
-    });
+    $('#Mtype').val(Mtype)
+		$('#Addr').val(Addr)
+		$('#ValueVal_father').hide()
+		if(ValueVal){
+			$('#ValueVal_father').show()
+			$('#ValueVal').val(ValueVal)
+			$('h5').html('水压报警信息')
+		}
   };
 
 

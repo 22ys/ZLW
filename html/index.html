@@ -9,12 +9,24 @@
       <link rel="stylesheet" type="text/css" href="../css/api.css"/>
       <link rel="stylesheet" href="../css/index.css">
       <script src="../js/jquery-1.10.2.min.js"></script>
+      <script type="text/javascript" src="../js/indexpolice.js"></script>
       <style>
           body{
 
           }
-
-
+#header{
+  width: 100%;
+  background: url(../images/navbar.png);
+  color:#f1f1f1;
+  text-shadow: 1px 1px 3px #000;
+}
+.mui-title{
+  color:#f1f1f1;
+  text-shadow: 1px 1px 3px #000;
+}
+.mui-bar .mui-icon{
+    text-shadow: 1px 1px 3px #000;
+}
       </style>
       <script>
 
@@ -29,7 +41,7 @@
 </div>
                  <ul id="nav">
                    <li class="menu selected" tapmode="selected" onclick="fn1(0)">首页</li>
-                   <li class="menu selected" tapmode="selected" onclick="fn1(1)">责任清单管理</li>
+                   <li class="menu " tapmode="selected" onclick="fn1(1)">责任清单管理</li>
                    <li class="menu" tapmode="selected"  onclick="fn1(2)" >履职管理</li>
                    <li class="menu"  tapmode="selected"  onclick="fn1(3)">评估考核</li>
                    <li class="menu"  tapmode="selected"  onclick="fn1(4)">事件追责</li>
@@ -50,7 +62,7 @@
       arr.push({
         pageParam:{
           i:i,
-      
+
         },
         name:'frame'+i,
         url:'./index_frame.html',
@@ -87,9 +99,6 @@ function fn1(i){
 }
 
 function fn(j) {
-
-
-
   for(var i=0;i<menus.length;i++){
          if(j==i){
         $api.addCls(menus[i],'selected')

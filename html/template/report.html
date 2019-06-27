@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,139 +13,160 @@
     <link href="./bootstrap/bootstrap.css" rel="stylesheet">
     <script src="bootstrap/bootstrap.js"></script>
     <link href="./css/submit.css" rel="stylesheet">
-    <script type="text/javascript" src="../../script/api.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
     <style type="text/css">
-    img {
-        width: 170px;
-        height: 120px;
-        display: none;
-    }
-    header{
-    	background: #f1f1f1;
-    	height: 50px;
-    	width: 100%;
-        margin-bottom: 5px;
+        img,video{
+            width: 60px;
+            height: 60px;
+        }
+        .img1,video{
+            display: none;
+        }
+        audio{
+            width: 60px;
+            height: 30px;
+            display: none;
+        }
+        .material{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
 
-    }
-    header div{
-    	margin-left: 15px;
-    	width: 57%;
-    	height: 100%;
-    	display: flex;
-    	align-items: center;
-    	justify-content: space-between;
-    	font-size: 14px;
-    }
-    header img{
-    	width: 17px;
-    	height: 17px;
-      display: block;
-    }
-    header span{
-    	width: 40px;
-    	height: 100%;
-    	display: flex;
-    	align-items: center;
-    }
-</style>
+        }
+        .material_button{
+            margin-top: 10px;
+
+        }
+        .material_show{
+            width:95%;
+            margin-bottom: 10px;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            display: none;
+
+        }
+        .btn{
+          font-size: 12px;
+        }
+        .img1{
+            display: flex;
+        }
+        #header{
+          width: 100%;
+          background: url(../../images/navbar.png);
+          color:#f1f1f1;
+          text-shadow: 1px 1px 3px #000;
+        }
+        .mui-title{
+          color:#f1f1f1;
+          text-shadow: 1px 1px 3px #000;
+        }
+        .mui-bar .mui-icon{
+            text-shadow: 1px 1px 3px #000;
+        }
+        .container{
+          margin-top: 44px;
+        }
+        .btn{
+         position: relative;
+     }
+     .img2{
+         position: absolute;
+         right: 0;
+         top: 0;
+         width: 100%;
+         height: 100%;
+         opacity: 0;
+         cursor: pointer;
+
+     }
+    </style>
 
 </head>
 <body>
-  <header>
-    <div>
-    <span tapmode onclick="comeBack()"><img src="../../images/fh.svg" alt="" ></span>
-    <h4>添加临时任务</h4>
-  </div>
-</header>
-    <div class="container">
-        <div class="row col-xs-12">
-            <input type="hidden" value="" id="score">
-            <form class="form-horizontal" role="form" id="form">
-            <!--        <div class="form-group">
-                       <label class="col-sm-1 control-label">接受单位</label>
-                       <div class="col-sm-2">
-                           <input type="text" class="form-control" id="theme" placeholder="">
-                       </div>
-                   </div>
-                   <div class="form-group">
-                       <label  class="col-sm-1 control-label">接收人</label>
-                       <div class="col-sm-2">
-                           <input type="text" class="form-control" id="site" placeholder="">
-                       </div>
-                   </div>
-                   <div class="form-group">
-                       <label  class="col-sm-1 control-label">上报人</label>
-                       <div class="col-sm-2">
-                           <input type="text" class="form-control" id="site" placeholder="">
-                       </div>
-                   </div> -->
-                   <input type="hidden" name="type" value="3">
-                   <input type="hidden" value="" id="work_id" name="work_id">
-                   <input type="hidden" value="" id="tz_type" name="tz_type">
-                   <div class="form-group">
-                    <label class="col-sm-2 col-md-2 col-lg-1 control-label">上报时间</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" id="time" placeholder="">
-                    </div>
-                    <button type="button" class="btn btn-info" id="gain_time">获取时间</button>
-                </div>
-            <!--   <div class="form-group">
-                  <label  class="col-sm-1 control-label">审核批复人</label>
-                  <div class="col-sm-2">
-                      <input type="text" class="form-control" id="site" placeholder="">
-                  </div>
-              </div> -->
-            <!--          <div class="form-group">
-                         <label  class="col-sm-1 control-label">审核时间</label>
-                         <div class="col-sm-2">
-                             <input type="text" class="form-control" id="time2" placeholder="">
-                         </div>
-
-                     </div> -->
-                     <div class="form-group">
-                        <label class="col-sm-2 col-md-2 col-lg-1 control-label">材料上传</label>
-                        <div class="col-sm-1">
-                            <input id="lefile" type="file" style="display:none" name="photograph1">
-                            <div class="input-append">
-                                <img src="" alt="" width="300px" height="200px" id="img">
-                            </div>
-                        </div>
-                        <button for="" onclick="$('input[id=lefile]').click();" type="button" class="btn btn-primary"
-                        style="background:#009688">
-                        上传材料
-                    </button>
-
-                </div>
-
-                <div class="form-group " >
-                  <label  class="col-sm-2 control-label">完成进度</label>
-                  <div class="col-sm-2">
+  <header class="mui-bar mui-bar-nav" id="header">
+    <span class="mui-icon mui-icon-back mui-pull-left" tapmode onclick="comeBack()"></span>
+    <h1 class="mui-title">成员列表</h1>
+    <span class="mui-icon mui-icon-person mui-pull-right" tapmode onclick="personal()"></span>
+  </header>
+<div class="container">
+    <div class="row col-xs-12">
+        <input type="hidden" value="" id="score">
+        <form class="form-horizontal" role="form" id="form">
+            <input type="hidden" name="type" value="3">
+            <input type="hidden" value="" id="work_id" name="work_id">
+            <input type="hidden" value="" id="tz_type" name="tz_type">
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-1 control-label">完成情况</label>
+                <div class="col-sm-6">
                     <select class="form-control" name="zp_score" id="fraction">
-                        <option value="25">25%</option>
-                        <option value="50">50%</option>
-                        <option value="75">75%</option>
-                        <option value="100">100%</option>
+                        <option value='25'>完成25%</option>
+                        <option value="50">完成50%</option>
+                        <option value='75'>完成75%</option>
+                        <option value='100'>全部完成</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-md-2 col-lg-1 control-label">得分依据</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" disabled rows="2" id="work_basis" name="text_jianyi"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-1 control-label">工作类容</label>
                 <div class="col-sm-8">
-                    <textarea class="form-control" disabled rows="6" id="work_basis" name="text_jianyi"></textarea>
+                    <textarea class="form-control" rows="8" id="text_jianyi" name="text_jianyi"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-md-2 col-lg-1 control-label">相关意见</label>
                 <div class="col-sm-8">
-                    <textarea class="form-control" rows="12" id="text_jianyi" name="text_jianyi"></textarea>
+                    <textarea class="form-control" rows="5" id="text_jianyi" name="text_jianyi"></textarea>
                 </div>
             </div>
-            <div class="submit">
-                <button type="button" class="btn btn-info" tapmode id="sub">提交</button>
-                <button type="reset" class="btn btn-default">重新填写</button>
-            </div>
+            <div class="material">
+                <div class="material_show">
+                    <div class="img1"></div>
+                    <div><video src="" id="video_show" controls="controls"></video></div>
+                    <div><audio src="" id="audio_show" controls="controls"></audio></div>
+                    <div class="add_file"></div>
+                </div>
+                <div class="material_show1">
 
+                    <input id="video1" type="file" style="display:none" name="photograph1">
+                    <input id="audio1" type="file" style="display:none" name="photograph1">
+
+                </div>
+                <div class="material_button">
+                    <button type="button" class="btn btn-primary"
+                            style="background:#009688" id="image">
+                              <input id="image1" type="file"  name="photograph1[]" multiple class="img2">
+                        上传图片
+                    </button>
+                    <button  type="button" class="btn btn-primary"
+                            style="background:#009688" id="video">
+                        上传视频
+                    </button>
+                    <button  type="button" class="btn btn-primary"
+                            style="background:#009688" id="audio">
+                        上传录音
+                    </button>
+                    <button  type="button" class="btn btn-primary"
+                            style="background:#009688" id="file">
+                            <input id="file1" type="file"  name="photograph1[]" multiple class="img2">
+                        上传文件
+                    </button>
+                </div>
+
+            </div>
+            <div class="submit">
+                <button type="button" class="btn btn-info" id="sub">提交</button>
+                <button type="reset" class="btn btn-default" id="reset">重新填写</button>
+            </div>
         </form>
     </div>
 </div>
@@ -152,105 +174,159 @@
 
 </body>
 <script type="text/javascript">
-    var ip=localStorage.getItem("ip")
-    var Url=`http://${ip}/dutylist/src/job.php`
-    $('#gain_time').click(function () {
-        let time = new Date(+new Date() + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-        $('#time').val(time)
-    })
+var ip=localStorage.getItem("ip")
+var Url=`http://${ip}/dutylist/src/job.php`
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) return unescape(r[2]);
+		return null;
+	}
+	var work_id = getQueryString("work_id");
+	var tz_type = getQueryString("tz_type");
+	$("#work_id").val(work_id);
+	$("#tz_type").val(tz_type);
+	$.ajax({
+		url: Url,
+		dataType: 'json',
+		type: 'post',
+		data: {
+			type: 2,
+			work_id: work_id
+		},
+		success: function (ret) {
+			$("#work_basis").val(ret.basis);
+			$("#q_score").val(ret.avg_score);
+		}
+	})
 
-    function getQueryString(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]);
-        return null;
-    }
+	function getObjectURL(file) {
+		var url = null;
+		if (window.createObjectURL != undefined) { // basic
+			url = window.createObjectURL(file);
+		} else if (window.URL != undefined) { // mozilla(firefox)
+			url = window.URL.createObjectURL(file);
+		} else if (window.webkitURL != undefined) { // webkit or chrome
+			url = window.webkitURL.createObjectURL(file);
+		}
+		return url;
+	}
 
-    var work_id = getQueryString("work_id");
-    var tz_type = getQueryString("tz_type");
-    $("#work_id").val(work_id);
-    $("#tz_type").val(tz_type);
-    $.ajax({
-        url: Url,
-        dataType: 'json',
-        type: 'post',
-        data: {
-            type: 2,
-            work_id: work_id
-        },
-        success: function (ret) {
-            $("#work_basis").val(ret.basis);
-            $("#q_score").val(ret.avg_score);
-        }
-    })
 
-    function getObjectURL(file) {
-        var url = null;
-        if (window.createObjectURL != undefined) { // basic
-            url = window.createObjectURL(file);
-        } else if (window.URL != undefined) { // mozilla(firefox)
-            url = window.URL.createObjectURL(file);
-        } else if (window.webkitURL != undefined) { // webkit or chrome
-            url = window.webkitURL.createObjectURL(file);
-        }
-        return url;
-    }
+	$("#video1").on("change", function () {
+		var objUrl = getObjectURL(this.files[0]);
+		if (objUrl) {
+			$("#video_show").attr("src", objUrl);
+			$("#video_show").show();
+			$(".material_show").css({"display":"flex"});
+		}
+	});
+	$("#audio1").on("change", function () {
+		var objUrl = getObjectURL(this.files[0]);
+		if (objUrl) {
+			$("#audio_show").attr("src", objUrl);
+			$("#audio_show").css({"display":"inline-block"});
+			$(".material_show").css({"display":"flex"});
+		}
+	});
+    //图片预览
+	$("#image").click(function(){
+		// $('#image1').click();
+		$(`#image1`).on("change", function () {
+			var files = this.files;
+			$.each(files,function(key,value){
+				var div = document.createElement("div"),
+				img = document.createElement("img");
+				var fr = new FileReader();
+				fr.onload = function(){
+					img.src=this.result;
+					img.src=this.result;
+					div.appendChild(img);
+					$('.img1').get(0).appendChild(div);
+				}
+				fr.readAsDataURL(value);
+			})
+					$('.img1').show()
+					$(".material_show").css({"display":"flex"});
 
-    $("#lefile").on("change", function () {
-        var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
-        if (objUrl) {
-            $('#photograph1').val($(this).val());
-            $("#img").attr("src", objUrl); //将图片路径存入src中，显示出图片
-            $("#img").show();
-        }
-    });
 
-    $("#sub").click(function () {
-        var formData = new FormData($("#form")[0]);
+		});
+    $("#image1").removeAttr("id");
+	})
+	$("#audio").click(function(){
+		$("#audio1").click()
+	})
+	$("#video").click(function(){
+		$("#video1").click()
+	})
+  $("#file").click(function(){
+		var text='';
+		$('#file1').on("change", function () {
+			var files = this.files;
+			$(".material_show").css({"display":"flex"});
+			$.each(files,function(key,value){
+				text=value.name
+				var text1 = document.createTextNode(text),
+					p = document.createElement("p");
+				    p.appendChild(text1);
+					$('.add_file').get(0).appendChild(p);
 
-        // if (false){
-        //       alert("请填写检查人")
-        // }else if(false){
-        //     alert("分数")
-        // }
-        // else
-        // if($('#text_content').val()==''){
-        //     alert("请填写检查记录")
-        // }else
-        if ($('#text_jianyi').val() == '') {
-            alert("请填写审批意见")
-        } else {
-            $.ajax({
-                url:Url,
-                type: 'post',
-                data: formData,
-                processData: false,
-                dataType: "json",
-                contentType: false,
-                success: function (data) {
-                  var data=JSON.stringify(data.code)
-                  if (data == 200) {
-                    alert("提交成功！")
-                } else if (data == 300) {
-                    alert("时间间隔未达标");
-                } else if (data == 400) {
-                    alert("提交失败");
-                }
-            },
-            error: function (data) {
-                console.log(JSON.stringify(data));
-            }
-        })
-        }
-    })
-    function comeBack(){
-    	    api.historyBack({
-    	    },function(ret,err){
-    		        if (!ret.status) {
-    			            api.closeWin();
-    		        }
-    	    });
-    }
+			})
+		});
+		$("#file1").removeAttr("id");
+	})
 
+	$("#sub").click(function () {
+		var formData = new FormData($("#form")[0]);
+		// if (false){
+		//       alert("请填写检查人")
+		// }else if(false){
+		//     alert("分数")
+		// }
+		// else
+		// if($('#text_content').val()==''){
+		//     alert("请填写检查记录")
+		// }else
+		if ($('#text_jianyi').val() == '') {
+			alert("请填写审批意见")
+		}else {
+			$.ajax({
+				url: Url,
+				type: 'post',
+				data: formData,
+				// 告诉jQuery不要去处理发送的数据
+				processData: false,
+				dataType: "json",
+				// 告诉jQuery不要去设置Content-Type请求头
+				contentType: false,
+				// beforeSend: function () {
+				//     console.log("正在进行，请稍候");
+				// },
+				success: function (data) {
+					console.log(JSON.stringify(data))
+				},
+				error: function (data) {
+					console.log(data);
+				}
+			})
+		}
+	})
+  function comeBack(){
+  	    api.historyBack({
+  	    },function(ret,err){
+  		        if (!ret.status) {
+  			            api.closeWin();
+  		        }
+  	    });
+  }
+  $('#reset').click(function () {
+    $('.img1>div').remove()
+    $('.add_file>p').remove()
+  $("#video_show").attr("src", '');
+  $("#audio_show").attr("src", '');
+  $("#video_show").hide();
+  $("#audio_show").css({"display":"none"});
+
+})
 </script>
 </html>

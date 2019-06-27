@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>title</title>
+<link rel="stylesheet" type="text/css" href="../../css/mui.css" />
+<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+<script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+<style>
+#containet{
+  margin-top: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+}
+#pageMain{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 15px;
+
+}
+#pageBox{
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;;
+  margin-bottom: 5px;
+}
+
+#pageMain>.button{
+display: flex;
+justify-content: space-around;
+align-items: flex-end;
+box-shadow: none;
+background: #fff;
+height: 70px;
+margin-top: 10px;
+}
+.button>button{
+width: 120px;
+height: 40px;
+border-radius: 25px;
+}
+
+.modal-header{
+background: #0C0C0C;
+color: #fff;
+
+}
+
+.form-horizontal .form-group{
+margin: 0;
+margin-top: 15px;
+}
+
+.btn_position div{
+width: 200px;
+display: flex;
+justify-content: space-around;
+align-items: center;
+}
+#post{
+  border: 1px solid #ccc;
+}
+input[type='text']{
+margin-bottom: 0;
+}
+#sub1{
+margin-right: 15px;
+}
+.modal-footer{
+margin-top: 5px;
+height:50px;
+display: flex;
+justify-content: flex-end;
+align-items: center;
+}
+#header{
+width: 100%;
+background: url(../../images/navbar.png);
+color:#f1f1f1;
+text-shadow: 1px 1px 3px #000;
+}
+.mui-title{
+color:#f1f1f1;
+text-shadow: 1px 1px 3px #000;
+}
+.mui-bar .mui-icon{
+  text-shadow: 1px 1px 3px #000;
+}
+.top{
+  width: 92%;
+  height: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 1px 5px #000;
+  border-radius: 5px;
+
+}
+.top div{
+  width: 45%;
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.top div img{
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+
+}
+.top div p{
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+  width: 80px;
+  text-align: center;
+}
+.content{
+  margin-top: 10px;
+  width: 92%;
+  height:250px;
+ background: rgba(0, 0, 0, 0.5);
+ display: flex;
+ justify-content: space-around;
+ align-items: center;
+   box-shadow: 1px 1px 5px #000;
+   border-radius: 5px;
+   color: #fff;
+}
+.content textarea{
+    text-shadow: 1px 1px 2px #000;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    padding: 6px 12px;
+
+}
+</style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav" id="header">
+  <span class="mui-icon mui-icon-back mui-pull-left" tapmode onclick="comeBack()"></span>
+  <h1 class="mui-title">阶段工作提交</h1>
+  <span class="mui-icon mui-icon-person mui-pull-right" tapmode onclick="personal()"></span>
+</header>
+<div id="containet">
+
+  <ul id="pageMain"> <li class="top">
+    <div><img src="../../img/ID.svg" alt="" /><span><p>${value.id}</p></span></div>
+    <div><img src="../../img/bh.svg" alt="" /><span><p>${value.title}</p></span></div>
+    <div><img src="../../img/fz.svg" alt="" /><span><p>${value.score}</p></span></div>
+    <div><img src="../../img/rwdj.svg" alt="" /><span><p>${grade}</p></span></div>
+  </li>
+    <li class="content"><textarea>按实际发生较大路口里的世界里看风景洒到了会计法司法加萨里的会计分录卡萨丁qwerqewr解放路</textarea></li>
+    <li class="button"><button type='button' class="mui-btn mui-btn-primary" tapmode onclick="btn(${value.id})">工作提交</button></li></ul><div id="pageBox">
+   <button class="mui-btn" id="prev" style="border-radius:20px;">上一页</button>
+   <button class="mui-btn" id="next" style="border-radius:20px;">下一页</button>
+   </div>
+</div>
+</body>
+<script type="text/javascript">
+
+
+</script>
+</html>
