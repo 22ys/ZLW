@@ -50,6 +50,39 @@ height: 40px;
 border-radius: 25px;
 }
 
+.modal-header{
+background: #0C0C0C;
+color: #fff;
+
+}
+
+.form-horizontal .form-group{
+margin: 0;
+margin-top: 15px;
+}
+
+.btn_position div{
+width: 200px;
+display: flex;
+justify-content: space-around;
+align-items: center;
+}
+#post{
+  border: 1px solid #ccc;
+}
+input[type='text']{
+margin-bottom: 0;
+}
+#sub1{
+margin-right: 15px;
+}
+.modal-footer{
+margin-top: 5px;
+height:50px;
+display: flex;
+justify-content: flex-end;
+align-items: center;
+}
 #header{
 width: 100%;
 background: url(../../images/navbar.png);
@@ -121,7 +154,7 @@ text-shadow: 1px 1px 3px #000;
 <body>
 <header class="mui-bar mui-bar-nav" id="header">
   <span class="mui-icon mui-icon-back mui-pull-left" tapmode onclick="comeBack()"></span>
-  <h1 class="mui-title">阶段工作提交</h1>
+  <h1 class="mui-title">临时任务提交</h1>
   <span class="mui-icon mui-icon-person mui-pull-right" tapmode onclick="personal()"></span>
 </header>
 <div id="containet">
@@ -132,7 +165,7 @@ text-shadow: 1px 1px 3px #000;
 <script type="text/javascript">
 apiready = function(){
   var ip=localStorage.getItem("ip")
-  var url=`http://${ip}/dutylist/src/job.php`
+  var url=`http://${ip}/dutylist/src/user_temporary.php`
   $.ajax({
     url:url,
     dataType:'json',
@@ -143,22 +176,13 @@ apiready = function(){
    success:function(ret){
      var pageMain=$('#pageMain')
      var li='';
-     var score_type='';
-     var grade='';
      $.each(ret,function(index,value){
-      if(value.grade==1){
-        grade="A级任务"
-      }else if(value.grade==2){
-       grade="B级任务"
-     }else{
-       grade="C级任务"
-     }
      li+=`
      <li class="top">
       <div><img src="../../img/ID.svg" alt="" /><span><p>${value.id}</p></span></div>
-      <div><img src="../../img/bh.svg" alt="" /><span><p>${value.title}</p></span></div>
+      <div><img src="../../img/kssj.svg" alt="" /><span><p>${value.add_time}</p></span></div>
       <div><img src="../../img/fz.svg" alt="" /><span><p>${value.score}分</p></span></div>
-      <div><img src="../../img/rwdj.svg" alt="" /><span><p>${grade}</p></span></div>
+      <div><img src="../../img/jssj.svg" alt="" /><span><p>${value.cycle}</p></span></div>
     </li>
       <li class="content"><textarea disabled>${value.content}</textarea></li>
       <li class="button"><button type='button' class="mui-btn mui-btn-primary" tapmode onclick="btn(${value.id})">工作提交</button></li>
@@ -261,7 +285,7 @@ apiready = function(){
 //工作提交
 function btn(id) {
   var ip=localStorage.getItem("ip")
-  var url=`http://${ip}/dutylist/src/job.php`
+  var url=`http://${ip}/dutylist/src/user_temporary.php`
   var work_id =id;
   $.ajax({
     url:url,
@@ -269,7 +293,7 @@ function btn(id) {
     type:'post',
     data:{
       work_id:work_id,
-      type:4
+      type:2
     },
     success:function(ret){
       if(ret.template==400){

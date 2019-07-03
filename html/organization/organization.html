@@ -27,15 +27,15 @@
 		color: #f1f1f1;
 	}
 	.button{
-         display: flex;
+    display: flex;
 		width: 50%;
 		justify-content: space-around;
 		margin: 10px auto;
 	}
 	.btn1{
-		margin-left:500px;
+		margin-left:75%;
 		margin-top: 10px;
-		margin-bottom: 5px;
+		margin-bottom: 10px;
 	}
 	@media screen and (min-width: 320px) and (max-width: 480px){
 		table{
@@ -211,7 +211,6 @@
 							<thead>
 							<tr>
 								<th class="text-center ">岗位名称</th>
-
 							</tr>
 							</thead>
 							<tbody>
@@ -224,6 +223,7 @@
 						<button type="button" id='post_add' class="btn btn-primary btn1" style="background: #009688 " >
 							确认添加
 						</button>
+
 					</div>
 				</div>
 
@@ -286,7 +286,6 @@ $(function(){
 							con+='<td>'+val.id+'</td>'
 							con+='<td>'+val.post_name+'</td>'
 							con+='<td>'+val.user+'</td>'
-
 							con+='<td><input type="button" value="删除" class="del btn btn-danger" data="'+val.id+'"></td>'
 							con+='<tr>'
 						})
@@ -318,7 +317,7 @@ $(function(){
 								var post_id=$(this).attr("data");
 								if(confirm("您确定要删除此项吗？")){
 									$.ajax({
-										url:'../../src/setorganization.php',
+										url:url,
 										type:'post',
 										dataType:'json',
 										data:{

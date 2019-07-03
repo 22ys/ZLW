@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,117 +15,119 @@
     <link href="./css/submit.css" rel="stylesheet">
     <script type="text/javascript" src="../../script/api.js"></script>
     <style type="text/css">
-    img {
-        width: 170px;
-        height: 120px;
-        display: none;
-    }
-    .header{
-      width: 100%;
-      height: 50px;
-    }
-    header{
-    	background: #f1f1f1;
-    	height: 50px;
-    	width: 100%;
-        margin-bottom: 5px;
-        z-index: 999;
+        img {
+            width: 170px;
+            height: 120px;
+            display: none;
+        }
 
-    }
-    header div{
-    	margin-left: 15px;
-    	width: 57%;
-    	height: 100%;
-    	display: flex;
-    	align-items: center;
-    	justify-content: space-between;
-    	font-size: 14px;
-    }
-    header img{
-    	width: 17px;
-    	height: 17px;
-      display: block;
-    }
-    header span{
-    	width: 40px;
-    	height: 100%;
-    	display: flex;
-    	align-items: center;
-    }
-</style>
+        .header {
+            width: 100%;
+            height: 50px;
+        }
+
+        header {
+            background: #f1f1f1;
+            height: 50px;
+            width: 100%;
+            margin-bottom: 5px;
+            z-index: 999;
+        }
+
+        header div {
+            margin-left: 15px;
+            width: 57%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        header img {
+            width: 17px;
+            height: 17px;
+            display: block;
+        }
+
+        header span {
+            width: 40px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+    </style>
 
 
 </head>
 <body>
-  <div class="header">
-  <header>
-    <div>
-    <span tapmode onclick="comeBack()"><img src="../../images/fh.svg" alt="" ></span>
-    <h4>工作提交</h4>
-  </div>
-</header>
-</div>
+    <div class="header">
+        <header>
+            <div>
+                <span tapmode onclick="comeBack()"><img src="../../images/fh.svg" alt="" ></span>
+                <h4>工作提交</h4>
+            </div>
+        </header>
+    </div>
     <div class="container">
         <input type="hidden" value="" id="score">
         <div class="row col-xs-12">
             <form class="form-horizontal" role="form" id="form">
-
-                     <input type="hidden" name="type" value="3">
-                     <input type="hidden" name="tz_type" value="" id="tz_type">
-                     <input type="hidden" value="" id="work_id" name="work_id">
-                     <div class="form-group">
-                        <label class="col-sm-2 col-md-2 col-lg-1 control-label">上传图片</label>
-                        <div class="col-sm-2">
-                            <input id="lefile" type="file" style="display:none" name="photograph1">
-                            <div class="input-append">
-                                <img src="" alt="" width="300px" height="200px" id="img">
-                            </div>
+                <input type="hidden" name="type" value="3">
+                <input type="hidden" name="tz_type" value="" id="tz_type">
+                <input type="hidden" value="" id="work_id" name="work_id">
+                <div class="form-group">
+                    <label class="col-sm-2 col-md-2 col-lg-1 control-label">上传图片</label>
+                    <div class="col-sm-2">
+                        <input id="lefile" type="file" style="display:none" name="photograph1">
+                        <div class="input-append">
+                            <img src="" alt="" width="300px" height="200px" id="img">
                         </div>
-                        <button for="photographs1" tapmode onclick="$('input[id=lefile]').click();" type="button"
-                        class="btn btn-primary" style="background:#009688">
+                    </div>
+                    <button for="photographs1" tapmode onclick="$('input[id=lefile]').click();" type="button" class="btn btn-primary" style="background:#009688">
                         上传图片
                     </button>
                 </div>
-                <div class="form-group " >
-                  <label  class="col-sm-2 control-label">完成进度</label>
-                  <div class="col-sm-2">
-                    <select class="form-control" name="zp_score"  id="fraction">
+                <div class="form-group ">
+                    <label class="col-sm-2 control-label">完成进度</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" name="zp_score" id="fraction">
                         <option value="25">25%</option>
                         <option value="50">50%</option>
                         <option value="75">75%</option>
                         <option value="100">100%</option>
                     </select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 col-md-2 col-lg-1 control-label">得分依据</label>
-                <div class="col-sm-8">
-                    <textarea class="form-control" disabled rows="6" id="work_basis" name="text_jianyi"></textarea>
+                <div class="form-group">
+                    <label class="col-sm-2 col-md-2 col-lg-1 control-label">得分依据</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" disabled rows="6" id="work_basis" name="text_jianyi"></textarea>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-sm-2 col-md-2 col-lg-1 control-label">相关记录</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" rows="12" id="text_content" name="text_content"></textarea>
+                <div class="form-group">
+                    <label class="col-sm-2 col-md-2 col-lg-1 control-label">相关记录</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="12" id="text_content" name="text_content"></textarea>
+                    </div>
                 </div>
-            </div>
 
-            <div class="submit">
-                <button type="button" class="btn btn-info" tapmode id="sub">提交</button>
-                <button type="reset" class="btn btn-default">重新填写</button>
-            </div>
+                <div class="submit">
+                    <button type="button" class="btn btn-info" tapmode id="sub">提交</button>
+                    <button type="reset" class="btn btn-default">重新填写</button>
+                </div>
 
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
 
 </body>
 <script type="text/javascript">
-    var ip=localStorage.getItem("ip")
-    var Url=`http://${ip}/dutylist/src/job.php`
-    $('#gain_time').click(function () {
+    var ip = localStorage.getItem("ip")
+    var Url = `http://${ip}/dutylist/src/job.php`
+    $('#gain_time').click(function() {
         let time = new Date(+new Date() + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
         $('#time').val(time)
     })
@@ -141,14 +144,14 @@
     $("#work_id").val(work_id);
     $("#tz_type").val(tz_type);
     $.ajax({
-        url:Url,
+        url: Url,
         dataType: 'json',
         type: 'post',
         data: {
             type: 2,
             work_id: work_id
         },
-        success: function (ret) {
+        success: function(ret) {
             $("#work_basis").html(ret.basis);
             $("#q_score").val(ret.avg_score);
         }
@@ -166,7 +169,7 @@
         return url;
     }
 
-    $("#lefile").on("change", function () {
+    $("#lefile").on("change", function() {
         var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
         if (objUrl) {
             $('#photograph1').val($(this).val());
@@ -175,7 +178,7 @@
         }
     });
 
-    $("#sub").click(function () {
+    $("#sub").click(function() {
         var formData = new FormData($("#form")[0]);
         // if (false){
         //       alert("请填写检查人")
@@ -201,30 +204,31 @@
                 // beforeSend: function () {
                 //     console.log("正在进行，请稍候");
                 // },
-                success: function (data) {
-                    if (data == 200) {
+                success: function(data) {
+                    if (data.code == 200) {
                         alert("提交成功！")
-                    } else if (data == 300) {
+                    } else if (data.code == 300) {
                         alert("时间间隔未达标");
-                    } else if (data == 400) {
+                    } else if (data.code == 400) {
                         alert("提交失败");
-                    } else if (data == 500) {
+                    } else if (data.code == 500) {
                         alert("该任务已提交！");
                     }
                 },
-                error: function (data) {
-                    console.log(data);
+                error: function(data) {
+                    console.log(JSON.stringify(data));
                 }
             })
         }
     })
-    function comeBack(){
-    	    api.historyBack({
-    	    },function(ret,err){
-    		        if (!ret.status) {
-    			            api.closeWin();
-    		        }
-    	    });
+
+    function comeBack() {   
+        api.historyBack({  }, function(ret, err) {     
+            if (!ret.status) {       
+                api.closeWin();     
+            }  
+        });
     }
 </script>
+
 </html>

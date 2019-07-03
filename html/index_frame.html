@@ -169,7 +169,7 @@ border-radius: 15px 0 0 15px ;
            添加临时任务
          </h3>
            </li>
-           <li>
+           <li tapmode onclick="usertemporary()">
              <span>
                <img src="../images/lsrw.svg" alt="">
              </span>
@@ -206,7 +206,7 @@ border-radius: 15px 0 0 15px ;
            统计曲线图
          </h3>
            </li>
-           <li onclick="historicalIndex()">
+           <li>
              <span>
                <img src="../images/lsjl.svg" alt="">
              </span>
@@ -259,6 +259,14 @@ border-radius: 15px 0 0 15px ;
              安全评估
            </h3>
              </li>
+             <li tapmode onclick="recorder()">
+                 <span>
+                   <img src="../img/ditu.svg" alt="">
+                 </span>
+                 <h3>
+               录音
+             </h3>
+               </li>
          </ul>`)
        }
 
@@ -331,6 +339,15 @@ border-radius: 15px 0 0 15px ;
           }
       });
 
+    }
+    function usertemporary() {
+      api.openWin({
+          name: 'usertemporary',
+          url: './responset/user_temporary.html',
+          pageParam: {
+              index: 'test'
+          }
+      });
     }
     function duty_tree(){
       api.openWin({
@@ -446,6 +463,15 @@ function jianzemap(){
   api.openWin({
       name: 'map',
       url: './jianze/map.html',
+      pageParam: {
+          index: 'test'
+      }
+  });
+}
+function recorder(){
+  api.openWin({
+      name: 'map',
+      url: './recorder/index1.html',
       pageParam: {
           index: 'test'
       }

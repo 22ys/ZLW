@@ -19,13 +19,13 @@
         }
 
         #app {
-            left: 50px;
-            top: 45px;
+          margin: 0 auto;
+          margin-top: 48px;
         }
 
         #jOrgChart {
             position: relative;
-            top: 18px;
+            top: 8px;
         }
 
         .table-bordered>tbody>tr>td,
@@ -113,7 +113,7 @@
 <body>
     <header class="mui-bar mui-bar-nav" id="header">
         <span class="mui-icon mui-icon-back mui-pull-left" onclick="comeBack()"></span>
-        <h1 class="mui-title">责任任务提醒</h1>
+        <h1 class="mui-title">责任任务日常提醒</h1>
         <span class="mui-icon mui-icon-person mui-pull-right" onclick="personal()"></span>
     </header>
     <div id="app">
@@ -126,7 +126,7 @@
                 <tr>
                     <th class="text-center" style="width: 50px">分数</th>
                     <th class="text-center">工作内容</th>
-                    <th class="text-center" style="width: 100px">完成状态</th>
+                    <th class="text-center" style="width: 100px">执行任务</th>
                 </tr>
             </thead>
             <tbody id="tbody">
@@ -138,10 +138,10 @@
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
-        var ip = localStorage.getItem("ip")
-        var url = `http://${ip}/dutylist/src/user_duty_tree.php`
-         a = 0;
-         b = 0;
+         var ip = localStorage.getItem("ip")
+         var url = `http://${ip}/dutylist/src/user_duty_tree.php`
+         succeed = 0;
+         error = 0;
         $.ajax({
             url: url,
             type: "post",
@@ -155,15 +155,13 @@
 
                         if (val.pid == 0) {
                             $('#title').html(val.name)
-                        }
-                        if (val.pid == 1) {
-	                	$.each(val.childrens,function (index, val) {
-	                		a+=parseFloat(val.get_score)
-                            b+=parseFloat(val.score)
-		                })
+                            succeed= val.name.replace(/[^\d.]/g, "");
+                  $.each(val.childrens,function (index,value) {
+                    error=value.name.replace(/[^\d.]/g, "");
 
-		                // console.log(val.childrens.get_score)
-	                }
+                  })
+                        }
+
                         var length = 0;
                         for (var ever in val.childrens) {
                             length++;
@@ -175,9 +173,9 @@
                             showall(val.childrens, $(li).children().eq(1));
                         } else {
                             if (60 < val.coqu && val.coqu < 100) {
-                                $('#tbody').append(`<tr><td >${val.score}</td><td>${val.name}</td><td class="text-center"><button class="btn btn-warning">进行中</button></td></tr>`)
+                                $('#tbody').append(`<tr><td >${val.score}</td><td>${val.name}</td><td class="text-center"><button class="btn btn-warning" >进行中</button></td></tr>`)
                             } else if (val.coqu < 60) {
-                                $('#tbody').append(`<tr><td class="wwc_score">${val.score}</td><td>${val.name}</td><td class="text-center"><button class="btn btn-danger" >去完成</button></td></tr>`)
+                                $('#tbody').append(`<tr><td class="wwc_score">${val.score}</td><td>${val.name}</td><td class="text-center"><button class="btn btn-danger" onclick="Details(${val.id})">去完成</button></td></tr>`)
                             }
 
                         }
@@ -193,14 +191,23 @@
 
     function score() {
         $('#app').css({
-            "width": "300px",
+            "width": "95%",
             "height": "200px"
         })
-        var data1 = b;
-        var data = a;
-        var data2 = data1 - data;
-
+        var dataStyle = {
+    		    normal: {
+    			    label: {
+    				    show: false
+    			    },
+    			    labelLine: {
+    				    show: false
+    			    },
+    			    shadowBlur: 10,
+    			    shadowColor: 'rgba(40, 40, 40,0.5)',
+    		    }
+    	    };
         option = {
+            color: ['#d9534f', '#5cb85c'],
             tooltip: {
                 trigger: 'item',
                 formatter: "{a} <br/>{b}: {c}分 ({d}%)"
@@ -215,6 +222,7 @@
                 type: 'pie',
                 radius: ['50%', '70%'],
                 avoidLabelOverlap: false,
+                 itemStyle: dataStyle,
                 label: {
                     normal: {
                         show: false,
@@ -234,10 +242,10 @@
                     }
                 },
                 data: [{
-                    value: data2,
+                    value: error,
                     name: '未完成'
                 }, {
-                    value: data,
+                    value: succeed,
                     name: '已完成'
                 }]
             }]
@@ -259,6 +267,32 @@
             }  
         });
     }
+     var ip = localStorage.getItem("ip")
+     var url = `http://${ip}/dutylist/src/job.php`
+    function Details(dataId) {
+    // $("#supervise_set").show();
+    $("#user_workID").val(dataId);
+    var work_id =dataId;
+    $.ajax({
+      url:url,
+      dataType:'json',
+      type:'post',
+      data:{
+        work_id:work_id,
+        type:4
+      },
+      success:function(ret){
+        if(ret.template==400){
+          alert('未设置提交模板')
+        }else{
+          var tem="../template/"+ret.template+"?work_id="+dataId+"&tz_type=0";
+          window.location.href=tem;
+        }
+
+      }
+    })
+
+  }
 </script>
 
 </html>

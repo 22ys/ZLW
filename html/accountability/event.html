@@ -142,7 +142,7 @@ tr td:nth-of-type(4){
         var ip=localStorage.getItem("ip")
         var Url=`http://${ip}/dutylist/src/event_account.php`
         $.ajax({
-        			url:Url,
+        			url:'http://192.168.0.109/dutylist/src/event_account.php',
         			dataType:'json',
         			type:'post',
         			data:{

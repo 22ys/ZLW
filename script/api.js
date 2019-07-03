@@ -15,7 +15,7 @@
     function parseArguments(url, data, fnSuc, dataType) {
         if (typeof(data) == 'function') {
             dataType = fnSuc;
-            fnSuc = data;
+            fnSuc = data;a
             data = undefined;
         }
         if (typeof(fnSuc) != 'function') {
