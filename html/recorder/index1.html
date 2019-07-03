@@ -67,9 +67,12 @@
 
                 },
                 error: function(msg){ //失败回调函数
+                    alert(1)
                     alert(msg);
+
                 },
                 fix: function(msg){ //不支持H5录音回调函数
+                    alert(2)
                     alert(msg);
                 }
             });
