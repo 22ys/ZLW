@@ -44,17 +44,20 @@
             <img src="image/luyin.gif" alt="">
             <p>录音中······</p>
         </div>
-        <button id="start" class="ui-btn ui-btn-primary"></button>
+        <button id="start" class="ui-btn ui-btn-primary">按住  说话</button>
+        <!-- <button id="stop" class="ui-btn ui-btn-primary" disabled>停止</button> -->
         <div id="audio-container"></div>
-        <script src="./js/recorder.js"></script>
+        <script src="js/recorder.js"></script>
         <script>
+            // window.onload = function(){
                 var start = document.querySelector('#start');
-                var container = document.getElementById('audio-container');
+                // var stop = document.querySelector('#stop');
+                var container = document.querySelector('#audio-container');
                 var recorder = new Recorder({
                     sampleRate: 44100, //采样频率，默认为44100Hz(标准MP3采样率)
-                    bitRate: 128,
+                    bitRate: 128, //比特率，默认为128kbps(标准MP3质量)
                     success: function(){ //成功回调函数
-
+                        // start.disabled = false;
                     },
                     error: function(msg){ //失败回调函数
                         alert(msg);
@@ -63,7 +66,9 @@
                         alert(msg);
                     }
                 });
-                 var mask = document.querySelector('#mask');
+                var mask = document.getElementById('mask');
+                var start = document.querySelector('#start');
+                start.addEventListener('touchstart',function(){
                    timer = setTimeout(function(){
                   console.log(1)
                   var audio = document.querySelectorAll('audio');
@@ -72,22 +77,31 @@
                             audio[i].pause();
                         }
                     }
-                   start.innerHTML="停止录音"
+                    start.innerHTML="松开  结束"
                    mask.style.display="block"
-                   recorder.start();
+                    recorder.start();
                 },500);
-
-            start.onclick=function(){
-	            recorder.stop();
-	            mask.style.display="none"
-	            recorder.getBlob(function(blob){
-		            var audio = document.createElement('audio');
-		            audio.src = URL.createObjectURL(blob);
-		            audio.controls = true;
-		            container.innerText=audio.src;
-	            });
-	            clearTimeout(timer);
-            }
+                        });
+                 start.addEventListener('touchmove',function(){
+                   timeOutEvent = setTimeout(function(){
+                  clearTimeout(timer);
+                   timer = 0;
+                        });
+                 })
+                   start.addEventListener("touchend", function (e) {
+                   console.log('touchend');
+                   recorder.stop();
+                   mask.style.display="none"
+                    recorder.getBlob(function(blob){
+                        var audio = document.createElement('audio');
+                        audio.src = URL.createObjectURL(blob);
+                        audio.controls = true;
+                        container.appendChild(audio);
+                    });
+                    start.innerHTML="按住  说话"
+                   clearTimeout(timer);
+                   return false;
+               });
         </script>
     </body>
 </html>

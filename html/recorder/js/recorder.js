@@ -48,7 +48,7 @@
                 realTimeWorker.onmessage = function(e){ //主线程监听后台线程，实时通信
                     switch(e.data.cmd){
                         case 'init':
-                            Util.log('初始化成功');
+                            alert('初始化成功');
                             if(config.success){
                                 config.success();
                             }
