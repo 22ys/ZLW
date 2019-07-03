@@ -1,47 +1,51 @@
-
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <title></title>
-</head>
-<body>
-<div>
-    <audio controls autoplay></audio>
-    <input onclick="startRecording()" type="button" value="录音" />
-    <input onclick="stopRecording()"  type="button" value="停止" />
-    <input onclick="playRecording()" type="button" value="播放" />
-    <a href="" click="" download="">下载</a>
-</div>
+  <html>
 
-<script type="text/javascript" src="js/a.js"></script>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
 
 
-<script>
+  </head>
+  <body>
+    <div>
+        <audio controls autoplay id="downloadRec"></audio>
+        <input onclick="startRecording()" type="button" value="录音" />
+        <input onclick="stopRecording()"  type="button" value="停止" />
+        <input onclick="playRecording()" type="button" value="播放" />
+        <a href="" click="" download="">下载</a>
+    </div>
+  </body>
+    <script type="text/javascript" src="js/c.js"></script>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript">
 
-	var recorder;
+  var recorder;
 
-	var audio = document.querySelector('audio');
+       var audio = document.querySelector('audio');
 
-	function startRecording() {
-		HZRecorder.get(function (rec) {
-			recorder = rec;
-			console.log(recorder.start());
+       function startRecording() {
+           HZRecorder.get(function (rec) {
+               recorder = rec;
+               console.log(JSON.stringify(recorder))
+               recorder.start();
+           });
+       }
 
-		});
-	}
+       function stopRecording() {
+           recorder.stop();
+       }
 
-	function stopRecording() {
-		recorder.stop();
-	}
-
-	function playRecording() {
-		recorder.play(audio);
-	}
+       function playRecording() {
+            console.log(audio)
+           recorder.play(audio);
+       }
 
 
-</script>
-
-</body>
-</html>
+  </script>
+  <script src="
+http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+  </html>
+  </html>
