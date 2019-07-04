@@ -59,5 +59,18 @@
 	<permission name="hardware" />
   <permission name="android.permission.RECORD_AUDIO"/>
   <permission name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+  <feature name="bdTTS">
 
+      <param  name="appId_iOS" value="10665882"/>
+      <param  name="apiKey_iOS" value="M0EXftb4K00yqN4SjYrQF3Th"/>
+       <param  name="secretKey_iOS" value="1b010d38a92073fd7c44da733aaa5f58"/>
+
+      <param  name="appId_android" value="10665882"/>
+      <param  name="apiKey_android" value="M0EXftb4K00yqN4SjYrQF3Th"/>
+       <param  name="secretKey_android" value="1b010d38a92073fd7c44da733aaa5f58"/>
+      </feature>
+      <feature name="IFlyVoice">
+  <param name="appId_iOS" value="123ab67" />
+  <param name="appId_Android" value="123ab67" />
+</feature>
 </widget>
