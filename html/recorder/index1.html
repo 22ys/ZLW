@@ -1,6 +1,6 @@
 <!DOCTYPE html>
   <html>
-
+  <uses-permission android:name="android.permission.RECORD_AUDIO"/>
   <head>
       <meta charset="utf-8">
       <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
@@ -29,7 +29,6 @@
        function startRecording() {
            HZRecorder.get(function (rec) {
                recorder = rec;
-               console.log(JSON.stringify(recorder))
                recorder.start();
            });
        }
@@ -39,8 +38,9 @@
        }
 
        function playRecording() {
-            console.log(audio)
+
            recorder.play(audio);
+               console.log(audio.src)
        }
 
 

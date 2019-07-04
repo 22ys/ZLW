@@ -57,6 +57,6 @@
 	<permission name="bootCompleted" />
 
 	<permission name="hardware" />
-
+  <permission name="android.permission.RECORD_AUDIO"/>
 
 </widget>
