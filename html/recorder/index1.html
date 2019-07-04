@@ -6,44 +6,84 @@
       <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
       <title>title</title>
       <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
-
+      <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
 
   </head>
   <body>
-    <div>
-        <audio controls autoplay id="downloadRec"></audio>
-        <input onclick="startRecording()" type="button" value="录音" />
-        <input onclick="stopRecording()"  type="button" value="停止" />
-        <input onclick="playRecording()" type="button" value="播放" />
-        <a href="" click="" download="">下载</a>
-    </div>
+    <!-- 怕你手指太大，点不了按钮，所以弄了这个div也能让你播放音频喔 -->
+  <div id="adiv" style="width: 100px;height: 100px;background: cornflowerblue"></div>
+
+  <audio id="voice">
+  <!-- 播放音频用 -->
+  </audio>
+  <input type="button" value="Start Record" onclick="startRecord();"/>
+  <input type="button" value="Stop Record" onclick="stopRecord();"/>
+
   </body>
     <script type="text/javascript" src="js/c.js"></script>
-  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../template/bootstrap/jquery/jquery.js"></script>
   <script type="text/javascript">
 
-  var recorder;
+  // 扩展API加载完毕后调用onPlusReady回调函数
+    document.addEventListener("plusready", onPlusReady, false);
+    //var r = null;
+    // 扩展API加载完毕，现在可以正常调用扩展API
+    function onPlusReady() {
+        r = plus.audio.getRecorder();
+    }
+    function startRecord() {
+        if (r == null) {
+            alert("Device not ready!");
+            return;
+        }
+        // format: wav/aac/amr/mp3(H5接口只支持ios录制MP3)
+        // samplerate："4000","8000","16000" 音频录制采样率，如果手机不支持，默认8000
+        r.record({filename: "_doc/audio/", format: "wav", samplerate: "4000"}, function (url) {
+            // 得到的url是音频录制完成后在你手机的地址
+            createUpload(url)
+        }, function (e) {
+            alert("Audio record failed: " + e.message);
+        });
+    }
 
-       var audio = document.querySelector('audio');
+// 手机播放音频方法
+    function playRecord(url) {
+        var n = plus.audio.createPlayer(url);//创建一个音频播放对象
+        n.play();
+    }
 
-       function startRecording() {
-           HZRecorder.get(function (rec) {
-               recorder = rec;
-               recorder.start();
-           });
-       }
+// 上传音频
+    // function createUpload(file) {
+    //     var task = plus.uploader.createUpload(服务器地址, {method: "POST"}, function (t, status) {
+    //         // 上传完成
+    //         if (status == 200) {
+    //             alert("Upload success: " + t.url);
+    //         } else {
+    //             alert("Upload failed: " + status);
+    //         }
+    //     });
+    //     task.addFile(file, {key: "aaa"}); // 以表单的方法上传整个音频
+    //     task.start();
+    // }
+$("#adiv").on(
+        'click', function () {
+            if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+                alert('手机')
+                // playRecord('http://192.168.80.110:5000/static/images/uploads-audio/1545268196773.wav')
+                playRecord('音频播放地址，本地或者网络音频都可以')
+            } else {
+                alert('电脑')
+                var f = document.getElementById('voice')
+//               audio 标签播放方法，注意浏览器音频格式的兼容性，例如火狐支持wav文件而谷歌不支持播放
+                f.src = 音频地址
+                f.play()
+            }
+        }
+    )
 
-       function stopRecording() {
-           recorder.stop();
-       }
-
-       function playRecording() {
-
-           recorder.play(audio);
-               console.log(audio.src)
-       }
-
-
+    function stopRecord() {
+        r.stop();
+    }
   </script>
   <script src="
 http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>

@@ -58,5 +58,6 @@
 
 	<permission name="hardware" />
   <permission name="android.permission.RECORD_AUDIO"/>
+  <permission name="android.permission.MODIFY_AUDIO_SETTINGS"/>
 
 </widget>
