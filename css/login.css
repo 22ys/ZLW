@@ -19,6 +19,7 @@ body{
 .top .portrait img{
  width: 100%;
  height: 100%;
+ border-radius: 50%;
 }
 .mui-content{
  background: #fff;
@@ -82,10 +83,7 @@ body{
  justify-content: center;
  align-items: center;
 }
-.footer div img{
- width: 4.133333rem;
- height: 1.18rem;
-}
+
 .footer span{
  display: flex;
  color: #8a959e;

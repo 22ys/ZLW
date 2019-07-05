@@ -7,6 +7,8 @@
       <script src="../js/mui.js"></script>
       <link rel="stylesheet" type="text/css" href="../css/mui.css" />
       <link rel="stylesheet" type="text/css" href="../css/login.css"/>
+        <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+      <script src="../js/cookie.js"></script>
       <script>
         	mui.init();
           </script>
@@ -20,7 +22,7 @@
   <body>
     <div class="top">
     		<div class="portrait">
-    			<img src="images/Layer-3.png" alt="">
+    			<img src="../image/logo.png" alt="">
     		</div>
     	</div>
     	<div class="mui-content">
@@ -46,13 +48,13 @@
     	</div>
     	<div class="footer">
     		<div>
-    			<img src="images/Social-Icon.png" >
+
     		</div>
     		<span>还没有注册 ? <a href="register.html"><p>Sign Up</p></a></span>
     	</div>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
-  <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+
   <script type="text/javascript">
       apiready = function(){
 
@@ -99,8 +101,13 @@ type:'post',
 data:{
   account:account,
   pwd:pwd,
+  type:'sign_in'
+
 },
 success:function(ret){
+  console.log(JSON.stringify(ret))
+  $.cookie("user", ret.msg);
+  $.cookie('user_id',ret.user_id);
   localStorage.setItem("user_id",ret.msg.user_id)
   localStorage.setItem("user_name",ret.msg.user_name)
   localStorage.setItem("pwd",ret.msg.pwd)

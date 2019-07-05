@@ -1,124 +1,127 @@
 <!DOCTYPE html>
-  <html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>title</title>
-      <script src="../js/mui.js"></script>
-      <link rel="stylesheet" type="text/css" href="../css/mui.css" />
-      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
-      <link rel="stylesheet" href="../css/index.css">
-      <script src="../js/jquery-1.10.2.min.js"></script>
-      <script type="text/javascript" src="../js/indexpolice.js"></script>
-      <style>
-          body{
+<html>
 
-          }
-#header{
-  width: 100%;
-  background: url(../images/navbar.png);
-  color:#f1f1f1;
-  text-shadow: 1px 1px 3px #000;
-}
-.mui-title{
-  color:#f1f1f1;
-  text-shadow: 1px 1px 3px #000;
-}
-.mui-bar .mui-icon{
-    text-shadow: 1px 1px 3px #000;
-}
-      </style>
-      <script>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <script src="../js/mui.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/mui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" href="../css/index.css">
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../js/indexpolice.js"></script>
+    <style>
+        body {}
 
-          </script>
-  </head>
-  <body>
+        #header {
+            width: 100%;
+            background: url(../images/navbar.png);
+            color: #f1f1f1;
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        .mui-title {
+            color: #f1f1f1;
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        .mui-bar .mui-icon {
+            text-shadow: 1px 1px 3px #000;
+        }
+    </style>
+    <script>
+    </script>
+</head>
+
+<body>
     <div class="div">
-    <header class="mui-bar mui-bar-nav" id="header">
-	<h1 class="mui-title">标题</h1>
-		<span class="mui-icon mui-icon-person mui-pull-right" tapmode onclick="personal()"></span>
-</header>
-</div>
-                 <ul id="nav">
-                   <li class="menu selected" tapmode="selected" onclick="fn1(0)">首页</li>
-                   <li class="menu " tapmode="selected" onclick="fn1(1)">责任清单管理</li>
-                   <li class="menu" tapmode="selected"  onclick="fn1(2)" >履职管理</li>
-                   <li class="menu"  tapmode="selected"  onclick="fn1(3)">评估考核</li>
-                   <li class="menu"  tapmode="selected"  onclick="fn1(4)">事件追责</li>
-                 </ul>
-  <script type="text/javascript" src="../script/api.js"></script>
-  <script type="text/javascript">
-      apiready = function(){
-        var nav=$api.byId("nav")
-        var header=$api.byId("header")
-        var navH=$api.offset(nav).h
-        var headerH=$api.offset(header).h
-        menus=$api.domAll(nav,'.menu')
-        var arr=[];
-      for(let i=0;i<menus.length;i++){
-      arr.push({
-        pageParam:{
-          i:i,
+        <header class="mui-bar mui-bar-nav" id="header">
+            <h1 class="mui-title">责联网</h1>
+            <span class="mui-icon mui-icon-person mui-pull-right" tapmode onclick="personal()"></span>
+        </header>
+    </div>
+    <ul id="nav">
+        <li class="menu selected" tapmode="selected" onclick="fn1(0)">首页</li>
+        <li class="menu " tapmode="selected" onclick="fn1(1)">责任清单管理</li>
+        <li class="menu" tapmode="selected" onclick="fn1(2)">履职管理</li>
+        <li class="menu" tapmode="selected" onclick="fn1(3)">评估考核</li>
+        <li class="menu" tapmode="selected" onclick="fn1(4)">事件追责</li>
+    </ul>
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript">
+        apiready = function() {
+            var nav = $api.byId("nav")
+            var header = $api.byId("header")
+            var navH = $api.offset(nav).h
+            var headerH = $api.offset(header).h
+            menus = $api.domAll(nav, '.menu')
+            var arr = [];
+            for (let i = 0; i < menus.length; i++) {
+                arr.push({
+                    pageParam: {
+                        i: i,
 
-        },
-        name:'frame'+i,
-        url:'./index_frame.html',
+                    },
+                    name: 'frame' + i,
+                    url: './index_frame.html',
 
-      })
-      }
-        api.openFrameGroup ({
-            name: 'indexFrameGroup',
-            scrollEnabled: true,
-            rect: {
-                 x: 0,
-                 y: navH+headerH,
-                 w: 'auto',
-                 h: 'auto'
-            },
-            index: 0,
-            frames: arr
-        }, function(ret, err){
-          fn(ret.index)
+                })
+            }
+            api.openFrameGroup({
+                name: 'indexFrameGroup',
+                scrollEnabled: true,
+                rect: {
+                    x: 0,
+                    y: navH + headerH,
+                    w: 'auto',
+                    h: 'auto'
+                },
+                index: 0,
+                frames: arr
+            }, function(ret, err) {
+                fn(ret.index)
 
-        });
-
-
-}
-var menus;
-function fn1(i){
-    fn(i)
-  api.setFrameGroupIndex({
-      name: 'indexFrameGroup',
-      index: i,
-      scroll: true
-  });
-
-}
-
-function fn(j) {
-  for(var i=0;i<menus.length;i++){
-         if(j==i){
-        $api.addCls(menus[i],'selected')
-      }else{
-        $api.removeCls(menus[i], 'selected');
-
-      }
-  }
-}
-function personal(){
-  api.openWin({
-      name: 'personal',
-      url: './personal.html',
-      pageParam: {
-          name: 'test'
-      }
-  });
-}
+            });
 
 
+        }
+        var menus;
 
-  </script>
-  <script src="
+        function fn1(i) {
+            fn(i)
+            api.setFrameGroupIndex({
+                name: 'indexFrameGroup',
+                index: i,
+                scroll: true
+            });
+
+        }
+
+        function fn(j) {
+            for (var i = 0; i < menus.length; i++) {
+                if (j == i) {
+                    $api.addCls(menus[i], 'selected')
+                } else {
+                    $api.removeCls(menus[i], 'selected');
+
+                }
+            }
+        }
+
+        function personal() {
+            api.openWin({
+                name: 'personal',
+                url: './personal.html',
+                pageParam: {
+                    name: 'test'
+                }
+            });
+        }
+    </script>
+    <script src="
 http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
-  </html>
-  </html>
+
+</html>
+
+</html>

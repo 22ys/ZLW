@@ -1,270 +1,169 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-  <title>title</title>
-  <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
-  <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
-  <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
-  <style>
-  body{
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+    <style>
+        body {}
 
-  }
-  #header{
-    width: 100%;
-    background: url(../../images/navbar.png);
-    color:#f1f1f1;
-    text-shadow: 1px 1px 3px #000;
-  }
-  .mui-title{
-    color:#f1f1f1;
-    text-shadow: 1px 1px 3px #000;
-  }
-  #containet{
-    margin-top: 50px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+        .btn {
+            font-size: 12px;
+            margin: 5px;
+        }
 
-  }
-  #pageMain{
-    width: 100%;
-    height:600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-      margin-bottom: 15px;
+        #jOrgChart {
+            margin-top: 48px;
+        }
 
-  }
-  #pageBox{
-    width: 100%;
-    height: 100px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
+        .table-bordered>tbody>tr>td,
+        .table-bordered>tbody>tr>th {
+            border: 1px solid #ddd;
+        }
 
- #pageMain>.button{
-  display: flex;
-  justify-content: center;
-  background: #f1f2f6;
-  box-shadow: none;
-}
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 12px;
+        }
 
-  #pageMain .title{
-  width:95%;
-  display:flex;
-  justify-content:center;;
-  align-items: center;
-  box-shadow: none;
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
 
-}
-#pageMain .title h3{
-  font-size: 14px;
+        .table-bordered>thead>tr>th {
+            border: 1px solid #ddd;
+            border-bottom-width: 2px;
+        }
 
-}
-.top{
-  width: 92%;
-  height: 180px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
-  box-shadow: 1px 1px 5px #000;
-  border-radius: 5px;
+        .table>thead>tr>th {
+            padding: 8px;
+            border-top: 1px solid #ddd;
+        }
 
-}
-.top div{
-  width: 45%;
-  height: 60px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.top div img{
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
+        .btn-danger {
+            color: #fff;
+            background-color: #d9534f;
+            border-color: #d43f3a;
+        }
 
-}
-.top div p{
-  color: #fff;
-  text-shadow: 1px 1px 2px #000;
-  width: 80px;
-  text-align: center;
-}
-.content{
-  margin-top: 15px;
-  width: 92%;
-  height:250px;
- background: rgba(0, 0, 0, 0.5);
- display: flex;
- justify-content: space-around;
- align-items: center;
-   box-shadow: 1px 1px 5px #000;
-   border-radius: 5px;
-   color: #fff;
-}
-.content textarea{
-    text-shadow: 1px 1px 2px #000;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    padding: 6px 14px;
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
 
-}
-.top .pfyj {
-  width: 100%;
-}
-.top .pfyj p{
-  width: 59%;
-}
-</style>
+        .btn-success {
+            color: #fff;
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+        }
+
+        .btn-warning {
+            color: #fff;
+            background-color: #f0ad4e;
+            border-color: #eea236;
+        }
+
+        #header {
+            width: 100%;
+            background: url(../../images/navbar.png);
+            color: #f1f1f1;
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        .mui-title {
+            color: #f1f1f1;
+            text-shadow: 1px 1px 3px #000;
+        }
+    </style>
+
 </head>
-<body>
-  <header class="mui-bar mui-bar-nav" id="header">
-    <span class="mui-icon mui-icon-back mui-pull-left" tapmode onclick="comeBack()"></span>
-    <h1 class="mui-title">清单列表</h1>
-    <span class="mui-icon mui-icon-person mui-pull-right" tapmode onclick="personal()"></span>
-  </header>
-  <div id="containet">
 
-  </div>
+<body>
+    <header class="mui-bar mui-bar-nav" id="header">
+        <span class="mui-icon mui-icon-back mui-pull-left" onclick="comeBack()"></span>
+        <h1 class="mui-title">清单列表</h1>
+        <span class="mui-icon mui-icon-person mui-pull-right" onclick="personal()"></span>
+    </header>
+    <div id="app">
+
+    </div>
+    <div id="jOrgChart">
+        <table class="table table-hover table-bordered ">
+            <caption id="title" class="text-center" style="font-weight: bold;font-size: 16px"></caption>
+            <thead>
+                <tr>
+                    <th class="text-center">细项类容</th>
+                    <th class="text-center">提醒时间</th>
+                    <th class="text-center">分值</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
+    </div>
 </body>
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript">
-  apiready = function(){
-    id= api.pageParam.id;
-    content= api.pageParam.content;
-    var ip=localStorage.getItem("ip")
-    var url=`http://${ip}/dutylist/src/workDisciplineList.php`
-    $.ajax({
-      url:url,
-      dataType:'json',
-      type:'post',
-      data:{
-       duty_work_id:id,
-       type:4
-     },
-     success:function(ret){
-       var li='';
-       $.each(ret.work,function(index,value){
-         li+=`
-         <li class="title"><h3>${content}</h3></li>
-         <li class="top">
-        <div><img src="../../img/ID.svg" alt="" /><p>${value.title}</p></div>
-        <div><img src="../../img/zb.svg" alt="" /><p>${value.quantitative}</p></div>
-        <div><img src="../../img/bjfs.svg" alt="" /><p>${value.compare_type}</p></div>
-        <div><img src="../../img/fz.svg" alt="" /><p>${value.score}</p></div>
-        <div class="pfyj"><img src="../../img/yj.svg" alt="" /><p>${value.basis}</p></div>
-        </li>
-        <li class="content"><textarea disabled>${value.content}</textarea></li>
-         `
-       })
-       $('#containet').html(`<ul id="pageMain">${li}</ul>`+`<div id="pageBox">
-        <button class="mui-btn" id="prev" style="border-radius:20px;">上一页</button>
-        <button class="mui-btn" id="next" style="border-radius:20px;">下一页</button>
-        </div>`)
-        $(function () {
-          tabPage({
-          pageMain: '#pageMain',
-          pageNav: '#pageNav',
-          pagePrev: '#prev',
-          pageNext: '#next',
-          curNum:3, /*每页显示的条数*/
-          activeClass: 'active', /*高亮显示的class*/
-          ini: 0/*初始化显示的页面*/
-        });
-        function tabPage(tabPage) {
-          var pageMain = $(tabPage.pageMain);
-          /*获取内容列表*/
-          var pageNav = $(tabPage.pageNav);
-          /*获取分页*/
-          var pagePrev = $(tabPage.pagePrev);
-          /*上一页*/
-          var pageNext = $(tabPage.pageNext);
-          /*下一页*/
-          var curNum = tabPage.curNum;
-          /*每页显示数*/
-          var len = Math.ceil(pageMain.find("li").length / curNum);
-          /*计算总页数*/
-              // var pageList = '';
-              /*生成页码*/
-              var iNum = 0;
-              /*当前的索引值*/
-
-
-
-              $(pageMain).find("li").hide();
-              /************首页的显示*********/
-              for (var i = 0; i < curNum; i++) {
-                $(pageMain).find("li").eq(i).show()
-              }
-
-
-              /*下一页*/
-              pageNext.click(function () {
-                $(pageMain).find("li").hide();
-                if (iNum == len - 1) {
-                  alert('已经是最后一页');
-                  for (var i = (len - 1) * curNum; i < len * curNum; i++) {
-                    $(pageMain).find("li").eq(i).show()
-                  }
-                  return false;
-                } else {
-                  pageNav.find("a").removeClass(tabPage.activeClass);
-                  iNum++;
-                  pageNav.find("a").eq(iNum).addClass(tabPage.activeClass);
-    //                    ini(iNum);
-  }
-  for (var i = iNum * curNum; i < (iNum + 1) * curNum; i++) {
-    $(pageMain).find("li").eq(i).show()
-
-  }
-});
-              /*上一页*/
-              pagePrev.click(function () {
-                $(pageMain).find("li").hide();
-                if (iNum == 0) {
-                  alert('当前是第一页');
-                  for (var i = 0; i < curNum; i++) {
-                    $(pageMain).find("li").eq(i).show()
-                  }
-                  return false;
-                } else {
-                  pageNav.find("a").removeClass(tabPage.activeClass);
-                  iNum--;
-                  pageNav.find("a").eq(iNum).addClass(tabPage.activeClass);
-                }
-                for (var i = iNum * curNum; i < (iNum + 1) * curNum; i++) {
-                  $(pageMain).find("li").eq(i).show()
-                }
-              })
-
+    apiready = function() {
+        var ip = localStorage.getItem("ip")
+        var id = api.pageParam.id
+        var content = api.pageParam.content
+        var url = `http://${ip}/dutylist/src/workDisciplineList.php`
+        var tr = '';
+        $('#title').html(content)
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: 'post',
+            data: {
+                duty_work_id: id,
+                type: 4
+            },
+            success: function(ret) {
+                $.each(ret.work, function(index, value) {
+                    tr += `<tr class="text-center">
+          <td >${value.content}</td>
+          <td style="width:70px">${value.tx_time}</td>
+          <td style="width:70px">${value.score}</td>`
+                })
+                $('#tbody').html(tr)
             }
 
+        })
+    };
 
-          })
-
-     }})
-  };
-
-
-  function comeBack(){
-        api.historyBack({
-        },function(ret,err){
-              if (!ret.status) {
-                    api.closeWin();
-              }
-        });
-  }
-
+    function comeBack() {   
+        api.historyBack({  }, function(ret, err) {     
+            if (!ret.status) {       
+                api.closeWin();     
+            }  
+        });
+    }
 </script>
+
 </html>

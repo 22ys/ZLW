@@ -1,299 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
-	<title>添加责任项</title>
+	<title></title>
 	<script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
 	<link rel="stylesheet" href="../template/bootstrap/bootstrap.css">
 	<script src="../template/bootstrap/bootstrap.js"></script>
-  <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/api.js"></script>
 </head>
 <style type="text/css">
-	.form-horizontal .form-group{
+	.form-horizontal .form-group {
 		margin: 0;
 		margin-top: 15px;
 	}
-	.btn_position{
+
+	.btn_position {
 		width: 50%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-    margin: 0 auto;
-    margin-bottom: 15px;
+		margin: 0 auto;
+		margin-bottom: 15px;
 	}
-	.btn_position div{
+
+	.btn_position div {
 		width: 200px;
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
 	}
-header{
-	height: 50px;
-	width: 100%;
 
-	background: url(../../images/navbar.png);
-	color:#f1f1f1;
-	text-shadow: 1px 1px 3px #000;
-}
-h4{
-	color:#f1f1f1;
-	text-shadow: 1px 1px 3px #000;
-}
-header div{
-	margin-left: 15px;
-	width: 56%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	font-size: 14px;
-}
-header img{
-	width: 17px;
-	height: 17;
-}
-header span{
-	width: 40px;
-	height: 100%;
-	display: flex;
-	align-items: center;
-}
+	header {
+		height: 50px;
+		width: 100%;
+		background: url(../../images/navbar.png);
+		color: #f1f1f1;
+		text-shadow: 1px 1px 3px #000;
+	}
 
+	h4 {
+		color: #f1f1f1;
+		text-shadow: 1px 1px 3px #000;
+	}
 
-    #img_father {
-        display:none;
-    }
+	header div {
+		margin-left: 15px;
+		width: 56%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 14px;
+	}
 
-    #video_father {
-        display:none;
-    }
+	header img {
+		width: 17px;
+		height: 17;
+	}
 
-    #audio_father {
-        display:none;
-    }
-		#img img{
-			width: 180px;
-			height: 120px;
-		}
+	header span {
+		width: 40px;
+		height: 100%;
+		display: flex;
+		align-items: center;
+	}
+
+	#img_father {
+		display: none;
+	}
+
+	#video_father {
+		display: none;
+	}
+
+	#audio_father {
+		display: none;
+	}
+
+	#img img {
+		width: 180px;
+		height: 120px;
+	}
 </style>
+
 <body>
 	<header>
 		<div>
-		<span tapmode onclick="comeBack()"><img src="../../images/fh.svg" alt="" ></span>
-		<h4>履责记录</h4>
-	</div>
-</header>
+			<span tapmode onclick="comeBack()"><img src="../../images/fh.svg" alt="" ></span>
+			<h4>履责记录</h4>
+		</div>
+	</header>
 	<form class="form-horizontal">
-    <div class="form-group">
-      <label for="user" class="col-sm-2 col-md-2 col-lg-1 control-label ">岗位</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" disabled id="post" placeholder="">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="user" class="col-sm-2 col-md-2 col-lg-1 control-label ">标题</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" id="tz_title" disabled placeholder="">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="user" class="col-sm-2 col-md-2 col-lg-1 control-label">执行时间</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" id="endtime" disabled placeholder="">
-      </div>
-    </div>
-
-  <div class="form-group" >
-    <label for="name" class="col-sm-2 col-md-2 col-lg-1 control-label ">情况记录</label>
-    <div class="col-sm-4">
-        <textarea class="form-control" rows="5" disabled id="content"></textarea>
-    </div>
-
-  </div>
-  <div class="form-group" >
-    <label for="name" class="col-sm-2 col-md-2 col-lg-1 control-label ">相关建议</label>
-    <div class="col-sm-4">
-        <textarea class="form-control" rows="5" disabled id="jl"></textarea>
-    </div>
-  </div>
-  <div class="form-group" id="img_father">
-    <label for="name" class="col-sm-2 col-md-2 col-lg-1 control-label ">图片预览</label>
-      <div id="img" style="margin-left:14px;">
-
-      </div>
-  </div>
-  <div class="form-group" id="video_father">
-    <label for="name" class="col-sm-2 col-md-2 col-lg-1 control-label ">视频</label>
-             <div>
-             <video src="" id="video" style="width: 300px;height: 200px"></video>
-         </div>
-  </div>
-  <div class="form-group" id="audio_father">
-    <label for="name" class="col-sm-2 col-md-2 col-lg-1 control-label ">录音</label>
-        <div>
-            <audio src="" id="audio" style="width: 300px;height: 60px"></audio>
-        </div>
-  </div>
-
-  <div class="form-group">
-    <label for="" class="col-sm-2 col-md-2 col-lg-1 control-label">难易程度</label>
-    <div class="col-sm-5  col-md-4" id="grade">
-      <label class="radio-inline">
-        <input type="radio" name="work_grade" value="1" checked> A级任务
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="work_grade"  value="2"  > B级任务
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="work_grade"  value="3"  > C级任务
-      </label>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="user" class="col-sm-2 col-md-2 col-lg-1 control-label">该次满分</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" id="score" disabled placeholder="">
-    </div>
-  </div>
-
-		<div class="form-group" >
-			<label for="user" class="col-sm-2 col-md-2 col-lg-1 control-label" id="bz">预计得分</label>
+		<div class="form-group">
+			<label for="user" class="col-sm-2 col-md-2 col-lg-1 control-label ">岗位</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" id="zp_score" placeholder="" >
+				<input type="text" class="form-control" disabled id="post" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="user" class="col-sm-2 col-md-2 col-lg-1 control-label ">标题</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="tz_title" disabled placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="user" class="col-sm-2 col-md-2 col-lg-1 control-label">执行时间</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="endtime" disabled placeholder="">
 			</div>
 		</div>
 
-    <div class="form-group">
-      <label for="template" class="col-sm-2 col-md-2 col-lg-1 control-label">合格等级</label>
-      <div class="col-sm-4">
-        <select class="form-control" name="grade" class="grade">
+		<div class="form-group">
+			<label for="name" class="col-sm-2 col-md-2 col-lg-1 control-label ">情况记录</label>
+			<div class="col-sm-4">
+				<textarea class="form-control" rows="5" disabled id="content"></textarea>
+			</div>
+
+		</div>
+		<div class="form-group">
+			<label for="name" class="col-sm-2 col-md-2 col-lg-1 control-label ">相关建议</label>
+			<div class="col-sm-4">
+				<textarea class="form-control" rows="5" disabled id="jl"></textarea>
+			</div>
+		</div>
+		<div class="form-group" id="img_father">
+			<label for="name" class="col-sm-2 col-md-2 col-lg-1 control-label ">图片预览</label>
+			<div id="img" style="margin-left:14px;">
+
+			</div>
+		</div>
+		<div class="form-group" id="video_father">
+			<label for="name" class="col-sm-2 col-md-2 col-lg-1 control-label ">视频</label>
+			<div>
+				<video src="" id="video" style="width: 300px;height: 200px"></video>
+			</div>
+		</div>
+		<div class="form-group" id="audio_father">
+			<label for="name" class="col-sm-2 col-md-2 col-lg-1 control-label ">录音</label>
+			<div>
+				<audio src="" id="audio" style="width: 300px;height: 60px"></audio>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="" class="col-sm-2 col-md-2 col-lg-1 control-label">难易程度</label>
+			<div class="col-sm-5  col-md-4" id="grade">
+				<label class="radio-inline">
+        <input type="radio" name="work_grade" value="1" checked> A级任务
+      </label>
+				<label class="radio-inline">
+        <input type="radio" name="work_grade"  value="2"  > B级任务
+      </label>
+				<label class="radio-inline">
+        <input type="radio" name="work_grade"  value="3"  > C级任务
+      </label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="user" class="col-sm-2 col-md-2 col-lg-1 control-label">该次满分</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="score" disabled placeholder="">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="user" class="col-sm-2 col-md-2 col-lg-1 control-label" id="bz">预计得分</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="zp_score" placeholder="">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="template" class="col-sm-2 col-md-2 col-lg-1 control-label">合格等级</label>
+			<div class="col-sm-4">
+				<select class="form-control" name="grade" class="grade">
             <option value='1'>完全合格</option>
               <option value='2'>部分不合格</option>
               <option value='3'>完全不合格</option>
         </select>
-      </div>
-    </div>
+			</div>
+		</div>
 
-    <div class="form-group" >
-      <label for="name" class="col-sm-2 col-md-2 col-lg-1 control-label">打分说明</label>
-      <div class="col-sm-4">
-          <textarea class="form-control" rows="5" id="basis"></textarea>
-      </div>
+		<div class="form-group">
+			<label for="name" class="col-sm-2 col-md-2 col-lg-1 control-label">打分说明</label>
+			<div class="col-sm-4">
+				<textarea class="form-control" rows="5" id="basis"></textarea>
+			</div>
 
-    </div>
+		</div>
 
- <input type="hidden" id="tz_id" value=''>
+		<input type="hidden" id="tz_id" value=''>
 		<div style="height:20px"></div>
 		<div class="btn_position">
 			<div>
 				<button type="button" class="btn btn-info" tapmode id="sub">提交</button>
-				<button type="reset" class="btn btn-danger" >重置</button>
+				<button type="reset" class="btn btn-danger">重置</button>
 			</div>
 		</div>
 	</form>
 </body>
-	<script>
+<script>
+	apiready = function() {
+		id = api.pageParam.id;
+		ip = localStorage.getItem("ip")
+		url = `http://${ip}/dutylist/src/taizhang.php`
+		$.ajax({
+			type: "POST",
+			url: url,
+			dataType: 'json',
+			data: {
+				id: id
+			},
+			success: function(data) {
+				var img1 = ''
+				$.each(data.action, function(index, value) {
+						var imgurl = value.fil_path
+						var subStr = new RegExp('../../'); //创建正则表达式对象
+						var result = imgurl.replace(subStr, ""); //把'is'替换为空字符串
+						var imgUrl = `http://${ip}/dutylist/${result}`
+						img1 += "<img src='" + imgUrl + "' class='img' >"
 
-  apiready = function(){
-    id=api.pageParam.id;
- ip=localStorage.getItem("ip")
- url=`http://${ip}/dutylist/src/taizhang.php`
- $.ajax({
-     type:"POST",
-     url:url,
-     dataType: 'json',
-     data: {
-         id:id
-     },
-     success: function (data) {
-         var img1=''
-        $.each(data.action,function (index,value) {
-					var imgurl=value.fil_path
-					var subStr=new RegExp('../../');//创建正则表达式对象
-		      var result=imgurl.replace(subStr,"");//把'is'替换为空字符串
-	        var imgUrl=`http://${ip}/dutylist/${result}`
-           img1+="<img src='"+imgUrl+"' class='img' >"
+					})
+					// console.log(data);
+				$("#post").val(data.post_name);
+				$("#title").val(data.title);
+				$("#tz_title").val(data.title);
+				$("#endtime").val(data.subtime);
+				$("#content").val(data.content);
+				$("#jl").val(data.jianyi);
+				$("#score").val(data.score);
+				$("#tz_id").val(data.id);
+				$("#zp_score").val(data.zp_score)
+				if (data.grade == 1) {
+					$("#a").attr("checked", "checked");
+				} else if (data.grade == 2) {
+					$("#b").attr("checked", "checked");
+				} else if (data.grade == 3) {
+					$("#c").attr("checked", "checked");
+				}
+				// layui.form.render();
 
-        })
-         // console.log(data);
-         $("#post").val(data.post_name);
-         $("#title").val(data.title);
-         $("#tz_title").val(data.title);
-         $("#endtime").val(data.subtime);
-         $("#content").val(data.content);
-         $("#jl").val(data.jianyi);
-         $("#score").val(data.score);
-         $("#tz_id").val(data.id);
-         $("#zp_score").val(data.zp_score)
-         if(data.grade==1){
-             $("#a").attr("checked","checked");
-         }else if(data.grade==2){
-             $("#b").attr("checked","checked");
-         }else if(data.grade==3){
-             $("#c").attr("checked","checked");
-         }
-         // layui.form.render();
-
-         $('#img').html(img1);
-         // $('#video').attr('src',)
-         // $('#audio').attr('src',)
-         var img = $('.img').attr('src')
-         var video = $('#video').attr('src')
-         var audio = $('#audio').attr('src')
-         if (img) {
-             $('#img_father').show()
-         }
-         if (video) {
-             $('#video_father').show()
-         }
-         if (audio) {
-             $('#audio_father').show()
-         }
-     }
- })
-
-
-  }
+				$('#img').html(img1);
+				// $('#video').attr('src',)
+				// $('#audio').attr('src',)
+				var img = $('.img').attr('src')
+				var video = $('#video').attr('src')
+				var audio = $('#audio').attr('src')
+				if (img) {
+					$('#img_father').show()
+				}
+				if (video) {
+					$('#video_father').show()
+				}
+				if (audio) {
+					$('#audio_father').show()
+				}
+			}
+		})
 
 
-	$("#sub").click(function () {
-		ip=localStorage.getItem("ip")
-		let url=`http://${ip}/dutylist/src/shenghe.php`
-			console.log(url)
-         var id = $('#tz_id').val();
-         var num=$('#zp_score').val()
-         var basis=$("#basis").val()
-         $.ajax({
-             type: 'POST',
-             url: url,
-             dataType: 'json',
-             data: {
-                 id:id,
-                 num:num,
-                 basis:basis
-             },
-             success: function (res) {
-                 if (res == 200) {
-                     alert("审核成功！");
-                 } else if (res == 300) {
-                     alert("已审核！");
-                 } else {
-                    alert("审核失败！");
-                 }
-
-             }
-         })
-     })
+	}
 
 
-function comeBack(){
-	    api.historyBack({
-	    },function(ret,err){
-		        if (!ret.status) {
-			            api.closeWin();
-		        }
-	    });
-}
+	$("#sub").click(function() {
+		ip = localStorage.getItem("ip")
+		let url = `http://${ip}/dutylist/src/shenghe.php`
+		console.log(url)
+		var id = $('#tz_id').val();
+		var num = $('#zp_score').val()
+		var basis = $("#basis").val()
+		$.ajax({
+			type: 'POST',
+			url: url,
+			dataType: 'json',
+			data: {
+				id: id,
+				num: num,
+				basis: basis
+			},
+			success: function(res) {
+				if (res == 200) {
+					alert("审核成功！");
+				} else if (res == 300) {
+					alert("已审核！");
+				} else {
+					alert("审核失败！");
+				}
 
-	</script>
+			}
+		})
+	})
+
+
+	function comeBack() {   
+		api.historyBack({  }, function(ret, err) {     
+			if (!ret.status) {       
+				api.closeWin();     
+			}  
+		});
+	}
+</script>
+
 </html>

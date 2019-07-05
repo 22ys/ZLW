@@ -1,153 +1,248 @@
 <!DOCTYPE html>
-  <html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>title</title>
-      <script src="../js/mui.js"></script>
-      <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
-      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
-      <link rel="stylesheet" href="../../css/dutylist.css">
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
     <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
-      <style>
-          body{
+    <script type="text/javascript" src="../../js/echarts.min.js"></script>
+    <style>
+        body {}
 
-          }
-   li{
-     width: 80px;
-     overflow: hidden;
-       text-overflow:ellipsis;
-       white-space: nowrap;
-   }
-   #header{
-     width: 100%;
-     background: url(../../images/navbar.png);
-     color:#f1f1f1;
-     text-shadow: 1px 1px 3px #000;
-   }
-   .mui-title{
-     color:#f1f1f1;
-     text-shadow: 1px 1px 3px #000;
-   }
-   .mui-bar .mui-icon{
-       text-shadow: 1px 1px 3px #000;
-   }
+        .btn {
+            font-size: 12px;
+            margin: 5px;
+        }
 
-      </style>
-      <script>
+        #jOrgChart {}
 
-          </script>
-  </head>
-  <body>
+        .table-bordered>tbody>tr>td,
+        .table-bordered>tbody>tr>th {
+            border: 1px solid #ddd;
+        }
+
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .table-bordered>thead>tr>th {
+            border: 1px solid #ddd;
+            border-bottom-width: 2px;
+        }
+
+        .table>thead>tr>th {
+            padding: 8px;
+            border-top: 1px solid #ddd;
+        }
+
+        .btn-danger {
+            color: #fff;
+            background-color: #d9534f;
+            border-color: #d43f3a;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        .btn-success {
+            color: #fff;
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+        }
+
+        .btn-warning {
+            color: #fff;
+            background-color: #f0ad4e;
+            border-color: #eea236;
+        }
+
+        #header {
+            width: 100%;
+            background: url(../../images/navbar.png);
+            color: #f1f1f1;
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        .mui-title {
+            color: #f1f1f1;
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        #app {
+            margin: 0 auto;
+            margin-top: 48px;
+        }
+    </style>
+
+</head>
+
+<body>
     <header class="mui-bar mui-bar-nav" id="header">
-      	<span class="mui-icon mui-icon-back mui-pull-left" tapmode onclick="comeBack()"></span>
-	<h1 class="mui-title">清单列表</h1>
-		<span class="mui-icon mui-icon-person mui-pull-right" tapmode onclick="personal()"></span>
-  </header>
-                 <ul id="nav">
+        <span class="mui-icon mui-icon-back mui-pull-left" onclick="comeBack()"></span>
+        <h1 class="mui-title">清单列表</h1>
+        <span class="mui-icon mui-icon-person mui-pull-right" onclick="personal()"></span>
+    </header>
+    <div id="app">
 
+    </div>
+    <div id="jOrgChart">
+        <table class="table table-hover table-bordered ">
+            <caption id="title" class="text-center" style="font-weight: bold;font-size: 16px">责任清单列表</caption>
+            <thead>
+                <tr>
+                    <th class="text-center">清单标题</th>
+                    <th class="text-center">岗位</th>
+                    <th class="text-center">责任人</th>
+                    <th class="text-center">详情</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
 
-                 </ul>
-  <script type="text/javascript" src="../../script/api.js"></script>
-  <script type="text/javascript">
-      apiready = function(){
-        var ip=localStorage.getItem("ip")
-        var url=`http://${ip}/dutylist/src/dutylist.php`
-            $.ajax({
-            url:url,
-            dataType:'json',
-            type:'post',
-            data:{
-
+            </tbody>
+        </table>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        data = [];
+        var name = [];
+        fraction = '';
+        var ip = localStorage.getItem("ip")
+        var url = `http://${ip}/dutylist/src/dutylist.php`
+        var tr = '';
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: 'post',
+            data: {
+                type: 1
             },
-            success:function(ret){
-                var li=''
-                var i=0
-              $.each(ret,function(index,value){
-               li+=`<li class="menu">${value.Content}</li><input type='hidden' value='${value.List_Allot_ID}' class="id${i}">`
-                 i++;
-              })
-              $('#nav').html(li)
-              var nav=$api.byId("nav")
-              var header=$api.byId("header")
-              var navH=$api.offset(nav).h
-              var headerH=$api.offset(header).h
-              menus=$api.domAll(nav,'.menu')
-              var menuss=[]
-              var arr=[];
-            for(var i=0;i<menus.length;i++){
-              menuss.push($(`.id${i}`).val())
-            arr.push({
-              name:'frame1'+i,
-              url:'./dutylistFrame.html',
-              pageParam: {
-                  id:menuss[i]
-              }
-            })
+            success: function(ret) {
+
+                $.each(ret, function(index, value) {
+                    if (parseInt(value.fraction) > 1000) {
+                        fraction = 1000
+                    }
+                    data.push({
+                        name: value.Next_user.replace(/[ ]|[&nbsp;]/g, ''),
+                        value: value.fraction
+                    })
+                    name.push(value.Next_user)
+                    tr +=
+                        `<tr class="text-center">
+          <td >${value.Content}</td>
+          <td style="width:60px"> ${value.post_name}</td>
+          <td style="width:60px">${value.Next_user}</td>
+          <td style="width:60px"><button class="mui-btn mui-btn-primary" tapmode onclick="dutyGuiCheng('${value.List_Allot_ID}','${value.Content}')" style="font-size:10px">详情</button></td></tr>`
+                })
+                $('#tbody').html(tr)
             }
-              api.openFrameGroup ({
-                  name: 'dutylistFrameGroup',
-                  scrollEnabled: true,
-                  rect: {
-                       x: 0,
-                       y: navH+headerH,
-                       w: 'auto',
-                       h: 'auto'
-                  },
-                  index: 0,
-                  frames: arr
-              }, function(ret, err){
-                fn(ret.index)
-              });
-            }})
+
+        })
 
 
 
+    };
 
-}
+    //工作提交
+    function dutyGuiCheng(id, content) {
+        api.openWin({
+            name: 'dutyGuiCheng',
+            url: 'dutyGuiCheng.html',
+            pageParam: {
+                id: id,
+                title: content
+            }
+        });
 
 
+    }
 
-var menus;
-function fn1(i){
-    fn(i)
-  api.setFrameGroupIndex({
-      name: 'dutylistFrameGroup',
-      index: i,
-      scroll: true
-  });
+    function comeBack() {   
+        api.historyBack({  }, function(ret, err) {     
+            if (!ret.status) {       
+                api.closeWin();     
+            }  
+        });
+    }
 
-}
-function fn(j) {
-  for(var i=0;i<menus.length;i++){
-         if(j==i){
-        $api.addCls(menus[i],'selected')
-      }else{
-        $api.removeCls(menus[i], 'selected');
+    function score() {
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].value > 1000) {
+                data[i].value = 1000
+            }
+        }
+        $('#app').css({
+            "width": "95%",
+            "height": "250px"
+        })
 
-      }
-  }
-}
-function personal(){
-  api.openWin({
-      name: 'personal',
-      url: './personal.html',
-      pageParam: {
-          name: 'test'
-      }
-  });
-}
-function comeBack(){
-    api.historyBack({
-    },function(ret,err){
-        if (!ret.status) {
-            api.closeWin();
-        }
-    });
-}
+        option = {
+            title: {
+                text: '分值汇总',
+                x: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c}分 ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: name
+            },
+            series: [{
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: data,
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }]
+        };
 
-  </script>
-  <script src="
-http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
-  </html>
-  </html>
+        var myChart = echarts.init(document.getElementById('app'));
+        myChart.setOption(option);
+    }
+
+    setInterval("score()", 1000);
+</script>
+
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>新增清单</title>
@@ -7,80 +8,82 @@
 <link rel="stylesheet" href="../template/bootstrap/bootstrap.css">
 <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
 <script src="../template/bootstrap/bootstrap.js"></script>
-    <style type="text/css">
-/*body{*/
+<style type="text/css">
+	/*body{*/
 	/*width:80%;*/
 	/*padding-left: 10%;*/
 	/*font-size: 20px*/
-/*}*/
-/*#next_user,#dutylist_explain,#dutylist_title,#fraction{*/
+	/*}*/
+	/*#next_user,#dutylist_explain,#dutylist_title,#fraction{*/
 	/*margin-left: 2rem*/
-/*}*/
-/*label{*/
- 	/*width:150px;*/
- 	/*text-align: center;*/
- 	/*display: inline-block;*/
- /*}*/
-/*#sub{*/
+	/*}*/
+	/*label{*/
+	/*width:150px;*/
+	/*text-align: center;*/
+	/*display: inline-block;*/
+	/*}*/
+	/*#sub{*/
 	/*!*margin-left: 20%*!*/
-/*}*/
-/*#dutylist_explain{*/
- 	/*height:180px;*/
- 	/*resize: none;*/
- 	/*width:80%;*/
- 	/*border:2px solid rgb(8,48,74);*/
-/*}*/
-/*select{*/
- 	/*width:200px;*/
- 	/*height:30px;*/
- 	/*color:#fff;*/
- 	/*background: rgb(8,48,74)*/
-/*}*/
-/*#dutylist_title{*/
+	/*}*/
+	/*#dutylist_explain{*/
+	/*height:180px;*/
+	/*resize: none;*/
+	/*width:80%;*/
+	/*border:2px solid rgb(8,48,74);*/
+	/*}*/
+	/*select{*/
+	/*width:200px;*/
+	/*height:30px;*/
+	/*color:#fff;*/
+	/*background: rgb(8,48,74)*/
+	/*}*/
+	/*#dutylist_title{*/
 	/*border:0px;*/
 	/*border-bottom: 2px solid #000;*/
 	/*width:80%;*/
-/*}*/
-/*#box{*/
+	/*}*/
+	/*#box{*/
 	/*padding-top: 100px;*/
-/*}*/
-/*button{*/
+	/*}*/
+	/*button{*/
 	/*width:60px;*/
 	/*height:30px;*/
 	/*background: rgb(8,48,74);*/
 	/*color:#fff;*/
-/*}*/
-.row{
-	margin: 0 auto;
+	/*}*/
 
-}
-button:nth-of-type(1){
-	margin-left: 50px;
-	margin-right: 15px;
-}
-button{
-	margin-top: 15px;
-}
+	.row {
+		margin: 0 auto;
+	}
+
+	button:nth-of-type(1) {
+		margin-left: 50px;
+		margin-right: 15px;
+	}
+
+	button {
+		margin-top: 15px;
+	}
 </style>
 
 <body>
 	<!--<div id="box">-->
-		<!--<label for="dutylist_title">清单标题:</label><input type="text"  id="dutylist_title"><br>-->
-		<!--<div style="height: 20px"></div>-->
-		<!--<label for="dutylist_explain" style="line-height:60px;display: inline-block;margin-top: -20px;float: left">清单简介:</label>-->
-		<!--<textarea name="dutylist_explain" id="dutylist_explain"></textarea><br>-->
-		<!--<div style="height: 20px"></div>-->
-		<!--<label>组织机构:</label>-->
-		<!--<select id="organization"></select>-->
-		<!--<label>责任岗位:</label>-->
-		<!--<select id="next_post"></select>-->
-		<!--<div style="height: 20px"></div>-->
-		<!--<label>清单类型:</label>-->
-		<!--<select id="duty_type"></select>-->
-		<!--<div style="height: 20px"></div>-->
-		<!--&lt;!&ndash; <label for="fraction">基础分值:</label><input type="text"  id="fraction"> &ndash;&gt;-->
-		<!--<div style="height: 20px"></div>-->
-		<!--<button id="sub">提交</button>-->
+	<!--<label for="dutylist_title">清单标题:</label><input type="text"  id="dutylist_title"><br>-->
+	<!--<div style="height: 20px"></div>-->
+	<!--<label for="dutylist_explain" style="line-height:60px;display: inline-block;margin-top: -20px;float: left">清单简介:</label>-->
+	<!--<textarea name="dutylist_explain" id="dutylist_explain"></textarea><br>-->
+	<!--<div style="height: 20px"></div>-->
+	<!--<label>组织机构:</label>-->
+	<!--<select id="organization"></select>-->
+	<!--<label>责任岗位:</label>-->
+	<!--<select id="next_post"></select>-->
+	<!--<div style="height: 20px"></div>-->
+	<!--<label>清单类型:</label>-->
+	<!--<select id="duty_type"></select>-->
+	<!--<div style="height: 20px"></div>-->
+	<!--&lt;!&ndash; <label for="fraction">基础分值:</label><input type="text"  id="fraction"> &ndash;&gt;-->
+	<!--<div style="height: 20px"></div>-->
+	<!--<button id="sub">提交</button>-->
 	<!--</div>-->
 
 	<div class="row col-xs-10">
@@ -92,29 +95,29 @@ button{
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-2 col-md-2 col-lg-1 control-label"  for="dutylist_explain" >清单简介</label>
+				<label class="col-sm-2 col-md-2 col-lg-1 control-label" for="dutylist_explain">清单简介</label>
 				<div class="col-sm-6">
 					<textarea class="form-control" rows="3" id="dutylist_explain"></textarea>
 				</div>
 			</div>
-			<div class="form-group " >
-				<label  class="col-sm-2 col-md-2 col-lg-1 control-label">清单类型</label>
+			<div class="form-group ">
+				<label class="col-sm-2 col-md-2 col-lg-1 control-label">清单类型</label>
 				<div class="col-sm-6">
 					<select class="form-control" id="duty_type">
 
 					</select>
 				</div>
 			</div>
-			<div class="form-group " >
-				<label  class="col-sm-2 col-md-2 col-lg-1 control-label">组织机构</label>
+			<div class="form-group ">
+				<label class="col-sm-2 col-md-2 col-lg-1 control-label">组织机构</label>
 				<div class="col-sm-6">
 					<select class="form-control" id="organization">
 
 					</select>
 				</div>
 			</div>
-			<div class="form-group " >
-				<label  class="col-sm-2 col-md-2 col-lg-1 control-label">责任岗位</label>
+			<div class="form-group ">
+				<label class="col-sm-2 col-md-2 col-lg-1 control-label">责任岗位</label>
 				<div class="col-sm-6">
 					<select class="form-control" id="next_post">
 
@@ -133,59 +136,59 @@ button{
 					<input type="text" class="form-control" id="dedu_coeff" placeholder="">
 				</div>
 			</div>
-				<button type="button" class="btn btn-info" id="sub">提交</button>
-				<button type="button" class="btn btn-default" id="res">重置</button>
+			<button type="button" class="btn btn-info" id="sub">提交</button>
+			<button type="button" class="btn btn-default" id="res">重置</button>
 
 
 		</form>
 	</div>
 </body>
-	<script>
+<script>
 	$.ajax({
-		url:'../../src/add_list.php',
-		type:'post',
-		dataType:'json',
-		data:{
-			type:"1"
+		url: '../../src/add_list.php',
+		type: 'post',
+		dataType: 'json',
+		data: {
+			type: "1"
 		},
-		success:function(ret){
+		success: function(ret) {
 			// ors duty_type
-			var html="<option value='0'>"+'请选着组织机构'+"</option>"
-			$.each(ret.ors,function(index,value){
-				html+="<option value='"+value.id+"'>"+value.Organization_Name+"</option>"
+			var html = "<option value='0'>" + '请选着组织机构' + "</option>"
+			$.each(ret.ors, function(index, value) {
+				html += "<option value='" + value.id + "'>" + value.Organization_Name + "</option>"
 			})
-			var duty_type=''
-			$.each(ret.duty_type,function(index,value){
-				duty_type+="<option value='"+value.id+"'>"+value.typename+"</option>"
+			var duty_type = ''
+			$.each(ret.duty_type, function(index, value) {
+				duty_type += "<option value='" + value.id + "'>" + value.typename + "</option>"
 			})
 
 			$("#organization").html(html);
 			$("#duty_type").html(duty_type);
 		}
 	})
-	$("#sub").click(function(){
-		window.location.href="./add_action2.html?duty_list_id=1"
-		// var title        =$("#dutylist_title").val();
-		// var explain      =$("#dutylist_explain").val();
-		// var next_post    =$("#next_post").val();
-		// var duty_type    =$("#duty_type").val();
-		// var initial_score=$("#initial_score").val();
-		// var dedu_coeff   =$("#dedu_coeff").val();
-		// if(!title||!explain||!next_post||!duty_type){
-		// 	alert("填写内容不全！")
-		// }else{
-		// 		$.ajax({
-		// 			url:'../../src/add_list.php',
-		// 			type:"post",
-		// 			dataType:"json",
-		// 			data:{
-		// 				type:'2',
-		// 				title:title,//清单标题
-		// 				explain:explain,//清单简介
-		// 				next_post:next_post,//清单所属岗位
-		// 				duty_type:duty_type,//清单类型
-		// 				fraction:initial_score,//初始分值
-		// 				dedu_coeff:dedu_coeff//监管责任的扣减系数
+	$("#sub").click(function() {
+		window.location.href = "./add_action2.html?duty_list_id=1"
+			// var title        =$("#dutylist_title").val();
+			// var explain      =$("#dutylist_explain").val();
+			// var next_post    =$("#next_post").val();
+			// var duty_type    =$("#duty_type").val();
+			// var initial_score=$("#initial_score").val();
+			// var dedu_coeff   =$("#dedu_coeff").val();
+			// if(!title||!explain||!next_post||!duty_type){
+			// 	alert("填写内容不全！")
+			// }else{
+			// 		$.ajax({
+			// 			url:'../../src/add_list.php',
+			// 			type:"post",
+			// 			dataType:"json",
+			// 			data:{
+			// 				type:'2',
+			// 				title:title,//清单标题
+			// 				explain:explain,//清单简介
+			// 				next_post:next_post,//清单所属岗位
+			// 				duty_type:duty_type,//清单类型
+			// 				fraction:initial_score,//初始分值
+			// 				dedu_coeff:dedu_coeff//监管责任的扣减系数
 
 		// 			},
 		// 			success:function(ret){
@@ -197,27 +200,27 @@ button{
 		// 		})
 		// }
 	})
-$("#organization").change(function(){
-	var or_id=$(this).val();
-	$.ajax({
-		url:'../../src/add_list.php',
-		dataType:'json',
-		type:'post',
-		data:{
-			type:3,
-			or_id:or_id
-		},
-		success:function(ret){
-			var posts="";
-			$.each(ret,function(index,value){
+	$("#organization").change(function() {
+		var or_id = $(this).val();
+		$.ajax({
+			url: '../../src/add_list.php',
+			dataType: 'json',
+			type: 'post',
+			data: {
+				type: 3,
+				or_id: or_id
+			},
+			success: function(ret) {
+				var posts = "";
+				$.each(ret, function(index, value) {
 
-				posts+="<option value='"+value.id+"'>"+value.post_name+"</option>"
-			})
-			$("#next_post").html(posts);
+					posts += "<option value='" + value.id + "'>" + value.post_name + "</option>"
+				})
+				$("#next_post").html(posts);
 
-		}
+			}
+		})
 	})
-})
+</script>
 
-	</script>
 </html>

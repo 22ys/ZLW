@@ -1,326 +1,272 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-<title>title</title>
-<link rel="stylesheet" type="text/css" href="../../css/mui.css" />
-<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
-<script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
-<style>
-#containet{
-  margin-top: 50px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../../js/echarts.min.js"></script>
+    <style>
+        body {}
 
-}
-#pageMain{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  margin-bottom: 15px;
+        .btn {
+            font-size: 12px;
+            margin: 5px;
+        }
 
-}
-#pageBox{
-  width: 100%;
-  height: 100px;
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-end;;
-  margin-bottom: 5px;
-}
+        #app {
+            margin: 0 auto;
+            margin-top: 48px;
+        }
 
-#pageMain>.button{
-display: flex;
-justify-content: space-around;
-align-items: flex-end;
-box-shadow: none;
-background: #fff;
-height: 80px;
-margin-top: 10px;
-}
-.button>button{
-width: 120px;
-height: 40px;
-border-radius: 25px;
-}
+        #jOrgChart {
+            position: relative;
+            top: 8px;
+        }
 
-.modal-header{
-background: #0C0C0C;
-color: #fff;
+        .table-bordered>tbody>tr>td,
+        .table-bordered>tbody>tr>th {
+            border: 1px solid #ddd;
+        }
 
-}
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 12px;
+        }
 
-.form-horizontal .form-group{
-margin: 0;
-margin-top: 15px;
-}
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
 
-.btn_position div{
-width: 200px;
-display: flex;
-justify-content: space-around;
-align-items: center;
-}
-#post{
-  border: 1px solid #ccc;
-}
-input[type='text']{
-margin-bottom: 0;
-}
-#sub1{
-margin-right: 15px;
-}
-.modal-footer{
-margin-top: 5px;
-height:50px;
-display: flex;
-justify-content: flex-end;
-align-items: center;
-}
-#header{
-width: 100%;
-background: url(../../images/navbar.png);
-color:#f1f1f1;
-text-shadow: 1px 1px 3px #000;
-}
-.mui-title{
-color:#f1f1f1;
-text-shadow: 1px 1px 3px #000;
-}
-.mui-bar .mui-icon{
-  text-shadow: 1px 1px 3px #000;
-}
-.top{
-  width: 92%;
-  height: 180px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
-  box-shadow: 1px 1px 5px #000;
-  border-radius: 5px;
+        .table-bordered>thead>tr>th {
+            border: 1px solid #ddd;
+            border-bottom-width: 2px;
+        }
 
-}
-.top div{
-  width: 45%;
-  height: 60px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.top div img{
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
+        .table>thead>tr>th {
+            padding: 8px;
+            border-top: 1px solid #ddd;
+        }
 
-}
-.top div p{
-  color: #fff;
-  text-shadow: 1px 1px 2px #000;
-  width: 80px;
-  text-align: center;
-}
-.content{
-  margin-top: 15px;
-  width: 92%;
-  height:250px;
- background: rgba(0, 0, 0, 0.5);
- display: flex;
- justify-content: space-around;
- align-items: center;
-   box-shadow: 1px 1px 5px #000;
-   border-radius: 5px;
-   color: #fff;
-}
-.content textarea{
-    text-shadow: 1px 1px 2px #000;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    padding: 6px 14px;
+        .btn-danger {
+            color: #fff;
+            background-color: #d9534f;
+            border-color: #d43f3a;
+        }
 
-}
-</style>
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        .btn-success {
+            color: #fff;
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+        }
+
+        .btn-warning {
+            color: #fff;
+            background-color: #f0ad4e;
+            border-color: #eea236;
+        }
+
+        #header {
+            width: 100%;
+            background: url(../../images/navbar.png);
+            color: #f1f1f1;
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        .mui-title {
+            color: #f1f1f1;
+            text-shadow: 1px 1px 3px #000;
+        }
+    </style>
+
 </head>
+
 <body>
-<header class="mui-bar mui-bar-nav" id="header">
-  <span class="mui-icon mui-icon-back mui-pull-left" tapmode onclick="comeBack()"></span>
-  <h1 class="mui-title">临时任务提交</h1>
-  <span class="mui-icon mui-icon-person mui-pull-right" tapmode onclick="personal()"></span>
-</header>
-<div id="containet">
+    <header class="mui-bar mui-bar-nav" id="header">
+        <span class="mui-icon mui-icon-back mui-pull-left" onclick="comeBack()"></span>
+        <h1 class="mui-title">临时任务提交</h1>
+        <span class="mui-icon mui-icon-person mui-pull-right" onclick="personal()"></span>
+    </header>
+    <div id="app">
 
+    </div>
+    <div id="jOrgChart">
+        <table class="table table-hover table-bordered ">
+            <caption id="title" class="text-center" style="font-weight: bold;font-size: 16px">临时任务工作提交情况</caption>
+            <thead>
+                <tr>
+                    <th class="text-center" style="width: 50px">分数</th>
+                    <th class="text-center">工作内容</th>
+                    <th class="text-center" style="width: 100px">工作提交</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
 
-</div>
+            </tbody>
+        </table>
+    </div>
 </body>
+<script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript">
-apiready = function(){
-  var ip=localStorage.getItem("ip")
-  var url=`http://${ip}/dutylist/src/user_temporary.php`
-  $.ajax({
-    url:url,
-    dataType:'json',
-    type:'post',
-    data:{
-     type:1
-   },
-   success:function(ret){
-     var pageMain=$('#pageMain')
-     var li='';
-     $.each(ret,function(index,value){
-     li+=`
-     <li class="top">
-      <div><img src="../../img/ID.svg" alt="" /><span><p>${value.id}</p></span></div>
-      <div><img src="../../img/kssj.svg" alt="" /><span><p>${value.add_time}</p></span></div>
-      <div><img src="../../img/fz.svg" alt="" /><span><p>${value.score}分</p></span></div>
-      <div><img src="../../img/jssj.svg" alt="" /><span><p>${value.cycle}</p></span></div>
-    </li>
-      <li class="content"><textarea disabled>${value.content}</textarea></li>
-      <li class="button"><button type='button' class="mui-btn mui-btn-primary" tapmode onclick="btn(${value.id})">工作提交</button></li>
-     `
+    apiready = function() {
+        var ip = localStorage.getItem("ip")
+        var url = `http://${ip}/dutylist/src/user_temporary.php`
+        var tr = '';
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: 'post',
+            data: {
+                type: 1
+            },
+            success: function(ret) {
 
-   })
-     $('#containet').html(`<ul id="pageMain">${li}</ul><div id="pageBox">
-      <button class="mui-btn" id="prev" style="border-radius:20px;">上一页</button>
-      <button class="mui-btn" id="next" style="border-radius:20px;">下一页</button>
-      </div>`)
+                $.each(ret, function(index, val) {
+                    tr += `<tr><td >${val.score}</td><td>${val.content}</td><td class="text-center"><button class="btn btn-warning" onclick="btn(${val.id})">提交</button></td></tr>`
+                })
+                $('#tbody').html(tr)
+            }
 
-      //分页
-      $(function () {
-       tabPage({
-         pageMain: '#pageMain',
-         pageNav: '#pageNav',
-         pagePrev: '#prev',
-         pageNext: '#next',
-         curNum:3, /*每页显示的条数*/
-         activeClass: 'active', /*高亮显示的class*/
-         ini: 0/*初始化显示的页面*/
-       });
-       function tabPage(tabPage) {
-         var pageMain = $(tabPage.pageMain);
-         /*获取内容列表*/
-         var pageNav = $(tabPage.pageNav);
-         /*获取分页*/
-         var pagePrev = $(tabPage.pagePrev);
-         /*上一页*/
-         var pageNext = $(tabPage.pageNext);
-         /*下一页*/
-         var curNum = tabPage.curNum;
-         /*每页显示数*/
-         var len = Math.ceil(pageMain.find("li").length / curNum);
-         /*计算总页数*/
-           // var pageList = '';
-           /*生成页码*/
-           var iNum = 0;
-           /*当前的索引值*/
+        })
 
 
 
-           $(pageMain).find("li").hide();
-           /************首页的显示*********/
-           for (var i = 0; i < curNum; i++) {
-             $(pageMain).find("li").eq(i).show()
-           }
+    };
 
+    //工作提交
+    function btn(id) {
+        var ip = localStorage.getItem("ip")
+        var url = `http://${ip}/dutylist/src/job.php`
+        var work_id = id;
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: 'post',
+            data: {
+                work_id: work_id,
+                type: 4
+            },
+            success: function(ret) {
+                if (ret.template == 400) {
+                    alert('未设置提交模板')
+                } else {
+                    var tem = "../template/" + ret.template + "?work_id=" + work_id + "&tz_type=0";
+                    api.openWin({
+                        name: 'jobsub' + work_id,
+                        url: tem,
+                        pageParam: {
+                            index: 'test'
+                        }
+                    });
+                }
 
-           /*下一页*/
-           pageNext.click(function () {
-             $(pageMain).find("li").hide();
-             if (iNum == len - 1) {
-               alert('已经是最后一页');
-               for (var i = (len - 1) * curNum; i < len * curNum; i++) {
-                 $(pageMain).find("li").eq(i).show()
-               }
-               return false;
-             } else {
-               pageNav.find("a").removeClass(tabPage.activeClass);
-               iNum++;
-               pageNav.find("a").eq(iNum).addClass(tabPage.activeClass);
-      //                    ini(iNum);
-      }
-      for (var i = iNum * curNum; i < (iNum + 1) * curNum; i++) {
-      $(pageMain).find("li").eq(i).show()
+            }
+        })
 
-      }
-      });
-           /*上一页*/
-           pagePrev.click(function () {
-             $(pageMain).find("li").hide();
-             if (iNum == 0) {
-               alert('当前是第一页');
-               for (var i = 0; i < curNum; i++) {
-                 $(pageMain).find("li").eq(i).show()
-               }
-               return false;
-             } else {
-               pageNav.find("a").removeClass(tabPage.activeClass);
-               iNum--;
-               pageNav.find("a").eq(iNum).addClass(tabPage.activeClass);
-             }
-             for (var i = iNum * curNum; i < (iNum + 1) * curNum; i++) {
-               $(pageMain).find("li").eq(i).show()
-             }
-           })
+    }
 
-         }
+    function comeBack() {   
+        api.historyBack({  }, function(ret, err) {     
+            if (!ret.status) {       
+                api.closeWin();     
+            }  
+        });
+    }
 
+    function score() {
+        $('#app').css({
+            "width": "95%",
+            "height": "200px"
+        })
+        var dataStyle = {
+            normal: {
+                label: {
+                    show: false
+                },
+                labelLine: {
+                    show: false
+                },
+                shadowBlur: 10,
+                shadowColor: 'rgba(40, 40, 40,0.5)',
+            }
+        };
+        option = {
+            color: ['#d9534f', '#5cb85c'],
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c}个 ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'left',
+                data: ['未提交', '已提交']
+            },
+            series: [{
+                name: '任务提交情况',
+                type: 'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                itemStyle: dataStyle,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '16',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: [{
+                    value: 15,
+                    name: '未提交'
+                }, {
+                    value: 5,
+                    name: '已提交'
+                }]
+            }]
+        };
+        var myChart = echarts.init(document.getElementById('app'));
+        myChart.setOption(option);
+    }
 
-       })
-
-   }})
-
-
-
-};
-
-//工作提交
-function btn(id) {
-  var ip=localStorage.getItem("ip")
-  var url=`http://${ip}/dutylist/src/user_temporary.php`
-  var work_id =id;
-  $.ajax({
-    url:url,
-    dataType:'json',
-    type:'post',
-    data:{
-      work_id:work_id,
-      type:2
-    },
-    success:function(ret){
-      if(ret.template==400){
-        alert('未设置提交模板')
-      }else{
-       var tem="../template/"+ret.template+"?work_id="+work_id+"&tz_type=0";
-       api.openWin({
-         name: 'jobsub'+work_id,
-         url: tem,
-         pageParam: {
-           index: 'test'
-         }
-       });
-     }
-
-   }
- })
-
-}
-function comeBack(){
-      api.historyBack({
-      },function(ret,err){
-            if (!ret.status) {
-                  api.closeWin();
-            }
-      });
-}
-
+    setInterval("score()", 1000);
 </script>
+
 </html>

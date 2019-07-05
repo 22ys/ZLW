@@ -19,8 +19,8 @@
         }
 
         #app {
-          margin: 0 auto;
-          margin-top: 48px;
+            margin: 0 auto;
+            margin-top: 48px;
         }
 
         #jOrgChart {
@@ -138,10 +138,10 @@
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
-         var ip = localStorage.getItem("ip")
-         var url = `http://${ip}/dutylist/src/user_duty_tree.php`
-         succeed = 0;
-         error = 0;
+        var ip = localStorage.getItem("ip")
+        var url = `http://${ip}/dutylist/src/user_duty_tree.php`
+        succeed = 0;
+        error = 0;
         $.ajax({
             url: url,
             type: "post",
@@ -155,11 +155,11 @@
 
                         if (val.pid == 0) {
                             $('#title').html(val.name)
-                            succeed= val.name.replace(/[^\d.]/g, "");
-                  $.each(val.childrens,function (index,value) {
-                    error=value.name.replace(/[^\d.]/g, "");
+                            succeed = val.name.replace(/[^\d.]/g, "");
+                            $.each(val.childrens, function(index, value) {
+                                error = value.name.replace(/[^\d.]/g, "");
 
-                  })
+                            })
                         }
 
                         var length = 0;
@@ -195,17 +195,17 @@
             "height": "200px"
         })
         var dataStyle = {
-    		    normal: {
-    			    label: {
-    				    show: false
-    			    },
-    			    labelLine: {
-    				    show: false
-    			    },
-    			    shadowBlur: 10,
-    			    shadowColor: 'rgba(40, 40, 40,0.5)',
-    		    }
-    	    };
+            normal: {
+                label: {
+                    show: false
+                },
+                labelLine: {
+                    show: false
+                },
+                shadowBlur: 10,
+                shadowColor: 'rgba(40, 40, 40,0.5)',
+            }
+        };
         option = {
             color: ['#d9534f', '#5cb85c'],
             tooltip: {
@@ -222,7 +222,7 @@
                 type: 'pie',
                 radius: ['50%', '70%'],
                 avoidLabelOverlap: false,
-                 itemStyle: dataStyle,
+                itemStyle: dataStyle,
                 label: {
                     normal: {
                         show: false,
@@ -267,32 +267,33 @@
             }  
         });
     }
-     var ip = localStorage.getItem("ip")
-     var url = `http://${ip}/dutylist/src/job.php`
+    var ip = localStorage.getItem("ip")
+    var url = `http://${ip}/dutylist/src/job.php`
+
     function Details(dataId) {
-    // $("#supervise_set").show();
-    $("#user_workID").val(dataId);
-    var work_id =dataId;
-    $.ajax({
-      url:url,
-      dataType:'json',
-      type:'post',
-      data:{
-        work_id:work_id,
-        type:4
-      },
-      success:function(ret){
-        if(ret.template==400){
-          alert('未设置提交模板')
-        }else{
-          var tem="../template/"+ret.template+"?work_id="+dataId+"&tz_type=0";
-          window.location.href=tem;
-        }
+        // $("#supervise_set").show();
+        $("#user_workID").val(dataId);
+        var work_id = dataId;
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: 'post',
+            data: {
+                work_id: work_id,
+                type: 4
+            },
+            success: function(ret) {
+                if (ret.template == 400) {
+                    alert('未设置提交模板')
+                } else {
+                    var tem = "../template/" + ret.template + "?work_id=" + dataId + "&tz_type=0";
+                    window.location.href = tem;
+                }
 
-      }
-    })
+            }
+        })
 
-  }
+    }
 </script>
 
 </html>

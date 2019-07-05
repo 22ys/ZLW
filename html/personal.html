@@ -1,118 +1,130 @@
 <!DOCTYPE html>
-  <html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>title</title>
-      <script src="../js/mui.js" type="text/javascript"></script>
-      <link rel="stylesheet" type="text/css" href="../css/mui.css" />
-      <link rel="stylesheet" type="text/css" href="../css/login.css"/>
-        <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
-      <style>
-          body{
+<html>
 
-          }
-          .content{
-             margin-top: 80px;
-             display: flex;
-             justify-content: space-around;
-             align-items: center;
-             flex-direction: column;
-             height: 540px;
-          }
-          .portrait{
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <script src="../js/mui.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../css/mui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/login.css" />
+    <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+    <style>
+        body {}
+
+        .content {
+            margin-top: 80px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
+            height: 540px;
+        }
+
+        .portrait {
             width: 200px;
             height: 200px;
             border-radius: 100px;
             box-shadow: 1px 1px 5px #000;
-          }
-          .portrait img{
+        }
+
+        .portrait img {
             width: 200px;
             height: 200px;
             border-radius: 100px;
-          }
-           .user,.password{
+        }
+
+        .user,
+        .password {
             width: 200px;
             height: 45px;
-          text-shadow: 1px 1px 5px #000;
-          display: flex;
-          justify-content: center;;
-           align-items: center;
-           font-size: 16px;
-          }
-          .quit{
+            text-shadow: 1px 1px 5px #000;
+            display: flex;
+            justify-content: center;
+            ;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .quit {
             width: 200px;
             height: 200px;
             display: flex;
             justify-content: center;
-            align-items:flex-end;
-          }
-          #header{
+            align-items: flex-end;
+        }
+
+        #header {
             width: 100%;
             background: url(../images/navbar.png);
-            color:#f1f1f1;
+            color: #f1f1f1;
             text-shadow: 1px 1px 3px #000;
-          }
-          .mui-title{
-            color:#f1f1f1;
+        }
+
+        .mui-title {
+            color: #f1f1f1;
             text-shadow: 1px 1px 3px #000;
-          }
-      </style>
-  </head>
-  <body>
+        }
+    </style>
+</head>
+
+<body>
     <header class="mui-bar mui-bar-nav " id="header">
-      <span class=" mui-icon mui-icon-back mui-pull-left" tapmode onclick="comeBack()"></span>
-      <h1 class="mui-title">个人中心</h1>
-          <span class="mui-icon mui-icon-compose mui-pull-right" tapmode onclick="amend()"></span>
+        <span class=" mui-icon mui-icon-back mui-pull-left" tapmode onclick="comeBack()"></span>
+        <h1 class="mui-title">个人中心</h1>
+        <span class="mui-icon mui-icon-compose mui-pull-right" tapmode onclick="amend()"></span>
     </header>
     <div class="content">
-       <div class="portrait">
-         <img src="../images/tx.jpeg" alt="">
-       </div>
-       <div class="user">李霞</div>
-       <div class="quit">
-         <button type="button" class="mui-btn mui-btn-danger" onclick="quit()">退出登录</button>
-       </div>
+        <div class="portrait">
+            <img src="../images/tx.jpeg" alt="">
+        </div>
+        <div class="user">李霞</div>
+        <div class="quit">
+            <button type="button" class="mui-btn mui-btn-danger" onclick="quit()">退出登录</button>
+        </div>
     </div>
-  </body>
-  <script type="text/javascript" src="../script/api.js"></script>
-  <script type="text/javascript">
-      apiready = function(){
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
 
-      };
-      function comeBack(){
-        api.historyBack({
-        },function(ret,err){
-            if (!ret.status) {
-             api.closeWin();
-            }
-        });
+    };
+
+    function comeBack() {   
+        api.historyBack({  }, function(ret, err) {     
+            if (!ret.status) {    
+                api.closeWin();     
+            }  
+        });
     }
+
     function quit() {
-      api.openWin({
-          name: 'login',
-          url: './login.html',
-          pageParam: {
-              index: 'test'
-          }
-      })
+        api.openWin({
+            name: 'login',
+            url: './login.html',
+            pageParam: {
+                index: 'test'
+            }
+        })
     }
-    var user_id=localStorage.getItem("user_id")
-    var user_name=localStorage.getItem("user_name")
-    var pwd=localStorage.getItem("pwd")
+    var user_id = localStorage.getItem("user_id")
+    var user_name = localStorage.getItem("user_name")
+    var pwd = localStorage.getItem("pwd")
     $('.user').html(user_name)
+
     function amend() {
-      api.openWin({
-          name: 'pwd',
-          url: './pwd.html',
-          pageParam: {
-              user_id:user_id,
-              user_name:user_name,
-              pwd:pwd
-          }
-      })
+        api.openWin({
+            name: 'pwd',
+            url: './pwd.html',
+            pageParam: {
+                user_id: user_id,
+                user_name: user_name,
+                pwd: pwd
+            }
+        })
     }
-  </script>
-  <script src="
+</script>
+<script src="
 http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
-  </html>
+
+</html>

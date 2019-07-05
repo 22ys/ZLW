@@ -68,34 +68,34 @@ header span{
   <header>
     <div>
     <span tapmode onclick="comeBack()"><img src="../../images/fh.svg" alt="" ></span>
-    <h4>统计曲线图</h4>
-  </div>
+<h4>统计曲线图</h4>
+</div>
 </header>
 </div>
 <!-- <p>你当前在本部门排第一，完成度90%，恭喜你进入减责行列。</p> -->
 <form class="form-horizontal">
-  <div class="form-group">
-    <label for="" class="col-sm-2 col-md-2 col-lg-1  control-label">岗位</label>
-    <div class="col-sm-4">
-      <select class="form-control" id="post">
+    <div class="form-group">
+        <label for="" class="col-sm-2 col-md-2 col-lg-1  control-label">岗位</label>
+        <div class="col-sm-4">
+            <select class="form-control" id="post">
 
       </select>
+        </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="" class="col-sm-2 col-md-2 col-lg-1 control-label">用户</label>
-    <div class="col-sm-4">
-      <select class="form-control" id="user">
+    <div class="form-group">
+        <label for="" class="col-sm-2 col-md-2 col-lg-1 control-label">用户</label>
+        <div class="col-sm-4">
+            <select class="form-control" id="user">
 
       </select>
+        </div>
     </div>
-  </div>
-  <div class="btn_position">
-      <button type="button" class="btn btn-info"  id="search" ><img src="../../images/ss.svg" alt=""></button>
-  </div>
+    <div class="btn_position">
+        <button type="button" class="btn btn-info" id="search"><img src="../../images/ss.svg" alt=""></button>
+    </div>
 </form>
 <div id="container1" style="min-width:350px; height:300px; margin:15px auto;"></div>
-        <!-- <div style="width:350px; height:200px; margin:15px auto;">
+<!-- <div style="width:350px; height:200px; margin:15px auto;">
             <h3>当月最高得分榜</h3>
             <table border='1' cellspacing="0" class="table table-striped table-bordered">
                 <tr><th>姓名</th><th>得分</th><th>部门</th></tr>
@@ -115,7 +115,7 @@ header span{
             </table>
  </div> -->
 <!-- <div style="width:350px; height:200px;margin:0 auto;"> -->
-            <!-- <h3>追责部门</h3>
+<!-- <h3>追责部门</h3>
             <table border='1' cellspacing="0" class="table table-striped table-bordered">
                 <tr><th>编号</th><th>部门</th></tr>
                 <tr><th>1 </th><th>101车间</th></tr>
@@ -124,212 +124,212 @@ header span{
             </table>
  </div> -->
 <!-- <div style="width:350px; height:200; margin:0 auto;"> -->
-            <!-- <h3>追责内容</h3> -->
-            <!-- <table border='1' cellspacing="0" class="table table-striped table-bordered">
+<!-- <h3>追责内容</h3> -->
+<!-- <table border='1' cellspacing="0" class="table table-striped table-bordered">
                 <tr><th>编号</th><th>内容</th></tr>
                 <tr><th>1 </th><th>日常用品发放</th></tr>
                 <tr><th>2</th><th>培训签到</th></tr>
                 <tr><th>3</th><th>巡查记录</th></tr>
             </table> -->
- </div>
+</div>
 </body>
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript">
-var ip=localStorage.getItem("ip")
-  var url=`http://${ip}/dutylist/src/diagram.php`
-        var chart;
-        $(document).ready(function () {
-            $.ajax({
-                 url:url,
-                 dataType:'json',
-                 type:'post',
-                 data:{
-                    type:1,
-                 },
-                 success:function(ret){
-            //曲线图初始化
-            chart = new Highcharts.Chart({
-                chart: {
-                    renderTo: 'container1',
-                    type: 'line',
-                    marginRight: 100,
-                    marginBottom: 25
-                },
-                title: {
-                    text: '月曲线图表',
-                    x: -20 //center
-                },
-                subtitle: {
-                    text: '用户得分曲线',
-                    x: -20
-                },
-                xAxis: {
-                    categories: ret.date
-                },
-                yAxis: {
-                    title: {
-                        text: '数据'
+    var ip = localStorage.getItem("ip")
+    var url = `http://${ip}/dutylist/src/diagram.php`
+    var chart;
+    $(document).ready(function() {
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: 'post',
+            data: {
+                type: 1,
+            },
+            success: function(ret) {
+                //曲线图初始化
+                chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'container1',
+                        type: 'line',
+                        marginRight: 100,
+                        marginBottom: 25
                     },
-                    plotLines: [{
-                        value: 0,
-                        width: 2,
-                        color: '#808080'
-                    }]
-                },
-                tooltip: {
-                    formatter: function () {
-                        return '<b>' + this.series.name + '</b><br/><br/>' +
-                    this.x + ': ' + this.y + '分';
-                    }
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'top',
-                    x: -20,
-                    y: 200,
-                    borderWidth: 0
-                },
-                series: ret.arr
-            });
-        //饼状图初始化
-        chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'container3',
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: '清单数据饼状图表'
-            },
-            tooltip: {
-                formatter: function () {
-                    return '<b>' + this.point.name + '</b>: ' + this.percentage.toFixed(2) + ' %';
-                }
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        color: '#000000',
-                        connectorColor: '#000000',
-                        formatter: function () {
+                    title: {
+                        text: '月曲线图表',
+                        x: -20 //center
+                    },
+                    subtitle: {
+                        text: '用户得分曲线',
+                        x: -20
+                    },
+                    xAxis: {
+                        categories: ret.date
+                    },
+                    yAxis: {
+                        title: {
+                            text: '数据'
+                        },
+                        plotLines: [{
+                            value: 0,
+                            width: 2,
+                            color: '#808080'
+                        }]
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            return '<b>' + this.series.name + '</b><br/><br/>' +
+                                this.x + ': ' + this.y + '分';
+                        }
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'top',
+                        x: -20,
+                        y: 200,
+                        borderWidth: 0
+                    },
+                    series: ret.arr
+                });
+                //饼状图初始化
+                chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'container3',
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false
+                    },
+                    title: {
+                        text: '清单数据饼状图表'
+                    },
+                    tooltip: {
+                        formatter: function() {
                             return '<b>' + this.point.name + '</b>: ' + this.percentage.toFixed(2) + ' %';
                         }
-                    }
-                }
-            },
-            series: [{
-                type: 'pie',
-                name: 'pie',
-                data: ret.cake
-            }]
-        });
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                color: '#000000',
+                                connectorColor: '#000000',
+                                formatter: function() {
+                                    return '<b>' + this.point.name + '</b>: ' + this.percentage.toFixed(2) + ' %';
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: 'pie',
+                        data: ret.cake
+                    }]
+                });
 
-        var con="<option value='0'>--请选择岗位--</option>"
-        $.each(ret.post,function(index ,value){
-            con+="<option value='"+value.id+"'>"+value.post_name+"</option>"
-        })
-        $('#post').html(con)
-                    }
+                var con = "<option value='0'>--请选择岗位--</option>"
+                $.each(ret.post, function(index, value) {
+                    con += "<option value='" + value.id + "'>" + value.post_name + "</option>"
                 })
+                $('#post').html(con)
+            }
+        })
     });
-    $('#post').change(function(){
-           console.log(1)
-           var post_id=$(this).val();
-           console.log(post_id)
-           $.ajax({
-               url:url,
-               dataType:'json',
-               type:'post',
-               data:{
-                   post_id:post_id,
-                   type:2
-               },
-               success:function(ret){
-                    var con="<option value='0'>--请选择责任人--</option>"
-                   $.each(ret,function(index,value){
-                        con+="<option value='"+value.user_id+"'>"+value.user_name+"</option>"
-                   })
-                    $("#user").html(con)
-                }
+    $('#post').change(function() {
+        console.log(1)
+        var post_id = $(this).val();
+        console.log(post_id)
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: 'post',
+            data: {
+                post_id: post_id,
+                type: 2
+            },
+            success: function(ret) {
+                var con = "<option value='0'>--请选择责任人--</option>"
+                $.each(ret, function(index, value) {
+                    con += "<option value='" + value.user_id + "'>" + value.user_name + "</option>"
+                })
+                $("#user").html(con)
+            }
 
-           })
-       })
-    $('#search').click(function(){
-          var post_id=$('#post').val();
-          var user_id=$("#user").val();
-          $.ajax({
-              url:url,
-              dataType:'json',
-              type:'post',
-              data:{
-                  type:3,
-                  post_id:post_id,
-                  user_id:user_id
-              },
-              success:function(con){
-                 var chart;
-               chart = new Highcharts.Chart({
-              chart: {
-                  renderTo: 'container1',
-                  type: 'line',
-                  marginRight: 100,
-                  marginBottom: 25
-              },
-              title: {
-                  text: '曲线图表',
-                  x: -20 //center
-              },
-              subtitle: {
-                  text: '用户得分曲线',
-                  x: -20
-              },
-              xAxis: {
-                  categories:con.date
-              },
-              yAxis: {
-                  title: {
-                      text: '数据'
-                  },
-                  plotLines: [{
-                      value: 0,
-                      width: 2,
-                      color: '#808080'
-                  }]
-              },
-              tooltip: {
-                  formatter: function () {
-                      return '<b>' + this.series.name + '</b><br/><br/>' +
-                  this.x + ': ' + this.y + '分';
-                  }
-              },
-              legend: {
-                  layout: 'vertical',
-                  align: 'right',
-                  verticalAlign: 'top',
-                  x: -20,
-                  y: 200,
-                  borderWidth: 0
-              },
-              series: con.arr
-          });
-              }
-          })
+        })
+    })
+    $('#search').click(function() {
+        var post_id = $('#post').val();
+        var user_id = $("#user").val();
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: 'post',
+            data: {
+                type: 3,
+                post_id: post_id,
+                user_id: user_id
+            },
+            success: function(con) {
+                var chart;
+                chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'container1',
+                        type: 'line',
+                        marginRight: 100,
+                        marginBottom: 25
+                    },
+                    title: {
+                        text: '曲线图表',
+                        x: -20 //center
+                    },
+                    subtitle: {
+                        text: '用户得分曲线',
+                        x: -20
+                    },
+                    xAxis: {
+                        categories: con.date
+                    },
+                    yAxis: {
+                        title: {
+                            text: '数据'
+                        },
+                        plotLines: [{
+                            value: 0,
+                            width: 2,
+                            color: '#808080'
+                        }]
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            return '<b>' + this.series.name + '</b><br/><br/>' +
+                                this.x + ': ' + this.y + '分';
+                        }
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'top',
+                        x: -20,
+                        y: 200,
+                        borderWidth: 0
+                    },
+                    series: con.arr
+                });
+            }
+        })
 
-      })
+    })
 </script>
 <script>
-function comeBack(){
-      api.historyBack({
-      },function(ret,err){
-            if (!ret.status) {
-                  api.closeWin();
-            }
-      });
-}
+    function comeBack() {   
+        api.historyBack({  }, function(ret, err) {     
+            if (!ret.status) {       
+                api.closeWin();     
+            }  
+        });
+    }
 </script>
+
 </html>

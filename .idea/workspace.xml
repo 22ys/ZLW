@@ -2,21 +2,49 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d39a5f7-3d33-47d3-9050-b301c5934192" name="默认更改列表" comment="">
-      <change beforePath="$PROJECT_DIR$/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/login.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/html/accountability/event.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/accountability/event.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/duty/dutyGuiCheng.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/duty/dutyGuiCheng.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/duty/dutylist.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/duty/dutylist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/duty/workAction.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/duty/workAction.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/historical/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/historical/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/html/index_frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/index_frame.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/html/jianguan/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/jianguan/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/jianze/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/jianze/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/jianze/ranking.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/jianze/ranking.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/organization/organization.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/organization/organization.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/personal.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/personal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/policeMessage/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/policeMessage/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/policeMessage/policeMessage.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/policeMessage/policeMessage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/html/policeMessage/policeMessageSub.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/policeMessage/policeMessageSub.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/pwd.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/pwd.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/html/quxiantu/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/quxiantu/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/recorder/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/recorder/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/recorder/js/recorder.js" beforeDir="false" afterPath="$PROJECT_DIR$/html/recorder/js/recorder.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/responset/addlist.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/responset/addlist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/responset/duty_tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/responset/duty_tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/responset/jobsub.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/responset/jobsub.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/html/responset/temporary.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/responset/temporary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/template/examine.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/template/examine.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/template/patrol.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/template/patrol.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/echarts.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/echarts.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/script/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/responset/user_temporary.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/responset/user_temporary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/summary/summarylist.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/summary/summarylist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/zuixintaizhanglist/taizhangdetails.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/zuixintaizhanglist/taizhangdetails.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/zuixintaizhanglist/zuixintaizhanglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/zuixintaizhanglist/zuixintaizhanglist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/zzjgt.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/bh.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/bjfs.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/bm.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/ditu.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/fz.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/jssj.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/kssj.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/lx.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/rwdj.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/sj.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/tjsj.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/xm.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/yj.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/zb.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/zrr.svg" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -28,25 +56,30 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/html/index_frame.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="89" selection-start-line="89" selection-end-line="89" />
-              <folding>
-                <element signature="n#style#0;n#p#0;n#div#1;n#section#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#1;n#div#1;n#section#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="1862">
+              <caret line="98" selection-start-line="98" selection-end-line="98" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://D:/Wep/SoundRecording-master/recorder/js/recorder.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="494">
+              <caret line="26" column="20" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../Wep/SoundRecording-master/recorder/js/recorder.js">
+        <entry file="file://$PROJECT_DIR$/css/login.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1638">
-              <caret line="26" column="20" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
+            <state relative-caret-position="580">
+              <caret line="92" column="15" selection-start-line="92" selection-start-column="15" selection-end-line="92" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -59,7 +92,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/html/jianze/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
+            <state relative-caret-position="4674">
               <caret line="246" column="30" selection-start-line="245" selection-start-column="4" selection-end-line="246" selection-end-column="30" />
             </state>
           </provider>
@@ -75,6 +108,7 @@
       <list>
         <option value="$PROJECT_DIR$/html/jianze/ranking.html" />
         <option value="$PROJECT_DIR$/html/index_frame.html" />
+        <option value="$PROJECT_DIR$/css/login.css" />
       </list>
     </option>
   </component>
@@ -89,7 +123,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -111,11 +144,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Wep/SoundRecording-master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
@@ -143,24 +177,20 @@
       <option name="presentableId" value="Default" />
       <updated>1561941893594</updated>
       <workItem from="1561941895701" duration="5371000" />
+      <workItem from="1562229309392" duration="2581000" />
+      <workItem from="1562244716316" duration="338000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5371000" />
+    <option name="totallyTimeSpent" value="8290000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24702774" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="调试" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -168,6 +198,11 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="调试" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -211,31 +246,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/html/jianze/index.html">
+    <entry file="file://$PROJECT_DIR$/html/index_frame.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="246" column="30" selection-start-line="245" selection-start-column="4" selection-end-line="246" selection-end-column="30" />
+        <state relative-caret-position="1862">
+          <caret line="98" selection-start-line="98" selection-end-line="98" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/html/index_frame.html">
+    <entry file="file://D:/Wep/SoundRecording-master/recorder/js/recorder.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="89" selection-start-line="89" selection-end-line="89" />
-          <folding>
-            <element signature="n#style#0;n#p#0;n#div#1;n#section#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#1;n#div#1;n#section#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="494">
+          <caret line="26" column="20" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/html/jianze/ranking_frame.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Wep/SoundRecording-master/recorder/js/recorder.js">
+    <entry file="file://$PROJECT_DIR$/html/jianze/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1638">
-          <caret line="26" column="20" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
+        <state relative-caret-position="4674">
+          <caret line="246" column="30" selection-start-line="245" selection-start-column="4" selection-end-line="246" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/login.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="580">
+          <caret line="92" column="15" selection-start-line="92" selection-start-column="15" selection-end-line="92" selection-end-column="15" />
         </state>
       </provider>
     </entry>

@@ -1,81 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>临时任务</title>
 	<script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
 	<link rel="stylesheet" href="../template/bootstrap/bootstrap.css">
 	<script src="../template/bootstrap/bootstrap.js"></script>
-  <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/api.js"></script>
 
 </head>
 <style type="text/css">
-	.form-horizontal .form-group{
+	.form-horizontal .form-group {
 		margin: 0;
 		margin-top: 15px;
 	}
-	.btn_position{
+
+	.btn_position {
 		width: 50%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-    margin: 0 auto;
-    margin-bottom: 15px;
+		margin: 0 auto;
+		margin-bottom: 15px;
 	}
-	.btn_position div{
+
+	.btn_position div {
 		width: 200px;
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
 	}
-	.header{
+
+	.header {
 		width: 100%;
 		height: 50px;
-
 	}
-header{
-	position: fixed;
-	height: 50px;
-	width: 100%;
-	z-index: 999;
 
-	background: url(../../images/navbar.png);
-	color:#f1f1f1;
-	text-shadow: 1px 1px 3px #000;
-}
-h4{
-	color:#f1f1f1;
-	text-shadow: 1px 1px 3px #000;
-}
-header div{
-	margin-left: 15px;
-	width: 57%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	font-size: 14px;
-}
-header img{
-	width: 17px;
-	height: 17;
-}
-header span{
-	width: 40px;
-	height: 100%;
-	display: flex;
-	align-items: center;
-}
+	header {
+		position: fixed;
+		height: 50px;
+		width: 100%;
+		z-index: 999;
+		background: url(../../images/navbar.png);
+		color: #f1f1f1;
+		text-shadow: 1px 1px 3px #000;
+	}
+
+	h4 {
+		color: #f1f1f1;
+		text-shadow: 1px 1px 3px #000;
+	}
+
+	header div {
+		margin-left: 15px;
+		width: 57%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 14px;
+	}
+
+	header img {
+		width: 17px;
+		height: 17;
+	}
+
+	header span {
+		width: 40px;
+		height: 100%;
+		display: flex;
+		align-items: center;
+	}
 </style>
+
 <body>
 	<div class="header">
-	<header>
-		<div>
-		<span tapmode onclick="comeBack()"><img src="../../images/fh.svg" alt="" ></span>
-		<h4>添加临时任务</h4>
+		<header>
+			<div>
+				<span tapmode onclick="comeBack()"><img src="../../images/fh.svg" alt="" ></span>
+				<h4>添加临时任务</h4>
+			</div>
+		</header>
 	</div>
-</header>
-</div>
 	<form class="form-horizontal">
 		<div class="form-group">
 			<label for="" class="col-sm-2 col-md-2 col-lg-1  control-label">组织机构</label>
@@ -116,7 +124,7 @@ header span{
 		</div>
 		<div class="form-group">
 			<label for="" class="col-sm-2 col-md-2 col-lg-1 control-label">得分方式</label>
-			<div class="col-sm-5  col-md-4" >
+			<div class="col-sm-5  col-md-4">
 				<label class="radio-inline">
 					<input type="radio" name="mode" value="1" checked> 自动
 				</label>
@@ -151,18 +159,18 @@ header span{
 				</label>
 			</div>
 		</div>
-		<div class="form-group" >
+		<div class="form-group">
 			<label for="user" class="col-sm-2 col-md-2 col-lg-1 control-label" id="bz">工作项比重</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" id="proportion" placeholder="" >
+				<input type="text" class="form-control" id="proportion" placeholder="">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="" class="col-sm-2 col-md-2 col-lg-1 control-label">完成时间</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" id="duration" placeholder="天" >
-		</div>
+				<input type="text" class="form-control" id="duration" placeholder="天">
+			</div>
 		</div>
 		<div class="form-group">
 			<label for="template" class="col-sm-2 col-md-2 col-lg-1 control-label">提交模板</label>
@@ -181,129 +189,129 @@ header span{
 		<div class="btn_position">
 			<div>
 				<button type="button" class="btn btn-info" tapmode id="sub">提交</button>
-				<button type="reset" class="btn btn-danger" >重置</button>
+				<button type="reset" class="btn btn-danger">重置</button>
 			</div>
 
 		</div>
 	</form>
 </body>
-	<script>
-  var ip=localStorage.getItem("ip")
-  var url=`http://${ip}/dutylist/src/add_temporary_task.php`
-$.ajax({
-	url:url,
-	dataType:'json',
-	type:'post',
-	data:{
-		type:1,
-	},
-	success:function(ret){
-			var html="<option value='0'>"+"请选择部门"+"</option>";
-			$.each(ret.or,function(index,value){
-				html+="<option value='"+value.id+"'>"+value.Organization_Name+"</option>"
+<script>
+	var ip = localStorage.getItem("ip")
+	var url = `http://${ip}/dutylist/src/add_temporary_task.php`
+	$.ajax({
+		url: url,
+		dataType: 'json',
+		type: 'post',
+		data: {
+			type: 1,
+		},
+		success: function(ret) {
+			var html = "<option value='0'>" + "请选择部门" + "</option>";
+			$.each(ret.or, function(index, value) {
+				html += "<option value='" + value.id + "'>" + value.Organization_Name + "</option>"
 			})
 			$("#organization").html(html);
-			var con="<option value='0'>"+"请选着岗位"+"</option>";;
-			$.each(ret.post,function(index,value){
-				con+="<option value='"+value.id+"'>"+value.post_name+"</option>"
+			var con = "<option value='0'>" + "请选着岗位" + "</option>";;
+			$.each(ret.post, function(index, value) {
+				con += "<option value='" + value.id + "'>" + value.post_name + "</option>"
 			})
 			$("#post").html(con);
-	}
-})
-$("#post").change(function(){
-	var post_id=$(this).val();
-	$.ajax({
-		url:url,
-		dataType:'json',
-		type:'post',
-		data:{
-			type:2,
-			post_id:post_id
-		},
-		success:function(ret){
-			var user_str="<option value='0'>请选择责任人</option>";
-			$.each(ret,function(index,value){
-				user_str+="<option value='"+value.user_id+"'>"+value.user_name+"</option>"
-			})
-			$("#user").html(user_str);
 		}
 	})
-})
-$("#user").change(function(){
-	var user_id=$(this).val();
-	$.ajax({
-		url:url,
-		dataType:'json',
-		type:'post',
-		data:{
-			type:4,
-			user_id:user_id
-		},
-		success:function(ret){
-			var duty_str="<option value='0'>选择责任清单</option>";
-			$.each(ret,function(index,value){
-				duty_str+="<option value='"+value.id+"'>"+value.title+"</option>"
-			})
-			$("#duty_list").html(duty_str);
+	$("#post").change(function() {
+		var post_id = $(this).val();
+		$.ajax({
+			url: url,
+			dataType: 'json',
+			type: 'post',
+			data: {
+				type: 2,
+				post_id: post_id
+			},
+			success: function(ret) {
+				var user_str = "<option value='0'>请选择责任人</option>";
+				$.each(ret, function(index, value) {
+					user_str += "<option value='" + value.user_id + "'>" + value.user_name + "</option>"
+				})
+				$("#user").html(user_str);
+			}
+		})
+	})
+	$("#user").change(function() {
+		var user_id = $(this).val();
+		$.ajax({
+			url: url,
+			dataType: 'json',
+			type: 'post',
+			data: {
+				type: 4,
+				user_id: user_id
+			},
+			success: function(ret) {
+				var duty_str = "<option value='0'>选择责任清单</option>";
+				$.each(ret, function(index, value) {
+					duty_str += "<option value='" + value.id + "'>" + value.title + "</option>"
+				})
+				$("#duty_list").html(duty_str);
+			}
+		})
+	})
+	$('input[name="work_grade"]').click(function() {
+		var work_grade = $(this).val();
+		if (work_grade == 3) {
+			$("#bz").html("工作项分值");
+		} else {
+			$("#bz").html("工作项比重");
 		}
 	})
-})
-$('input[name="work_grade"]').click(function(){
-	var work_grade=$(this).val();
-	if(work_grade==3){
-		$("#bz").html("工作项分值");
-	}else{
-		$("#bz").html("工作项比重");
-	}
-})
-$("#sub").click(function(){
-		var content     =$('#content').val();//工作内容
-		var duration    =$("#duration").val();//完成时间
-        var proportion  =$('#proportion').val();//比重/分值
-        var score_type  =$('input[name="mode"]:checked').val(); //得分方式
-        var template    =$("#template").val();//提交模板
-        var user_id     =$("#user").val();//责任人
-        var duty_id     =$("#duty_list").val();//清单id
-        var work_grade  =$('input[name="work_grade"]:checked').val(); //工作等级
-        var periodicity =$('input[name="periodicity"]:checked').val(); //工作周期性
+	$("#sub").click(function() {
+		var content = $('#content').val(); //工作内容
+		var duration = $("#duration").val(); //完成时间
+		var proportion = $('#proportion').val(); //比重/分值
+		var score_type = $('input[name="mode"]:checked').val(); //得分方式
+		var template = $("#template").val(); //提交模板
+		var user_id = $("#user").val(); //责任人
+		var duty_id = $("#duty_list").val(); //清单id
+		var work_grade = $('input[name="work_grade"]:checked').val(); //工作等级
+		var periodicity = $('input[name="periodicity"]:checked').val(); //工作周期性
 
-$.ajax({
-	url:url,
-	data:{
-		content:content,
-		proportion:proportion,
-		duration:duration,
-		score_type:score_type,
-		template:template,
-		user_id:user_id,
-		duty_id:duty_id,
-		work_grade:work_grade,
-		periodicity:periodicity,
-		type:3
-	},
-	type:'post',
-	dataType:"json",
-	success:function(ret){
-		if(ret==200){
-			if(confirm("添加成功，是否继续添加？")){
-				window.location.reload();
+		$.ajax({
+			url: url,
+			data: {
+				content: content,
+				proportion: proportion,
+				duration: duration,
+				score_type: score_type,
+				template: template,
+				user_id: user_id,
+				duty_id: duty_id,
+				work_grade: work_grade,
+				periodicity: periodicity,
+				type: 3
+			},
+			type: 'post',
+			dataType: "json",
+			success: function(ret) {
+				if (ret == 200) {
+					if (confirm("添加成功，是否继续添加？")) {
+						window.location.reload();
+					}
+
+				} else {
+					alert("添加失败");
+				}
 			}
 
-		}else{
-			alert("添加失败");
-		}
+		})
+	})
+
+	function comeBack() {   
+		api.historyBack({  }, function(ret, err) {     
+			if (!ret.status) {       
+				api.closeWin();     
+			}  
+		});
 	}
+</script>
 
-})
-})
-function comeBack(){
-	    api.historyBack({
-	    },function(ret,err){
-		        if (!ret.status) {
-			            api.closeWin();
-		        }
-	    });
-}
-
-	</script>
 </html>

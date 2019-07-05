@@ -1,99 +1,107 @@
 <!DOCTYPE html>
-  <html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>title</title>
-      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
-      <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
-        <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
-      <style>
-          body{
+<html>
 
-          }
-            .content{
-              width:100%;
-              height: 600px;
-              margin:0px auto;
-              box-shadow: inset 1px 1px 5px red;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-            }
-            button{
-              width: 110px;
-              height: 110px;
-              animation:scaleDraw 1s linear 1s infinite alternate;
-            }
-            h1{
-              height: 200px;
-              line-height: 200px;
-            }
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
+    <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+    <style>
+        body {}
 
-            @keyframes scaleDraw {
-                        0%{
-                            transform: scale(1);
-                        }
-                        25%{
-                            transform: scale(1.1);
-                        }
-                        50%{
-                            transform: scale(1);
-                        }
-                        75%{
-                            transform: scale(1.1);
-                        }
-                    }
-            img{
-              width: 200px;
-              height: 200px
+        .content {
+            width: 100%;
+            height: 600px;
+            margin: 0px auto;
+            box-shadow: inset 1px 1px 5px red;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button {
+            width: 110px;
+            height: 110px;
+            animation: scaleDraw 1s linear 1s infinite alternate;
+        }
+
+        h1 {
+            height: 200px;
+            line-height: 200px;
+        }
+
+        @keyframes scaleDraw {
+            0% {
+                transform: scale(1);
             }
-            /*audio{
+            25% {
+                transform: scale(1.1);
+            }
+            50% {
+                transform: scale(1);
+            }
+            75% {
+                transform: scale(1.1);
+            }
+        }
+
+        img {
+            width: 200px;
+            height: 200px
+        }
+        /*audio{
               display: none;
             }*/
-      </style>
+    </style>
 
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="content">
 
-  </div>
-  </body>
-  <script type="text/javascript" src="../../script/api.js"></script>
-  <script type="text/javascript">
-      apiready = function(){
-      var AppId=api.pageParam.AppId
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        var AppId = api.pageParam.AppId
 
-         if(AppId==0){
-          $('.content').html(
-            `<div>
+        if (AppId == 0) {
+            $('.content').html(
+                `<div>
               <img src="../../img/jg.svg" alt="">
             </div>
             <h1>有一条火警信息</h1>
              <button type="button" class="mui-btn mui-btn-danger" style="border-radius: 55px;" onclick="policeMessage()">开始通知现场</button>
                <audio autoplay="autoplay" loop="true" src="../../audio/hj.mp3" ></audio>
              `
-          )
-         }
-         if(AppId==1){
-           $('.content').css({
-               "box-shadow":"inset 1px 1px 5px blue"
-           })
-             $('.content').html(
-           `<div>
+            )
+        }
+        if (AppId == 1) {
+            $('.content').css({
+                "box-shadow": "inset 1px 1px 5px blue"
+            })
+            $('.content').html(
+                `<div>
              <img src="../../img/syjg.svg" alt="">
            </div>
            <h1>有一条水压信息</h1>
             <button type="button" class="mui-btn mui-btn-primary" style="border-radius: 55px;" onclick="policeMessage()">开始通知现场</button>
               <audio autoplay="autoplay" loop="true" src="../../audio/hj.mp3"></audio>
-            `)
-         }
-      };
+            `
+            )
+        }
+    };
 
-        let height=document.documentElement.clientHeight || document.body.clientHeight;
-        $('.content').css({height:height})
-      function policeMessage(){
+    let height = document.documentElement.clientHeight || document.body.clientHeight;
+    $('.content').css({
+        height: height
+    })
+
+    function policeMessage() {
 
         api.openWin({
             name: 'policeMessage',
@@ -102,8 +110,7 @@
 
             }
         });
-      }
+    }
+</script>
 
-
-  </script>
-  </html>
+</html>
