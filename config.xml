@@ -15,7 +15,7 @@
 
     </author>
 
-    <content src="index.html" />
+    <content src="html/login.html" />
 
     <access origin="*" />
 
