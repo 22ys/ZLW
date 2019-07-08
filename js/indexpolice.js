@@ -39,7 +39,11 @@ ip=localStorage.getItem("ip")
                    name: 'policeMessage',
                    url: './policeMessage/index.html',
                    pageParam: {
-                       AppId:data.AppId
+                       AppId:data.AppId,
+                       Mtype:data.Mtype,
+                       Addr:data.Addr,
+                       ValueVal:data.ValueVal,
+                       DateT:data.DateT,
                    }
                });
              }

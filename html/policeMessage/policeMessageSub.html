@@ -232,6 +232,9 @@
 			<button for="" id=sub type="button" class="btn btn-primary" style="margin-left:10px">
 			完成提交
 			</button>
+			<button for="" id=sub type="button" class="btn btn-primary" style="margin-left:10px">
+			误报
+			</button>
 		</div>
 	</form>
 	<div id="mask">
@@ -248,11 +251,11 @@
 		var ip = localStorage.getItem("ip")
 		var url = `http://${ip}/dutylist/src/add_temporary_task.php`
 		var policeTime = api.pageParam.policeTime;
-		var Mtype = api.pageParam.Mtype;
-		var ValueVal = api.pageParam.ValueVal;
+		var alarm_content = api.pageParam.alarm_content;
+		var ValueVal = api.pageParam.parameter;
 		var Addr = api.pageParam.Addr;
 		$('#policeTime').val(policeTime)
-		$('#Mtype').val(Mtype)
+		$('#Mtype').val(alarm_content)
 		$('#Addr').val(Addr)
 		$('#ValueVal_father').hide()
 		if (ValueVal) {
@@ -320,12 +323,14 @@
 
 	})
 
-	function comeBack() {   
-		api.historyBack({  }, function(ret, err) {     
-			if (!ret.status) {       
-				api.closeWin();     
-			}  
-		});
+	function comeBack() {
+			api.openWin({
+					name: 'policeMessageSub',
+					url: '../index.html',
+					pageParam: {
+
+					}
+			});
 	}
 </script>
 

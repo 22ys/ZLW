@@ -6,6 +6,7 @@
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <title>title</title>
     <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
     <link rel="stylesheet" href="../template/bootstrap/bootstrap.css">
     <script src="../template/bootstrap/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/api.css" />
@@ -70,10 +71,29 @@
             font-size: 11px;
             font-weight: bold;
         }
+        #header {
+            width: 100%;
+            background: url(../../images/navbar.png);
+            color: #f1f1f1;
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        .mui-title {
+            color: #f1f1f1;
+            text-shadow: 1px 1px 3px #000;
+        }
+        .container{
+          margin-top: 44px;
+        }
     </style>
 </head>
 
 <body>
+  <header class="mui-bar mui-bar-nav" id="header">
+      <span class="mui-icon mui-icon-back mui-pull-left" onclick="comeBack()"></span>
+      <h1 class="mui-title">事件追责</h1>
+      <span class="mui-icon mui-icon-person mui-pull-right" onclick="personal()"></span>
+  </header>
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
@@ -152,7 +172,7 @@
         var ip = localStorage.getItem("ip")
         var Url = `http://${ip}/dutylist/src/event_account.php`
         $.ajax({
-            url: 'http://192.168.0.109/dutylist/src/event_account.php',
+            url: Url,
             dataType: 'json',
             type: 'post',
             data: {
@@ -211,6 +231,13 @@
         })
 
     };
+    function comeBack() {   
+        api.historyBack({  }, function(ret, err) {     
+            if (!ret.status) {       
+                api.closeWin();     
+            }  
+        });
+    }
 </script>
 
 </html>

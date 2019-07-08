@@ -137,11 +137,12 @@
 </body>
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript">
+var succeed = 0;
+var error = 0;
     apiready = function() {
         var ip = localStorage.getItem("ip")
         var url = `http://${ip}/dutylist/src/user_duty_tree.php`
-        succeed = 0;
-        error = 0;
+
         $.ajax({
             url: url,
             type: "post",
@@ -152,14 +153,16 @@
             success: function(ret) {
                 function showall(menu_list, parent) {
                     $.each(menu_list, function(index, val) {
+                        if (val.get_score != undefined) {
+                            succeed += parseFloat(val.get_score)
+                        }
+                        if (val.score != undefined) {
+                            error += parseFloat(val.score)
 
+                        }
                         if (val.pid == 0) {
                             $('#title').html(val.name)
-                            succeed = val.name.replace(/[^\d.]/g, "");
-                            $.each(val.childrens, function(index, value) {
-                                error = value.name.replace(/[^\d.]/g, "");
 
-                            })
                         }
 
                         var length = 0;
@@ -189,7 +192,7 @@
 
     };
 
-    function score() {
+    function score(error) {
         $('#app').css({
             "width": "95%",
             "height": "200px"
@@ -254,7 +257,7 @@
         myChart.setOption(option);
     }
 
-    setInterval("score()", 1000);
+    setInterval("score(error-succeed)", 1000);
 
     function getOrgId(a, b) {
         alert(b);

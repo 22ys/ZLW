@@ -102,9 +102,28 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+
     apiready = function() {
         var i = api.pageParam.i
         var content = $('body')
+        var ip = localStorage.getItem("ip")
+        var url = `http://${ip}/dutylist/src/maintz.php`
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: 'post',
+            data: {
+
+            },
+            success: function(ret) {
+                var len=0;
+              $.each(ret,function (index,value) {
+               len=index
+              })
+                      $('#len').html(len+1)
+            }
+        })
+
         if (i == 0) {
             content.html(
                 `
@@ -112,7 +131,7 @@
              <div class="content">
                <div tapmode onclick="dutylist()"><span><img src="../images/qdlb1.svg" alt="" /></span><span><p>2</p><p>清单列表</p></span></div>
                <div tapmode onclick="koufenyujing()"><span><img src="../images/kfyj.svg" alt="" /></span><span><p>2</p><p>扣分预警</p></span></div>
-               <div tapmode onclick="zuixintaizhanglist()"><span><img src="../images/lzjl.svg" alt="" /></span><span><p>2</p><p>履责记录</p></span></div>
+               <div tapmode onclick="zuixintaizhanglist()"><span><img src="../images/lzjl.svg" alt="" /></span><span><p id="len"></p><p>履责记录</p></span></div>
              </div>
              <div class="footer">
                  <p style="text-indent:2em;">

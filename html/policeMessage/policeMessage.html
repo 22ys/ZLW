@@ -214,15 +214,13 @@
 
     })
 
-    function comeBack() {
-        api.openWin({
-            name: 'policeMessageSub',
-            url: '../index.html',
-            pageParam: {
-
-            }
-        });
-    }
+    function comeBack() {   
+  		api.historyBack({ }, function(ret, err) {     
+  			if (!ret.status) {       
+  				api.closeWin();     
+  			}  
+  		});
+  	}
 
     function controlbj(time, alarm_content, Addr) {
         api.openWin({
@@ -236,7 +234,7 @@
         });
     }
 
-    function pressurebj(time, parameter, alarm_content, Addr) {
+    function pressurebj(time, alarm_content, Addr ,parameter) {
         api.openWin({
             name: 'policeMessageSub',
             url: './policeMessageSub.html',
