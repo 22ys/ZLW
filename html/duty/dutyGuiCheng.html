@@ -125,6 +125,7 @@
     </div>
 </body>
 <script type="text/javascript" src="../../script/api.js"></script>
+<script src="../../js/cookie.js"></script>
 <script type="text/javascript">
     apiready = function() {
         var ip = localStorage.getItem("ip")
@@ -139,7 +140,8 @@
             type: 'post',
             data: {
                 duty_id: id,
-                type: 1
+                type: 1,
+                user_id:$.cookie('user_id')
             },
             success: function(ret) {
                 $.each(ret.work, function(index, value) {

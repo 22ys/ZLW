@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="../template/bootstrap/bootstrap.css">
 	<script src="../template/bootstrap/bootstrap.js"></script>
 	<script type="text/javascript" src="../../script/api.js"></script>
+	<script src="../../js/cookie.js"></script>
 
 </head>
 <style type="text/css">
@@ -203,7 +204,9 @@
 		dataType: 'json',
 		type: 'post',
 		data: {
-			type: 1,
+			type:1,
+			user_id:$.cookie('user_id')
+
 		},
 		success: function(ret) {
 			var html = "<option value='0'>" + "请选择部门" + "</option>";

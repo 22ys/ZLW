@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../../css/api.css" />
     <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="../../js/echarts.min.js"></script>
-
+<script src="../../js/cookie.js"></script>
     <style>
         body {}
 
@@ -148,7 +148,7 @@ var error = 0;
             type: "post",
             dataType: "json",
             data: {
-
+user_id:$.cookie('user_id')
             },
             success: function(ret) {
                 function showall(menu_list, parent) {
@@ -283,7 +283,8 @@ var error = 0;
             type: 'post',
             data: {
                 work_id: work_id,
-                type: 4
+                type: 4,
+                user_id:$.cookie('user_id')
             },
             success: function(ret) {
                 if (ret.template == 400) {

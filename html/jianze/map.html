@@ -20,20 +20,34 @@
 	  color:#f1f1f1;
 	  text-shadow: 1px 1px 3px #000;
 	}
-	.mui-bar .mui-icon{
+	.mui-bar .mui-{
 	    text-shadow: 1px 1px 3px #000;
 	}
 	.content{
 		border: solid 5px rgba(0,0,0,0.5);
 	}
+	#allmap{
+		margin-top: 44px;
+	}
+	.BMap_cpyCtrl {
+
+		 display: none;
+
+		}
+
+		.anchorBL {
+
+		 display: none;
+
+		}
 	</style>
 	<title>地图展示</title>
 </head>
 <body>
 	<header class="mui-bar mui-bar-nav" id="header">
-    <span class="mui-icon mui-icon-back mui-pull-left" tapmode onclick="comeBack()"></span>
+    <span class="mui- mui--back mui-pull-left" tapmode onclick="comeBack()"></span>
     <h1 class="mui-title">安全评估</h1>
-    <span class="mui-icon mui-icon-person mui-pull-right" tapmode onclick="personal()"></span>
+    <span class="mui- mui--person mui-pull-right" tapmode onclick="personal()"></span>
   </header>
 
 	<div id="allmap"></div>
@@ -44,43 +58,92 @@
 </body>
 </html>
 <script type="text/javascript">
-	// 百度地图API功能
-	var map = new BMap.Map("allmap");    // 创建Map实例
-	map.centerAndZoom(new BMap.Point(120.1128, 30.3387),19);  // 初始化地图,设置中心点坐标和地图级别
-	//添加地图类型控件
-	map.addControl(new BMap.MapTypeControl({
-		mapTypes:[
-            BMAP_NORMAL_MAP,
-            BMAP_HYBRID_MAP
-        ]}));
-	map.setCurrentCity("杭州");          // 设置地图显示的城市 此项是必须设置的
-	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-	var data_info = [[120.1128, 30.3387,"A级"]
+function initMap(){
+		createMap();//创建地图
+		setMapEvent();//设置地图事件
+		addMarker();//向地图中添加marker
+}
 
-						];
-		var opts = {
-					width : 250,     // 信息窗口宽度
-					height: 80,     // 信息窗口高度
-					title : "安全评估" , // 信息窗口标题
-					enableMessage:true//设置允许信息窗发送短息
-				   };
-		for(var i=0;i<data_info.length;i++){
-			var marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]));  // 创建标注
-			var content = data_info[i][2];
-			map.addOverlay(marker);               // 将标注添加到地图中
-			addClickHandler(content,marker);
-		}
-		function addClickHandler(content,marker){
-			marker.addEventListener("click",function(e){
-				openInfo(content,e)}
-			);
-		}
-		function openInfo(content,e){
-			var p = e.target;
-			var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
-			var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象
-			map.openInfoWindow(infoWindow,point); //开启信息窗口
-		}
+//创建地图函数：
+function createMap(){
+		var map = new BMap.Map("allmap");//在百度地图容器中创建一个地图
+		var point = new BMap.Point(120.017815,30.29592);//定义一个中心点坐标
+		map.centerAndZoom(point,18);//设定地图的中心点和坐标并将地图显示在地图容器中
+		window.map = map;//将map变量存储在全局
+		map.addControl(new BMap.MapTypeControl({
+			mapTypes:[
+							BMAP_NORMAL_MAP,
+							BMAP_HYBRID_MAP
+					]}));	     //开启鼠标滚轮缩放
+}
+function setMapEvent(){
+		map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+		map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+		map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+		map.enableKeyboard();//启用键盘上下左右键移动地图
+}
+
+
+				// var abc = new BMap.('1.svg',new BMap.Size(32,32));
+
+
+						var markerArr = [{title:"博文苑6楼",content:"857分",point:"120.016432|30.296127",isOpen:0,icon:{w:32,h:32,l:0,t:0,x:0,lb:0}}
+					 ,{title:"7号楼",content:"845分",point:"120.018713|30.295324",isOpen:0,icon:{w:32,h:32,l:0,t:0,x:0,lb:0}}
+					 ,{title:"外国语学院",content:"457分",point:"120.018336|30.296497",isOpen:0,icon:{w:32,h:32,l:0,t:64,x:0,lb:0}}
+					 ];
+			    //创建marker
+			    function addMarker(){
+			        for(var i=0;i<markerArr.length;i++){
+			            var json = markerArr[i];
+			            var p0 = json.point.split("|")[0];
+			            var p1 = json.point.split("|")[1];
+			            var point = new BMap.Point(p0,p1);
+						var iconImg = createIcon(json.icon);
+			            var marker = new BMap.Marker(point,{icon:iconImg});
+						var iw = createInfoWindow(i);
+						var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-json.icon.x+10,-20)});
+						marker.setLabel(label);
+			            map.addOverlay(marker);
+			            label.setStyle({
+			                        borderColor:"#808080",
+			                        color:"#333",
+			                        cursor:"pointer"
+			            });
+
+						(function(){
+							var index = i;
+							var _iw = createInfoWindow(i);
+							var _marker = marker;
+							_marker.addEventListener("click",function(){
+							    this.openInfoWindow(_iw);
+						    });
+						    _iw.addEventListener("open",function(){
+							    _marker.getLabel().hide();
+						    })
+						    _iw.addEventListener("close",function(){
+							    _marker.getLabel().show();
+						    })
+							label.addEventListener("click",function(){
+							    _marker.openInfoWindow(_iw);
+						    })
+							if(!!json.isOpen){
+								label.hide();
+								_marker.openInfoWindow(_iw);
+							}
+						})()
+			        }
+			    }
+			    //创建InfoWindow
+			    function createInfoWindow(i){
+			        var json = markerArr[i];
+			        var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
+			        return iw;
+			    }
+
+			    function createIcon(json){
+			        var icon = new BMap.Icon("img.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
+			        return icon;
+			    }
 	function comeBack(){
 		    api.historyBack({
 		    },function(ret,err){
@@ -89,4 +152,5 @@
 			        }
 		    });
 	}
+ initMap();
 </script>

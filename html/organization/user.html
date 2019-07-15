@@ -9,6 +9,7 @@
   <link rel="stylesheet" type="text/css" href="../template/bootstrap/bootstrap.css"/>
   <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
   <script type="text/javascript" src="../template/bootstrap/bootstrap.js"></script>
+  <script src="../../js/cookie.js"></script>
   <style>
   #containet{
     margin-top: 50px;
@@ -213,7 +214,8 @@
       dataType:'json',
       type:'post',
       data:{
-       type:0
+       type:0,
+       user_id:$.cookie('user_id')
      },
      success:function(ret){
        var pageMain=$('#pageMain')
@@ -384,7 +386,8 @@ function del(user_id){
    	type:'post',
    	data:{
    		or_id:or_id,
-   		type:5
+   		type:5,
+      user_id:$.cookie('user_id')
    	},
    	success:function(ret){
 	var post1="<option value='0'>选择岗位</option>";

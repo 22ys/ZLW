@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
     <link rel="stylesheet" type="text/css" href="../../css/api.css" />
     <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+    <script src="../../js/cookie.js"></script>
     <style>
         body {}
 
@@ -140,7 +141,8 @@
             type: 'post',
             data: {
                 duty_work_id: id,
-                type: 4
+                type: 4,
+                user_id:$.cookie('user_id')
             },
             success: function(ret) {
                 $.each(ret.work, function(index, value) {

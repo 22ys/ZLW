@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../template/bootstrap/bootstrap.css">
     <script src="../template/bootstrap/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <script src="../../js/cookie.js"></script>
     <style>
         body {}
 
@@ -182,7 +183,8 @@
             type: 'post',
             data: {
                 type: 2,
-                post_id: post_id
+                post_id: post_id,
+                user_id:$.cookie('user_id')
             },
             success: function(ret) {
                 var con = ""

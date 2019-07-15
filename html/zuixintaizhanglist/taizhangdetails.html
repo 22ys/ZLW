@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="../template/bootstrap/bootstrap.css">
 	<script src="../template/bootstrap/bootstrap.js"></script>
 	<script type="text/javascript" src="../../script/api.js"></script>
+	  <script src="../../js/cookie.js"></script>
 </head>
 <style type="text/css">
 	.form-horizontal .form-group {
@@ -210,7 +211,8 @@
 			url: url,
 			dataType: 'json',
 			data: {
-				id: id
+				id: id,
+				user_id:$.cookie('user_id')
 			},
 			success: function(data) {
 				var img1 = ''

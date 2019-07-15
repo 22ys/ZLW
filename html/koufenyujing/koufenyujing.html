@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
         <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
         <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/cookie.js"></script>
         <style>
         #containet{
           margin-top: 50px;
@@ -126,7 +127,7 @@
               dataType:'json',
               type:'post',
               data:{
-
+user_id:$.cookie('user_id')
               },success:function(ret){
 
                 var pageMain=$('#pageMain')

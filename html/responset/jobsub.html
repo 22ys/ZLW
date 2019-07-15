@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../../css/api.css" />
     <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="../../js/echarts.min.js"></script>
+      <script src="../../js/cookie.js"></script>
     <style>
         .btn {
             font-size: 12px;
@@ -138,16 +139,19 @@
         var ip = localStorage.getItem("ip")
         var url = `http://${ip}/dutylist/src/job.php`
         var tr = '';
+        console.log(url)
         $.ajax({
             url: url,
             dataType: 'json',
             type: 'post',
             data: {
-                type: 1
+                type: 1,
+                user_id:$.cookie('user_id')
+
             },
             success: function(ret) {
 
-                $.each(ret, function(index, val) {
+                $.each(ret.data, function(index, val) {
                     tr += `<tr><td >${val.score}</td><td>${val.content}</td><td class="text-center"><button class="btn btn-warning" onclick="btn(${val.id})">提交</button></td></tr>`
                 })
                 $('#tbody').html(tr)

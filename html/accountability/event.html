@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../template/bootstrap/bootstrap.css">
     <script src="../template/bootstrap/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <script src="../../js/cookie.js"></script>
     <style>
         body {}
 
@@ -176,7 +177,7 @@
             dataType: 'json',
             type: 'post',
             data: {
-
+                       user_id:$.cookie('user_id')
             },
             success: function(ret) {
                 var work_zq_up = ' ';
