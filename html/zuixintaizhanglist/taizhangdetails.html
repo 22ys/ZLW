@@ -9,6 +9,8 @@
 	<script src="../template/bootstrap/bootstrap.js"></script>
 	<script type="text/javascript" src="../../script/api.js"></script>
 	  <script src="../../js/cookie.js"></script>
+		<script src="viewer-jquery.min.js"></script>
+<link rel="stylesheet" href="viewer.min.css" media="all"/>
 </head>
 <style type="text/css">
 	.form-horizontal .form-group {
@@ -83,6 +85,24 @@
 		width: 180px;
 		height: 120px;
 	}
+	#file_father{
+		display: none;
+}
+#pdf_father{
+		display: none;
+}
+.button{
+		margin: 0;
+}
+#file{
+		display: flex;
+		align-items: flex-end;
+}
+.margin{
+		margin-top: 5px;
+		margin-left: 15px;
+		font-size: 12px;
+}
 </style>
 
 <body>
@@ -131,6 +151,18 @@
 
 			</div>
 		</div>
+		<div class="layui-form-item" id="file_father">
+        <label class="col-sm-2 col-md-2 col-lg-1 control-label">文件预览</label>
+        <div class="layui-input-block" id="file">
+
+        </div>
+    </div>
+    <div class="layui-form-item" id="pdf_father">
+        <label class="col-sm-2 col-md-2 col-lg-1 control-label">文件预览</label>
+        <div class="layui-input-block" id="pdf">
+
+        </div>
+    </div>
 		<div class="form-group" id="video_father">
 			<label for="name" class="col-sm-2 col-md-2 col-lg-1 control-label ">视频</label>
 			<div>
@@ -215,15 +247,26 @@
 				user_id:$.cookie('user_id')
 			},
 			success: function(data) {
-				var img1 = ''
-				$.each(data.action, function(index, value) {
-						var imgurl = value.fil_path
-						var subStr = new RegExp('../../'); //创建正则表达式对象
-						var result = imgurl.replace(subStr, ""); //把'is'替换为空字符串
-						var imgUrl = `http://${ip}/dutylist/${result}`
-						img1 += "<img src='" + imgUrl + "' class='img' >"
+		  var img1=''
+			var word=''
+			var pdf=''
+			var url='http://118.25.5.116/dutylist/src/images/'
+			$.each(data.action,function (index,value) {
+				var file=/\.[^\.]+$/.exec(value.fil_path);
+				if(file[0]=='.png'||file[0]=='.jpg'||file[0]=='.jpeg'){
+						var file_name=value.fil_path.replace(/(.*\/)*([^.]+).*/ig,"$2");
+						img1+= `<img src='${url}${file_name}${file[0]}' class='img' style='width: 150px' height='100px'>`
+					}
+				if(file[0]=='.xlsx'||file[0]=='.docx'){
+					var file_name=value.fil_path.replace(/(.*\/)*([^.]+).*/ig,"$2");
+					word+=`<a href="http://www.xdocin.com/xdoc?_func=to&amp;_format=html&amp;_cache=1&amp;_xdoc=${url}${file_name}${file[0]}" target="_blank" rel="nofollow" class="btn btn-info margin">查看文件</a>`
+				}
+				if(file[0]=='.pdf'){
+					var file_name=value.fil_path.replace(/(.*\/)*([^.]+).*/ig,"$2");
+					pdf+=`<a href="${url}${file_name}${file[0]}" class="btn btn-info margin">查看文件</a>`
+				}
 
-					})
+			})
 					// console.log(data);
 				$("#post").val(data.post_name);
 				$("#title").val(data.title);
@@ -243,7 +286,15 @@
 				}
 				// layui.form.render();
 
-				$('#img').html(img1);
+				  $('#img').html(img1);
+					$('#file').html(word)
+					$('#pdf').html(pdf)
+					if(pdf){
+						$('#pdf_father').show()
+					}
+					if(word){
+						$('#file_father').show()
+					}
 				// $('#video').attr('src',)
 				// $('#audio').attr('src',)
 				var img = $('.img').attr('src')
@@ -258,6 +309,9 @@
 				if (audio) {
 					$('#audio_father').show()
 				}
+				$('#img_father').viewer({
+				url: 'src',
+			});
 			}
 		})
 
