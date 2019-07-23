@@ -43,7 +43,8 @@
 
 	 <preference name="statusBarAppearance" value="false"/>
 	<permission name="readPhoneState" />
-
+  <preference name="autoUpdate" value="true"/>
+  <preference name="smartUpdate" value="true" />
 	<permission name="camera" />
 
 	<permission name="record" />
