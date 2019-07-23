@@ -115,7 +115,7 @@
             <thead>
                 <tr>
                     <th class="text-center">细项类容</th>
-                    <th class="text-center">提醒时间</th>
+                    <th class="text-center">更新时间</th>
                     <th class="text-center">分值</th>
                 </tr>
             </thead>
@@ -147,7 +147,7 @@
                 $.each(ret.work, function(index, value) {
                     tr += `<tr class="text-center">
           <td >${value.content}</td>
-          <td style="width:70px">${value.tx_time}</td>
+          <td style="width:70px">${value.add_time}</td>
           <td style="width:70px">${value.score}</td>`
                 })
                 $('#tbody').html(tr)

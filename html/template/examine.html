@@ -12,13 +12,13 @@
     <link href="./bootstrap/bootstrap.css" rel="stylesheet">
     <script src="bootstrap/bootstrap.js"></script>
     <link href="./css/submit.css" rel="stylesheet">
-    <script src="../../js/jquery.cookie.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
     <style type="text/css">
         img{
             display:none;
         }
         .container{
-            margin-top: 20px;
+            margin-top: 40px;
         }
         #margin{
             margin-top: 10px;
@@ -36,7 +36,11 @@
 
 </head>
 <body>
-<button type="button" class="btn btn-success" id="margin" onclick="go()">上一步</button>
+  <header class="mui-bar mui-bar-nav" id="header">
+     <span class="mui-icon mui-icon-back mui-pull-left" tapmode onclick="comeBack()"></span>
+     <h1 class="mui-title">工作提交</h1>
+     <span class="mui-icon mui-icon-person mui-pull-right" tapmode onclick="personal()"></span>
+   </header>
 <div class="container">
     <div class="row col-xs-12">
         <input type="hidden" value="" id="score">
@@ -224,8 +228,13 @@ var Url = `http://${ip}/shop/src/job.php`
             },
         });}
     })
-    function go() {
-        history.go(-1)
+    function comeBack(){
+    	    api.historyBack({
+    	    },function(ret,err){
+    		        if (!ret.status) {
+    			            api.closeWin();
+    		        }
+    	    });
     }
 </script>
 </html>

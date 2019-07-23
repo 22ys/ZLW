@@ -11,34 +11,89 @@
     <script src="jquery/jquery.js"></script>
     <link href="./bootstrap/bootstrap.css" rel="stylesheet">
     <script src="bootstrap/bootstrap.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
     <link href="./css/submit.css" rel="stylesheet">
     <style type="text/css">
-        img {
-            width: 170px;
-            height: 120px;
-            display: none;
+    img,video{
+               width: 60px;
+               height: 60px;
+           }
+           .img1,video{
+               display: none;
+           }
+           audio{
+               width: 60px;
+               height: 30px;
+               display: none;
+           }
+           .material{
+               width: 100%;
+               display: flex;
+               flex-direction: column;
+               justify-content: space-around;
+               align-items: center;
+
+           }
+           .material_button{
+               margin-top: 10px;
+
+           }
+           .material_show{
+               width:95%;
+               margin-bottom: 10px;
+               justify-content: space-around;
+               align-items: center;
+               flex-wrap: wrap;
+               display: none;
+
+           }
+           .btn{
+             font-size: 12px;
+           }
+           .img1{
+               display: flex;
+           }
+           #header{
+             width: 100%;
+             background: url(../../images/navbar.png);
+             color:#f1f1f1;
+             text-shadow: 1px 1px 3px #000;
+           }
+           .mui-title{
+             color:#f1f1f1;
+             text-shadow: 1px 1px 3px #000;
+           }
+           .mui-bar .mui-icon{
+               text-shadow: 1px 1px 3px #000;
+           }
+           .container{
+             margin-top: 44px;
+           }
+           .btn{
+            position: relative;
         }
-        .container{
-            margin-top: 20px;
+        .img2{
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+
         }
-        #margin{
-            margin-top: 10px;
-            margin-left: 15px;
-            font-size: 12px;
-        }
-        button:nth-of-type(1){
-            margin-left: 50px;
-            margin-right: 15px;
-        }
-        button{
-            margin-top: 15px;
-        }
+
+
     </style>
 
 </head>
 <body>
-<button type="button" class="btn btn-success" id="margin" onclick="go()">上一步</button>
+  <header class="mui-bar mui-bar-nav" id="header">
+     <span class="mui-icon mui-icon-back mui-pull-left" tapmode onclick="comeBack()"></span>
+     <h1 class="mui-title">工作提交</h1>
+     <span class="mui-icon mui-icon-person mui-pull-right" tapmode onclick="personal()"></span>
+   </header>
+
 <div class="container">
     <div class="row col-xs-12">
         <input type="hidden" value="" id="score">
@@ -197,8 +252,14 @@ var Url = `http://${ip}/shop/src/job.php`
             })
         }
     })
-     function go() {
-         history.go(-1)
-     }
+    function comeBack(){
+    	    api.historyBack({
+    	    },function(ret,err){
+    		        if (!ret.status) {
+    			            api.closeWin();
+    		        }
+    	    });
+    }
+
 </script>
 </html>

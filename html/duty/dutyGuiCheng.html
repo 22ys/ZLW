@@ -114,7 +114,7 @@
             <thead>
                 <tr>
                     <th class="text-center">工作类容</th>
-                    <th class="text-center">提醒时间</th>
+                    <th class="text-center">添加时间</th>
                     <th class="text-center">详情</th>
                 </tr>
             </thead>
@@ -147,7 +147,7 @@
                     tr +=
                         `<tr class="text-center">
           <td >${value.content}</td>
-          <td style="width:70px">${value.addtime}</td>
+          <td style="width:70px">${value.add_time}</td>
           <td style="width:60px"><button class="mui-btn mui-btn-primary" tapmode onclick="work_action('${value.Work_Discipline_ID}','${value.content}')" style="font-size:10px">详情</button></td></tr>`
                 })
                 $('#tbody').html(tr)
