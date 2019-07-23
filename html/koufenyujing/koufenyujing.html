@@ -8,7 +8,6 @@
         <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
         <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
         <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
-        <script src="../../js/cookie.js"></script>
         <style>
         #containet{
           margin-top: 50px;
@@ -121,13 +120,13 @@
         apiready = function(){
               id= api.pageParam.id;
           var ip=localStorage.getItem("ip")
-          var url=`http://${ip}/dutylist/src/dutylist.php`
+          var url=`http://${ip}/shop/src/dutylist.php`
               $.ajax({
               url:url,
               dataType:'json',
               type:'post',
               data:{
-user_id:$.cookie('user_id')
+          user_id:localStorage.getItem("user_id")
               },success:function(ret){
 
                 var pageMain=$('#pageMain')

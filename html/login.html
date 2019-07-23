@@ -91,9 +91,9 @@
 function login(){
 var account=$("#user").val();
 var pwd    =$("#pwd").val();
-var ip='118.25.5.116'
+var ip='192.168.0.113'
 localStorage.setItem("ip",ip)
-var url=`http://${ip}/dutylist/src/login.php`
+var url=`http://${ip}/dutyList/src/login.php`
 $.ajax({
 url:url,
 dataType:'json',
@@ -106,11 +106,8 @@ data:{
 },
 success:function(ret){
   console.log(JSON.stringify(ret))
-  $.cookie("user", ret.msg);
-  $.cookie('user_id',ret.user_id);
-  localStorage.setItem("user_id",ret.msg.user_id)
-  localStorage.setItem("user_name",ret.msg.user_name)
-  localStorage.setItem("pwd",ret.msg.pwd)
+  localStorage.setItem("user_id",ret.user_id)
+  localStorage.setItem("user_name",ret.msg)
   api.openWin({
       name: 'index',
       url: './index.html',

@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="../template/bootstrap/bootstrap.css">
     <script src="../template/bootstrap/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <script src="../../js/cookie.js"></script>
     <style>
         body {}
 
@@ -134,7 +133,7 @@
 <script type="text/javascript">
     apiready = function() {
         ip = localStorage.getItem("ip")
-        url = `http://${ip}/dutylist/src/historical.php`
+        url = `http://${ip}/shop/src/historical.php`
         $.ajax({
             url: url,
             dataType: 'json',
@@ -184,7 +183,7 @@
             data: {
                 type: 2,
                 post_id: post_id,
-                user_id:$.cookie('user_id')
+                user_id:localStorage.getItem("user_id")
             },
             success: function(ret) {
                 var con = ""

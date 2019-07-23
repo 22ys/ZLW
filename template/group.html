@@ -7,58 +7,55 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Page Description">
     <meta name="author" content="Administrator">
-    <title>会议记录型</title>
+    <title>演练类型</title>
     <script src="jquery/jquery.js"></script>
     <link href="./bootstrap/bootstrap.css" rel="stylesheet">
     <script src="bootstrap/bootstrap.js"></script>
-    <link href="./css/submit.css" rel="stylesheet">
     <script src="../../js/jquery.cookie.js"></script>
-
-    <style>
-        #add_img {
-            height: 40px;
+    <link href="./css/submit.css" rel="stylesheet">
+    <style type="text/css">
+        img{
+            display:none;
         }
-
-        button {
-            margin: 0;
+        #margin{
+            margin-top: 10px;
+            margin-left: 15px;
+            font-size: 12px;
         }
-
-        img {
-            width: 170px;
-            height: 120px;
-            display: none;
+        button:nth-of-type(1){
+            margin-left: 50px;
+            margin-right: 15px;
         }
-        .container{
-            margin-top: 20px;
+        button{
+            margin-top: 15px;
         }
     </style>
 
 </head>
 <body>
+<button type="button" class="btn btn-success" id="margin" onclick="go()">上一步</button>
 <div class="container">
     <div class="row col-xs-12">
-        <input type="hidden" value="" id="score">
+ <input type="hidden" value="" id="score">
         <form class="form-horizontal" role="form" id="form">
+            <input type="hidden" name="type" value="3">
+            <input type="hidden"  value="" id="work_id" name="work_id">
+            <input type="hidden"  value="" id="tz_type" name="tz_type">
+            <input type="hidden"  value="" id="user_id" name="user_id">
             <div class="form-group">
-                <label class="col-sm-2 col-md-2 col-lg-1 control-label"></label>
-                <div class="col-sm-3">
+                <label class="col-sm-2 col-md-2 col-lg-1 control-label">现场照片</label>
+                <div class="col-sm-1">
                     <input id="lefile" type="file" style="display:none" name="photograph1">
                     <div class="input-append">
-                        <img src="" alt="" width="" height="" id="img">
+                        <img src="" alt="" width="300px" height="200px" id="img">
                     </div>
                 </div>
-                <button for="photographs1" onclick="$('input[id=lefile]').click();" type="button"
-                        class="btn btn-primary" style="background:#009688">
+                <button onclick="$('input[id=lefile]').click();" type="button" class="btn btn-primary"
+                        style="background:#009688">
                     上传图片
                 </button>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 col-md-2 col-lg-1 control-label">会议标题</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="title" placeholder="">
-                </div>
-            </div>
 
+            </div>
 
             <div class="form-group">
                 <label class="col-sm-2 col-md-2 col-lg-1 control-label">完成情况</label>
@@ -79,32 +76,27 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 col-md-2 col-lg-1 control-label">会议要点</label>
+                <label class="col-sm-2 col-md-2 col-lg-1 control-label">工作内容</label>
                 <div class="col-sm-8">
                     <textarea class="form-control" rows="6" id="text_content" name="text_content"></textarea>
                 </div>
             </div>
 
-            <input type="hidden" name="type" value="3">
-            <input type="hidden" name="work_id" value="" id="work_id">
-            <input type="hidden" name="tz_type" value="" id="tz_type">
-            <input type="hidden" name="user_id" value="" id="user_id">
+<!--             <div class="button" style="width:15%">
+                <button type="button" class="btn btn-info">人脸识别</button>
+            </div> -->
             <div class="submit">
                 <button type="button" class="btn btn-info" id="sub">提交</button>
-                <button type="reset" class="btn btn-default" id="ret">重新填写</button>
+                <button type="button" class="btn btn-default">重新填写</button>
             </div>
+
         </form>
     </div>
 </div>
 
+
 </body>
 <script type="text/javascript">
-var ip = localStorage.getItem("ip")
-var Url = `http://${ip}/shop/src/job.php`
-    $('#gain_time').click(function () {
-        let time = new Date(+new Date() + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-        $('#time').val(time)
-    })
 
     function getQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -115,15 +107,11 @@ var Url = `http://${ip}/shop/src/job.php`
 
     var work_id = getQueryString("work_id");
     var tz_type = getQueryString("tz_type");
-
-    $("#tz_type").val(tz_type);
     $("#work_id").val(work_id);
-    var user_id =  localStorage.getItem("user_id")
-  $("#work_id").val(work_id);
-  $("#tz_type").val(tz_type);
-  $("#user_id").val(user_id);
+    $("#tz_type").val(tz_type);
+    $("#user_id").val($.cookie("user_id"));
     $.ajax({
-        url:Url,
+        url: '../../src/job.php',
         dataType: 'json',
         type: 'post',
         data: {
@@ -153,26 +141,24 @@ var Url = `http://${ip}/shop/src/job.php`
         if (objUrl) {
             $('#photograph1').val($(this).val());
             $("#img").attr("src", objUrl); //将图片路径存入src中，显示出图片
-            $("#img").show();
         }
     });
 
     $("#sub").click(function () {
         var formData = new FormData($("#form")[0]);
-        // if (false){
-        //       alert("请填写检查人")
-        // }else if(false){
-        //     alert("分数")
-        // }
-        // else
-        // if($('#text_content').val()==''){
-        //     alert("请填写检查记录")
-        // }else
-        if ($('#text_content').val() == '') {
-            alert("请填写会议要点")
-        }else {
+        var state="";
+        if($('#text_content').val() == ''){
+            state+="请填写工作内容";
+        }
+        if($("#fraction").val()==""||$("#fraction").val()>parseFloat($("#q_score").val())){
+            state+="自评分不能为空，并且不能大于该次总分";
+        }
+    
+        if (state) {
+            alert(state);
+        } else {
             $.ajax({
-                url: Url,
+                url: "../../src/job.php",
                 type: 'post',
                 data: formData,
                 // 告诉jQuery不要去处理发送的数据
@@ -184,18 +170,16 @@ var Url = `http://${ip}/shop/src/job.php`
                 //     console.log("正在进行，请稍候");
                 // },
                 success: function (data) {
-                    if(data.code==200){
-                        alert("提交成功")
-                        window.location.href='../responset/jobsub.html';
-                    }else{
-                        alert(data.msg);
-                    }
+                 alert(data.msg);
                 },
                 error: function (data) {
                     console.log(data);
                 }
-            })
+            });
         }
     })
+    function go() {
+        history.go(-1)
+    }
 </script>
 </html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,123 +12,117 @@
     <link href="./bootstrap/bootstrap.css" rel="stylesheet">
     <script src="bootstrap/bootstrap.js"></script>
     <link href="./css/submit.css" rel="stylesheet">
-    <script type="text/javascript" src="../../script/api.js"></script>
+    <script src="../../js/jquery.cookie.js"></script>
     <style type="text/css">
         img {
             width: 170px;
             height: 120px;
             display: none;
         }
-
-        .header {
-            width: 100%;
-            height: 50px;
+        .container{
+            margin-top: 20px;
         }
-
-        header {
-            background: #f1f1f1;
-            height: 50px;
-            width: 100%;
-            margin-bottom: 5px;
-            z-index: 999;
-        }
-
-        header div {
+        #margin{
+            margin-top: 10px;
             margin-left: 15px;
-            width: 57%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 14px;
+            font-size: 12px;
         }
-
-        header img {
-            width: 17px;
-            height: 17px;
-            display: block;
+        button:nth-of-type(1){
+            margin-left: 50px;
+            margin-right: 15px;
         }
-
-        header span {
-            width: 40px;
-            height: 100%;
-            display: flex;
-            align-items: center;
+        button{
+            margin-top: 15px;
         }
     </style>
 
 
 </head>
 <body>
-    <div class="header">
-        <header>
-            <div>
-                <span tapmode onclick="comeBack()"><img src="../../images/fh.svg" alt="" ></span>
-                <h4>工作提交</h4>
+<button type="button" class="btn btn-success" id="margin" onclick="go()">上一步</button>
+<div class="container">
+    <input type="hidden" value="" id="score">
+    <div class="row col-xs-12">
+
+        <form class="form-horizontal" role="form" id="form">
+            <!--            <div class="form-group">
+                           <label  class="col-sm-1 control-label">报表</label>
+                           <div class="col-sm-2">
+                               <input type="text" class="form-control" id="time" placeholder="">
+                           </div>
+                       </div> -->
+            <!--          <div class="form-group">
+                         <label  class="col-sm-1 control-label">巡查人</label>
+                         <div class="col-sm-2">
+                             <input type="text" class="form-control" id="time" placeholder="">
+                         </div>
+                     </div> -->
+            <input type="hidden" name="type" value="3">
+            <input type="hidden" name="tz_type" value="" id="tz_type">
+            <input type="hidden" value="" id="work_id" name="work_id">
+            <input type="hidden" value="" id="user_id" name="user_id">
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-1 control-label"></label>
+                <div class="col-sm-3">
+                    <input id="lefile" type="file" style="display:none" name="photograph1">
+                    <div class="input-append">
+                        <img src="" alt="" width="300px" height="200px" id="img">
+                    </div>
+                </div>
+                <button for="photographs1" onclick="$('input[id=lefile]').click();" type="button"
+                        class="btn btn-primary" style="background:#009688">
+                    上传图片
+                </button>
             </div>
-        </header>
-    </div>
-    <div class="container">
-        <input type="hidden" value="" id="score">
-        <div class="row col-xs-12">
-            <form class="form-horizontal" role="form" id="form">
-                <input type="hidden" name="type" value="3">
-                <input type="hidden" name="tz_type" value="" id="tz_type">
-                <input type="hidden" value="" id="work_id" name="work_id">
-                <div class="form-group">
-                    <label class="col-sm-2 col-md-2 col-lg-1 control-label">上传图片</label>
-                    <div class="col-sm-2">
-                        <input id="lefile" type="file" style="display:none" name="photograph1">
-                        <div class="input-append">
-                            <img src="" alt="" width="300px" height="200px" id="img">
-                        </div>
-                    </div>
-                    <button for="photographs1" tapmode onclick="$('input[id=lefile]').click();" type="button" class="btn btn-primary" style="background:#009688">
-                        上传图片
-                    </button>
-                </div>
-                <div class="form-group ">
-                    <label class="col-sm-2 control-label">完成进度</label>
-                    <div class="col-sm-2">
-                        <select class="form-control" name="zp_score" id="fraction">
-                        <option value="25">25%</option>
-                        <option value="50">50%</option>
-                        <option value="75">75%</option>
-                        <option value="100">100%</option>
+
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-1 control-label">完成情况</label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="zp_score" id="fraction">
+                        <option value='25'>完成25%</option>
+                        <option value="50">完成50%</option>
+                        <option value='75'>完成75%</option>
+                        <option value='100'>全部完成</option>
                     </select>
-                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-md-2 col-lg-1 control-label">得分依据</label>
-                    <div class="col-sm-8">
-                        <textarea class="form-control" disabled rows="6" id="work_basis" name="text_jianyi"></textarea>
-                    </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-1 control-label">得分依据</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" disabled rows="6" id="work_basis" name="basis"></textarea>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 col-md-2 col-lg-1 control-label">相关记录</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" rows="12" id="text_content" name="text_content"></textarea>
-                    </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-1 control-label">工作内容</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" rows="6" id="text_content" name="text_content"></textarea>
                 </div>
-
-                <div class="submit">
-                    <button type="button" class="btn btn-info" tapmode id="sub">提交</button>
-                    <button type="reset" class="btn btn-default">重新填写</button>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-md-2 col-lg-1 control-label">相关意见</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" rows="3" id="text_jianyi" name="text_jianyi"></textarea>
                 </div>
+            </div>
 
-            </form>
-        </div>
+            <div class="submit">
+                <button type="button" class="btn btn-info" id="sub">提交</button>
+                <button type="reset" class="btn btn-default" id='reset'>重新填写</button>
+            </div>
+
+        </form>
     </div>
+</div>
 
 
 </body>
 <script type="text/javascript">
-    var ip = localStorage.getItem("ip")
-    var Url = `http://${ip}/dutylist/src/job.php`
-    $('#gain_time').click(function() {
-        let time = new Date(+new Date() + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-        $('#time').val(time)
+var ip = localStorage.getItem("ip")
+var Url = `http://${ip}/shop/src/job.php`
+    $('#reset').click(function () {
+        $("#img").attr("src",'');
+
     })
 
     function getQueryString(name) {
@@ -141,8 +134,10 @@
 
     var work_id = getQueryString("work_id");
     var tz_type = getQueryString("tz_type");
-    $("#work_id").val(work_id);
-    $("#tz_type").val(tz_type);
+    var user_id =  localStorage.getItem("user_id")
+  $("#work_id").val(work_id);
+  $("#tz_type").val(tz_type);
+  $("#user_id").val(user_id);
     $.ajax({
         url: Url,
         dataType: 'json',
@@ -151,7 +146,7 @@
             type: 2,
             work_id: work_id
         },
-        success: function(ret) {
+        success: function (ret) {
             $("#work_basis").html(ret.basis);
             $("#q_score").val(ret.avg_score);
         }
@@ -169,7 +164,7 @@
         return url;
     }
 
-    $("#lefile").on("change", function() {
+    $("#lefile").on("change", function () {
         var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
         if (objUrl) {
             $('#photograph1').val($(this).val());
@@ -178,7 +173,7 @@
         }
     });
 
-    $("#sub").click(function() {
+    $("#sub").click(function () {
         var formData = new FormData($("#form")[0]);
         // if (false){
         //       alert("请填写检查人")
@@ -188,8 +183,6 @@
         // else
         if ($('#text_content').val() == '') {
             alert("请填写巡查记录")
-        } else if ($("#fraction").val() == "" || $("#fraction").val() > parseFloat($("#q_score").val())) {
-            alert("自评分不能为空，并且不能大于该次总分");
         } else {
 
             $.ajax({
@@ -204,31 +197,22 @@
                 // beforeSend: function () {
                 //     console.log("正在进行，请稍候");
                 // },
-                success: function(data) {
-                    if (data.code == 200) {
-                        alert("提交成功！")
-                    } else if (data.code == 300) {
-                        alert("时间间隔未达标");
-                    } else if (data.code == 400) {
-                        alert("提交失败");
-                    } else if (data.code == 500) {
-                        alert("该任务已提交！");
+                success: function (data) {
+                    if(data.code==200){
+                        alert("提交成功")
+                        window.location.href='../responset/jobsub.html';
+                    }else{
+                        alert(data.msg)
                     }
                 },
-                error: function(data) {
-                    console.log(JSON.stringify(data));
+                error: function (data) {
+                    console.log(data);
                 }
             })
         }
     })
-
-    function comeBack() {   
-        api.historyBack({  }, function(ret, err) {     
-            if (!ret.status) {       
-                api.closeWin();     
-            }  
-        });
+    function go() {
+        history.go(-1)
     }
 </script>
-
 </html>

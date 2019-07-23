@@ -198,14 +198,14 @@
 </body>
 <script>
 	var ip = localStorage.getItem("ip")
-	var url = `http://${ip}/dutylist/src/add_temporary_task.php`
+	var url = `http://${ip}/shop/src/add_temporary_task.php`
 	$.ajax({
 		url: url,
 		dataType: 'json',
 		type: 'post',
 		data: {
 			type:1,
-			user_id:$.cookie('user_id')
+			user_id:localStorage.getItem("user_id")
 
 		},
 		success: function(ret) {

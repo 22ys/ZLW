@@ -99,8 +99,7 @@
 
 </body>
 <script type="text/javascript">
-var ip = localStorage.getItem("ip")
-var Url = `http://${ip}/shop/src/job.php`
+
     $('#gain_time').click(function () {
         let time = new Date(+new Date() + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
         $('#time').val(time)
@@ -118,12 +117,9 @@ var Url = `http://${ip}/shop/src/job.php`
 
     $("#tz_type").val(tz_type);
     $("#work_id").val(work_id);
-    var user_id =  localStorage.getItem("user_id")
-  $("#work_id").val(work_id);
-  $("#tz_type").val(tz_type);
-  $("#user_id").val(user_id);
+    $("#user_id").val($.cookie('user_id'));
     $.ajax({
-        url:Url,
+        url: '../../src/job.php',
         dataType: 'json',
         type: 'post',
         data: {
@@ -172,7 +168,7 @@ var Url = `http://${ip}/shop/src/job.php`
             alert("请填写会议要点")
         }else {
             $.ajax({
-                url: Url,
+                url: "../../src/job.php",
                 type: 'post',
                 data: formData,
                 // 告诉jQuery不要去处理发送的数据

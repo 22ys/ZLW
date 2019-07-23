@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="../template/bootstrap/bootstrap.css">
     <script src="../template/bootstrap/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/api.css" />
-    <script src="../../js/cookie.js"></script>
     <style>
         body {}
 
@@ -171,13 +170,13 @@
 <script type="text/javascript">
     apiready = function() {
         var ip = localStorage.getItem("ip")
-        var Url = `http://${ip}/dutylist/src/event_account.php`
+        var Url = `http://${ip}/shop/src/event_account.php`
         $.ajax({
             url: Url,
             dataType: 'json',
             type: 'post',
             data: {
-                       user_id:$.cookie('user_id')
+                       user_id:localStorage.getItem("user_id")
             },
             success: function(ret) {
                 var work_zq_up = ' ';

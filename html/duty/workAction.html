@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
     <link rel="stylesheet" type="text/css" href="../../css/api.css" />
     <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
-    <script src="../../js/cookie.js"></script>
     <style>
         body {}
 
@@ -132,7 +131,7 @@
         var ip = localStorage.getItem("ip")
         var id = api.pageParam.id
         var content = api.pageParam.content
-        var url = `http://${ip}/dutylist/src/workDisciplineList.php`
+        var url = `http://${ip}/shop/src/workDisciplineList.php`
         var tr = '';
         $('#title').html(content)
         $.ajax({
@@ -142,7 +141,7 @@
             data: {
                 duty_work_id: id,
                 type: 4,
-                user_id:$.cookie('user_id')
+                user_id:localStorage.getItem("user_id")
             },
             success: function(ret) {
                 $.each(ret.work, function(index, value) {

@@ -125,13 +125,12 @@
     </div>
 </body>
 <script type="text/javascript" src="../../script/api.js"></script>
-<script src="../../js/cookie.js"></script>
 <script type="text/javascript">
     apiready = function() {
         var ip = localStorage.getItem("ip")
         var id = api.pageParam.id
         var title = api.pageParam.title
-        var url = `http://${ip}/dutylist/src/workDisciplineList.php`
+        var url = `http://${ip}/dutyList/src/workDisciplineList.php`
         var tr = '';
         $('#title').html(title)
         $.ajax({
@@ -141,7 +140,7 @@
             data: {
                 duty_id: id,
                 type: 1,
-                user_id:$.cookie('user_id')
+                user_id:localStorage.getItem("user_id")
             },
             success: function(ret) {
                 $.each(ret.work, function(index, value) {

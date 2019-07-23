@@ -139,7 +139,7 @@
 <script type="text/javascript">
     apiready = function() {
         var ip = localStorage.getItem("ip")
-        var url = `http://${ip}/dutylist/src/user_temporary.php`
+        var url = `http://${ip}/shop/src/user_temporary.php`
         var tr = '';
         $.ajax({
             url: url,
@@ -147,7 +147,7 @@
             type: 'post',
             data: {
                 type: 1,
-                user_id:$.cookie('user_id')
+                user_id:localStorage.getItem("user_id")
             },
             success: function(ret) {
 
@@ -163,7 +163,7 @@
     //工作提交
     function btn(id) {
         var ip = localStorage.getItem("ip")
-        var url = `http://${ip}/dutylist/src/job.php`
+        var url = `http://${ip}/shop/src/job.php`
         var work_id = id;
         $.ajax({
             url: url,
