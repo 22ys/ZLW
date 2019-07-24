@@ -107,8 +107,12 @@
                 <div class="col-sm-3">
                     <input id="lefile" type="file" style="display:none" name="photograph1">
                     <div class="input-append">
+                        <p id="file"></p>
+                    </div>
+                    <div class="input-append">
                         <img src="" alt="" width="300px" height="200px" id="img">
                     </div>
+
                 </div>
                 <button for="" onclick="$('input[id=lefile]').click();" type="button" class="btn btn-primary"
                         style="background:#009688">
@@ -206,7 +210,7 @@ var Url = `http://${ip}/shop/src/job.php`
     $("#lefile").on("change", function () {
         var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
         if (objUrl) {
-            $('#photograph1').val($(this).val());
+            $('#file').html($(this).val());
             $("#img").attr("src", objUrl); //将图片路径存入src中，显示出图片
             $("#img").show();
         }

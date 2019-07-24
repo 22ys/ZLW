@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport"
-          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <title>title</title>
-    <link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
-    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
     <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
     <style>
         #header {
@@ -38,7 +38,8 @@
             flex-wrap: wrap;
         }
 
-        .gray, .white {
+        .gray,
+        .white {
             width: 100%;
             height: 65px;
         }
@@ -94,6 +95,10 @@
             height: 70px;
             border-radius: 35px;
             border: solid 1px #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px
         }
 
         nav {
@@ -101,7 +106,8 @@
             height: 80px;
             display: flex;
             align-items: center;
-            justify-content: space-around;;
+            justify-content: space-around;
+            ;
         }
 
         nav p {
@@ -112,109 +118,119 @@
         .selected {
             border-bottom: solid 2px #FF6347;
         }
+        .user{
+
+        }
     </style>
 </head>
+
 <body>
-<header class="mui-bar mui-bar-nav" id="header">
-    <span class="mui-icon mui-icon-back mui-pull-left" tapmode onclick="comeBack()"></span>
-    <h1 class="mui-title">排行榜</h1>
-    <span class=" mui-pull-right" tapmode onclick="personal()">排行规则</span>
-</header>
-<section id="section">
-    <div class="gray"></div>
-    <div class="white"></div>
-    <div class="top">
-        <div>
-            <p>排名</p>
-            <h4>5</h4>
-        </div>
-        <div class="user">
+    <header class="mui-bar mui-bar-nav" id="header">
+        <span class="mui-icon mui-icon-back mui-pull-left" tapmode onclick="comeBack()"></span>
+        <h1 class="mui-title">排行榜</h1>
+        <span class=" mui-pull-right" tapmode onclick="personal()">排行规则</span>
+    </header>
+    <section id="section">
+        <div class="gray"></div>
+        <div class="white"></div>
+        <div class="top">
+            <div>
+                <p>排名</p>
+                <h4 id="ranking"></h4>
+            </div>
+            <div class="user">
 
-        </div>
-        <div>
-            <p>得分</p>
-            <span>
-           <p>452</p>
+            </div>
+            <div>
+                <p>得分</p>
+                <span>
+           <p id="avg"></p>
          </span>
+            </div>
         </div>
-    </div>
-    <nav id="nav">
-        <p class="menu selected">今天</p>
-        <p class="menu">昨天</p>
-    </nav>
+        <nav id="nav">
+            <p class="menu selected">今天</p>
+            <p class="menu">昨天</p>
+        </nav>
 
-</section>
+    </section>
 </body>
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript">
-	apiready = function () {
-		var section = $api.byId("section")
-		var header = $api.byId("header")
-		var sectionH = $api.offset(section).h
-		var headerH = $api.offset(header).h
-		var nav = $api.byId("nav")
-		menus = $api.domAll(nav, '.menu')
-		var arr = [];
-		for (let i = 0; i < menus.length; i++) {
-			arr.push({
-				pageParam: {
-					i: i,
+    apiready = function() {
+        var section = $api.byId("section")
+        var header = $api.byId("header")
+        var sectionH = $api.offset(section).h
+        var headerH = $api.offset(header).h
+        var nav = $api.byId("nav")
+        menus = $api.domAll(nav, '.menu')
+        var ranking = api.pageParam.ranking
+        var avg = api.pageParam.avg
+        var user_name = api.pageParam.user_name
+        $('#avg').html(avg)
+        $('#ranking').html(ranking)
 
-				},
-				name: 'frame' + i,
-				url: './ranking_frame.html',
+    
+        var arr = [];
+        for (let i = 0; i < menus.length; i++) {
+            arr.push({
+                pageParam: {
+                    i: i,
 
-			})
-		}
-		api.openFrameGroup({
-			name: 'rankingFrameGroup',
-			scrollEnabled: true,
-			rect: {
-				x: 0,
-				y: sectionH + headerH,
-				w: 'auto',
-				h: 'auto'
-			},
-			index: 0,
-			frames: arr
-		}, function (ret, err) {
-			fn(ret.index)
+                },
+                name: 'frame' + i,
+                url: './ranking_frame.html',
 
-		});
+            })
+        }
+        api.openFrameGroup({
+            name: 'rankingFrameGroup',
+            scrollEnabled: true,
+            rect: {
+                x: 0,
+                y: sectionH + headerH,
+                w: 'auto',
+                h: 'auto'
+            },
+            index: 0,
+            frames: arr
+        }, function(ret, err) {
+            fn(ret.index)
+
+        });
 
 
-	}
-	var menus;
+    }
+    var menus;
 
-	function fn1(i) {
-		fn(i)
-		api.setFrameGroupIndex({
-			name: 'rankingFrameGroup',
-			index: i,
-			scroll: true
-		});
+    function fn1(i) {
+        fn(i)
+        api.setFrameGroupIndex({
+            name: 'rankingFrameGroup',
+            index: i,
+            scroll: true
+        });
 
-	}
+    }
 
-	function fn(j) {
-		for (var i = 0; i < menus.length; i++) {
-			if (j == i) {
-				$api.addCls(menus[i], 'selected')
-			} else {
-				$api.removeCls(menus[i], 'selected');
+    function fn(j) {
+        for (var i = 0; i < menus.length; i++) {
+            if (j == i) {
+                $api.addCls(menus[i], 'selected')
+            } else {
+                $api.removeCls(menus[i], 'selected');
 
-			}
-		}
-	}
+            }
+        }
+    }
 
-	function comeBack() {
-		api.historyBack({}, function (ret, err) {
-			if (!ret.status) {
-				api.closeWin();
-			}
-		});
-	}
-
+    function comeBack() {
+        api.historyBack({}, function(ret, err) {
+            if (!ret.status) {
+                api.closeWin();
+            }
+        });
+    }
 </script>
 
 </html>

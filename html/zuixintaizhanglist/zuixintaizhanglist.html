@@ -91,18 +91,17 @@
     </div>
 </body>
 <script type="text/javascript" src="../../script/api.js"></script>
-  <script src="../../js/cookie.js"></script>
 <script type="text/javascript">
     apiready = function() {
         id = api.pageParam.id;
         var ip = localStorage.getItem("ip")
-        var url = `http://${ip}/dutylist/src/maintz.php`
+        var url = `http://${ip}/shop/src/maintz.php`
         $.ajax({
             url: url,
             dataType: 'json',
             type: 'post',
             data: {
-user_id:$.cookie('user_id')
+              user_id:localStorage.getItem("user_id")
             },
             success: function(ret) {
 

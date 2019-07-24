@@ -135,13 +135,22 @@
         .content .content_top h4 {
             font-size: 14px;
         }
-        #chart1{
-          border-top: 2px solid #f1f1f1;
+
+        #chart1 {
+            border-top: 2px solid #f1f1f1;
         }
-        .p{
-          width: 100%;
-          text-align: center;
-          margin-bottom: 5px;
+
+        .p {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .p1 {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 5px;
+            display: none;
         }
     </style>
 </head>
@@ -158,7 +167,7 @@
          当前履职分
        </h4>
             <div>
-                <p>400</p>
+                <p id="avg"></p>
             </div>
         </div>
         <div class="top_right">
@@ -170,17 +179,19 @@
     <div class="ranking" onclick="ranking()">
         <span>
      <p>今日排名</p>
-     <p>5</p>
+     <p id="ranking"></p>
    </span>
         <img src="../../images/qj.svg" alt="">
     </div>
-  <div id="chart1" style="width:100%;height:60px;"></div>
-   <p class="p">距离进入<strong style="font-size:19px">减责</strong >行列还有<strong style="color:#FF6347;font-size:19px">400分</strong></p>
+    <div id="chart1" style="width:100%;height:60px;"></div>
+    <p class="p">距离进入<strong style="font-size:19px">减责</strong >行列还有<strong style="color:#FF6347;font-size:19px" id="gap"></strong></p>
+    <p class="p1"><strong style="font-size:19px;color:red">恭喜你已进入减责行列</strong ></p>
     <div class="content">
         <div class="content_top">
             <h4>近7天完成分数</h4>
         </div>
         <div id="chart" style="width:95%;height:350px; margin:0 auto;"></div>
+        <div id="user_name" style="display:none"></div>
     </div>
 </body>
 <script type="text/javascript" src="../../script/api.js"></script>
@@ -188,16 +199,42 @@
 
     apiready = function() {
         ip = localStorage.getItem("ip")
-        url = `http://${ip}/shop/src/user.php`
+        url = `http://${ip}/shop/src/ranking.php`
+        user_id=localStorage.getItem("user_id")
         $.ajax({
             url: url,
             dataType: 'json',
             type: 'post',
             data: {
-                type: 0
+            type: 1,
+						user_id:user_id
             },
             success: function(ret) {
+              var gap='';
+              var percentage='';
+              $.each(ret.users, function (i, v) {
+                if(user_id==v.user_id){
+                  if(v.avg>1000){
+                    v.avg=1000
+                    percentage=100
+                  }
+                  if(v.avg>=800){
+                    $('.p1').show()
+                    $('.p').hide()
+                  }
+                  if(v.avg<800){
+                    percentage1=v.avg/800
+                    gap=800-v.avg
+                  percentage=percentage1*100
+                  }
+                  $('#avg').html(v.avg)
+                  $('#ranking').html(i+1)
+                  $('#gap').html(gap+"分")
+                  $('#user_name').html(v.user_name)
+                  functionName(percentage);
+                }
 
+        })
             }
 
         })
@@ -246,9 +283,9 @@
     var myChart = echarts.init(document.getElementById('chart'));
     myChart.setOption(option);
 
-function functionName() {
-  var data = [50];
-var xMax = 100;
+function functionName(percentage) {
+  var data = [percentage];
+  var xMax = 100;
 var axisColor = '#fff';
 option1 = {
 tooltip: {
@@ -323,7 +360,7 @@ series: [{
         }
     },
     data: [{
-        value: 50,
+        value: percentage,
         itemStyle: {
             normal: {
                 barBorderRadius: [0, 10, 10, 0],
@@ -348,7 +385,7 @@ series: [{
 var myChart = echarts.init(document.getElementById('chart1'));
 myChart.setOption(option1);
 }
-functionName();
+
 
     function comeBack() {   
         api.historyBack({  }, function(ret, err) {     
@@ -363,7 +400,9 @@ functionName();
             name: 'ranking',
             url: './ranking.html',
             pageParam: {
-                index: 'test'
+                ranking:$('#ranking').html(),
+                avg:$('#avg').html(),
+                user_name:$('#user_name').html()
             }
         });
     }

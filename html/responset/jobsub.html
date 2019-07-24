@@ -190,11 +190,13 @@
     }
 
     function comeBack() {   
-        api.historyBack({  }, function(ret, err) {     
-            if (!ret.status) {       
-                api.closeWin();     
-            }  
-        });
+      api.openWin({
+          name:'index',
+          url: '../index.html',
+          pageParam: {
+              index: 'test'
+          }
+      });
     }
 
     function score() {

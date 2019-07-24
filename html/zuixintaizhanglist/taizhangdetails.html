@@ -237,20 +237,20 @@
 	apiready = function() {
 		id = api.pageParam.id;
 		ip = localStorage.getItem("ip")
-		url = `http://${ip}/dutylist/src/taizhang.php`
+		url = `http://${ip}/shop/src/taizhang.php`
 		$.ajax({
 			type: "POST",
 			url: url,
 			dataType: 'json',
 			data: {
 				id: id,
-				user_id:$.cookie('user_id')
+				user_id: localStorage.getItem("user_id")
 			},
 			success: function(data) {
 		  var img1=''
 			var word=''
 			var pdf=''
-			var url='http://118.25.5.116/dutylist/src/images/'
+			var url='http://118.25.5.116/shop/src/images/'
 			$.each(data.action,function (index,value) {
 				var file=/\.[^\.]+$/.exec(value.fil_path);
 				if(file[0]=='.png'||file[0]=='.jpg'||file[0]=='.jpeg'){
@@ -321,7 +321,7 @@
 
 	$("#sub").click(function() {
 		ip = localStorage.getItem("ip")
-		let url = `http://${ip}/dutylist/src/shenghe.php`
+		let url = `http://${ip}/shop/src/shenghe.php`
 		console.log(url)
 		var id = $('#tz_id').val();
 		var num = $('#zp_score').val()

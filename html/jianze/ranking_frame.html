@@ -5,6 +5,7 @@
       <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
       <title>title</title>
       <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+          <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
       <style>
           body{
 
@@ -102,79 +103,8 @@
         <img src="../../img/jb.svg" alt="">
         <h4>排行榜TOP10</h4>
         </div>
-        <ul>
-          <li>
-           <div class="left">
-            <span><img src="../../img/one.svg" alt=""></span>
-              <div class="portrait">
-                <img src="../../img/tx.jfif" alt="">
-              </div>
-             <p>王建国</p>
-           </div>
-           <div class="right">
-              <p>552</p>
-           </div>
-          </li>
-          <li>
-           <div class="left">
-            <span><img src="../../img/tow.svg" alt=""></span>
-              <div class="portrait">
-                    <img src="../../img/tx.jfif" alt="">
-              </div>
-             <p>李铁</p>
-           </div>
-           <div class="right">
-              <p>510</p>
-           </div>
-          </li>
-          <li>
-           <div class="left">
-            <span><img src="../../img/three.svg" alt=""></span>
-              <div class="portrait">
-                    <img src="../../img/tx.jfif" alt="">
-              </div>
-             <p>程龙</p>
-           </div>
-           <div class="right">
-              <p>482</p>
-           </div>
-          </li>
-          <li>
-           <div class="left">
-            <span>4</span>
-              <div class="portrait">
-                    <img src="../../img/tx.jfif" alt="">
-              </div>
-             <p>刘璐</p>
-           </div>
-           <div class="right">
-              <p>470</p>
-           </div>
-          </li>
-          <li>
-           <div class="left">
-            <span>5</span>
-              <div class="portrait">
-                    <img src="../../img/tx.jfif" alt="">
-              </div>
-             <p>张小明</p>
-           </div>
-           <div class="right">
-              <p>452</p>
-           </div>
-          </li>
-          <li>
-           <div class="left">
-            <span>6</span>
-              <div class="portrait">
-                    <img src="../../img/tx.jfif" alt="">
-              </div>
-             <p>肖小龙</p>
-           </div>
-           <div class="right">
-              <p>420</p>
-           </div>
-          </li>
+        <ul id="ranking">
+
         </ul>
       </div>
 
@@ -183,7 +113,50 @@
   <script type="text/javascript" src="../../script/api.js"></script>
   <script type="text/javascript">
       apiready = function(){
+        ip = localStorage.getItem("ip")
+        url = `http://${ip}/shop/src/ranking.php`
+        user_id=localStorage.getItem("user_id")
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: 'post',
+            data: {
+            type: 1,
+            user_id:user_id
+            },
+            success: function(ret) {
+              var li='';
+              $.each(ret.users,function (i,v) {
+                if(v.avg>1000){
+                  v.avg=1000
+                }
+                     li+=`<li>
+                            <div class="left">
+                             <span>${i+1}</span>
+                               <div class="portrait">
+                                     <img src="../../img/tx.jfif" alt="">
+                               </div>
+                              <p>${v.user_name}</p>
+                            </div>
+                            <div class="right">
+                               <p>${v.avg}</p>
+                            </div>
+                           </li>`
 
+                $('#ranking').html(li)
+              })
+              var len=$('#ranking li').length
+              for(j=10;j<len;j++){
+                     $('#ranking>li').eq(j).hide()
+              }
+              var percentage='';
+            }
+        })
       };
+      setInterval(function () {
+    $('#ranking li:nth-of-type(1) span').html(`<img src="../../img/one.svg" alt="" />`)
+    $('#ranking li:nth-of-type(2) span').html(`<img src="../../img/tow.svg" alt="" />`)
+    $('#ranking li:nth-of-type(3) span').html(`<img src="../../img/three.svg" alt="" />`)
+}, 50)
   </script>
   </html>
