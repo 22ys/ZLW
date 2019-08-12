@@ -136,7 +136,7 @@
 <script type="text/javascript">
     apiready = function() {
         var ip = localStorage.getItem("ip")
-        var url = `http://${ip}/shop/src/job.php`
+        var url = `http://${ip}/dutyList/src/job.php`
         var tr = '';
         $.ajax({
             url: url,
@@ -160,7 +160,7 @@
     };
     function btn(id) {
         var ip = localStorage.getItem("ip")
-        var url = `http://${ip}/shop/src/job.php`
+        var url = `http://${ip}/dutyList/src/job.php`
         var work_id = id;
         $.ajax({
             url: url,
