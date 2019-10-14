@@ -114,7 +114,19 @@
 	<div class="form-group">
 		<label for="" class="col-sm-2 col-md-2 col-lg-1 control-label">完成时间</label>
 		<div class="col-sm-4">
-			<input type="text" class="form-control" id="duration" placeholder="天" >
+			<input type="text" class="form-control" id="duration" >
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="" class="col-sm-2 col-md-2 col-lg-1 control-label">时间单位</label>
+		<div class="col-sm-4">
+			<label class="radio-inline">
+				<input type="radio" name="company" value="1" checked> 天
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="company"  value="2"  > 小时
+			</label>
+
 		</div>
 	</div>
 	<div class="form-group">
@@ -141,8 +153,8 @@
 </form>
 </body>
 <script>
-var ip = localStorage.getItem("ip")
-var url = `http://${ip}/dutyList/src/add_temporary_task.php`
+var url = localStorage.getItem("url")
+var url = url+'add_temporary_task.php'
 	$.ajax({
 		url:url,
 		dataType:'json',
@@ -230,27 +242,29 @@ var url = `http://${ip}/dutyList/src/add_temporary_task.php`
 	})
 	$("#sub").click(function(){
 		var content     =$('#content').val();//工作内容
-		var duration    =$("#duration").val();//完成时间
-		var proportion  =$('#proportion').val();//比重/分值
-		var score_type  =$('input[name="mode"]:checked').val(); //得分方式
-		var template    =$("#template").val();//提交模板
-		var user_id     =$("#user").val();//责任人
-		var duty_id     =$("#duty_list").val();//清单id
-		var work_grade  =$('input[name="work_grade"]:checked').val(); //工作等级
-		var periodicity =$('input[name="periodicity"]:checked').val(); //工作周期性
+			var duration    =$("#duration").val();//完成时间
+	        var proportion  =$('#proportion').val();//比重/分值
+	        var score_type  =$('input[name="mode"]:checked').val(); //得分方式
+	        var template    =$("#template").val();//提交模板
+	        var user_id     =$("#user").val();//责任人
+	        var duty_id     =$("#duty_list").val();//清单id
+	        var work_grade  =$('input[name="work_grade"]:checked').val(); //工作等级
+	        var periodicity =$('input[name="periodicity"]:checked').val(); //工作周期性
+	        var company     =$('input[name="company"]:checked').val(); //时间单位
 
 		$.ajax({
 			url:url,
 			data:{
 				content:content,
-				proportion:proportion,
-				duration:duration,
-				score_type:score_type,
-				template:template,
-				user_id:user_id,
-				duty_id:duty_id,
-				work_grade:work_grade,
-				periodicity:periodicity,
+					proportion:proportion,
+					duration:duration,
+					score_type:score_type,
+					template:template,
+					user_id:user_id,
+					duty_id:duty_id,
+					work_grade:work_grade,
+					periodicity:periodicity,
+					company:company,
 				type:3
 			},
 			type:'post',

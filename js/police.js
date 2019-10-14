@@ -1,55 +1,50 @@
-  ip=localStorage.getItem("ip")
+setInterval(function() {
+    $.ajax({
+        url: 'http://192.168.0.102/mapbox/src/getwarnInfo.php',
+        type: "post",
+        dataType: 'json',
+        data: {
 
-   var mySocket;
-   (function(){
-       mySocket = new WebSocket(`ws://${ip}:50020`);
-       url="",
-       mySocket.onopen = function Open() {
-           // Show("连接打开");
-       };
-       mySocket.onmessage = function (evt) {
-           user_id=localStorage.getItem("user_id")
-           var msg=evt.data
-           if(msg!=""){
-               var data = eval('(' + msg + ')');
-               if(data) {
-                alert("有一条报警信息")
-                $.ajax({
-                  url:url,
-                  type:'post',
-                  dataType: "json",
-                  data:{
-                    AppId:data.AppId,
-                    Mtype:data.Mtype,
-                    Addr:data.Addr,
-                    ValueVal:data.ValueVal,
-                    DateT:data.DateT,
-                    user_id:user_id
-                  },
-                  success: function (ret) {
+        },
+        success: function(ret) {
+            //  console.log(JSON.stringify(ret))
+            if (ret) {
+            //  console.log(JSON.stringify(ret))
+                if (ret.errorCode == 0) {
+                    $.each(ret.result.data, function(i, v) {
+                        $.ajax({
+                            url: 'http://192.168.0.102/shop/src/alarm_signal.php',
+                            type: 'post',
+                            dataType: "json",
+                            data: {
+                                type: 1,
+                                user_id: '王建国',
+                                units_id: ret.result.units_id,
+                                address: ret.result.address,
+                                host: v.host,
+                                loopnumber: v.loopnumber,
+                                codeaddress: v.codeaddress,
+                                addtime: v.time,
+                                alarm_signal: "火警"
+                            },
+                            success: function(ret) {
+                              console.log(JSON.stringify(ret))
+                              api.openWin({
+                                  name: 'policeMessage',
+                                  url: 'policeMessage/index.html',
+                                  pageParam: {
+                                     id:ret.id
+                                  }
+                              });
+                            }
 
-                  }
+                        })
+                    })
 
-                })
-                 api.openWin({
-                     name: 'policeMessage',
-                     url: '../policeMessage/policeMessage.html',
-                     pageParam: {
-                         data: data
-                     }
-                 });
-               }
+                }
 
 
-           }
-
-       };
-       mySocket.onclose = function Close() {
-          //  Show("连接关闭");
-           mySocket.close();
-       };
-      //  window.setInterval(function(){ //每隔5秒钟发送一次心跳，避免websocket连接因超时而自动断开
-      //      var ping = {"type":"ping"};
-      //      mySocket.send(JSON.stringify(ping));
-      //  },1000)
-   }())
+            }
+        }
+    })
+}, 10000)

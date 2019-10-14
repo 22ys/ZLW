@@ -106,8 +106,8 @@
     apiready = function() {
         var i = api.pageParam.i
         var content = $('body')
-        var ip = localStorage.getItem("ip")
-        var url = `http://${ip}/dutyList/src/maintz.php`
+        var url = localStorage.getItem("url")
+        var url = url+'maintz.php'
         $.ajax({
             url: url,
             dataType: 'json',

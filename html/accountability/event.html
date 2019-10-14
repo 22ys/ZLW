@@ -169,10 +169,10 @@
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
-        var ip = localStorage.getItem("ip")
-        var Url = `http://${ip}/dutyList/src/event_account.php`
+        var url = localStorage.getItem("url")
+        var url = url+'event_account.php'
         $.ajax({
-            url: Url,
+            url: url,
             dataType: 'json',
             type: 'post',
             data: {

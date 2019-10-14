@@ -28,7 +28,7 @@
 
         #control_father,
         #pressure_father {
-            display: none;
+            /*display: none;*/
             font-size: 10px;
             margin: 0 auto;
             margin-top: 10px;
@@ -91,6 +91,12 @@
             display: flex;
             align-items: center;
         }
+        .btn1{
+          padding: 3px 1px;
+          color: #fff;
+          background: #33b842;
+          border-radius: 3px;
+        }
     </style>
 </head>
 
@@ -121,14 +127,13 @@
 
         </tbody>
     </table>
-
+<!--
     <table class="table table-hover table-bordered" id="pressure_father">
         <caption>水压报警信息</caption>
         <thead class="text-center">
             <tr>
                 <th class="text-center">报警信息</th>
                 <th class="text-center">设备地址</th>
-                <th class="text-center">水压值</th>
                 <th class="text-center">报警时间</th>
                 <th class="text-center">操作</th>
             </tr>
@@ -136,7 +141,7 @@
         <tbody id="pressure">
 
         </tbody>
-    </table>
+    </table> -->
 </body>
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript">
@@ -144,108 +149,43 @@
 
     };
     $('#div').show()
-    url = "http://192.168.0.127/dutylist/src/api/xiaokong.php"
-    var user_id = localStorage.getItem("user_id")
     $.ajax({
-        url: url,
-        type: 'post',
-        dataType: "json",
-        data: {
-            type: 2,
-            user_id: user_id
-        },
-        success: function(ret) {
-            if (ret) {
-                $('#div').hide()
-                var controltr = '';
-                var pressuretr = '';
-                $.each(ret, function(index, value) {
-                    if (value.appid == 0) {
-                        $('#control_father').show()
-                        if (value.alarm_content == 1) {
-                            var alarm_content = "火警"
-                        }
-                        if (value.alarm_content == 2) {
-                            var alarm_content = "故障"
-                        }
-                        if (value.alarm_content == 3) {
-                            var alarm_content = "屏蔽"
-                        }
-                        if (value.alarm_content == 4) {
-                            var alarm_content = "反馈"
-                        }
-                        if (value.alarm_content == 5) {
-                            var alarm_content = "离线"
-                        }
-                        controltr +=
-                            ` <tr class="text-center">
-                <td>${alarm_content}</td>
-                <td>${value.address}</td>
-                <td>${value.add_time}</td>
-                <td><button type="button" class="btn btn-primary" onclick="controlbj('${value.add_time}','${alarm_content}','${value.address}')">操作</button></td>
-              </tr>`
-                    }
-                    if (value.appid == 1) {
-                        $('#pressure_father').show()
-                        if (value.alarm_content == 11) {
-                            var alarm_content = "水压高"
-                        }
-                        if (value.alarm_content == 12) {
-                            var alarm_content = "水压低"
-                        }
-                        pressuretr +=
-                            ` <tr class="text-center">
-                <td>${alarm_content}</td>
-                <td>${value.address}</td>
-                <td>${value.parameter}</td>
-                <td>${value.add_time}</td>
-                <td><button type="button" class="btn btn-primary" onclick="pressurebj('${value.add_time}','${alarm_content}','${value.address}','${value.parameter}')">操作</button></td>
-                </tr>`
-                    }
-
-                })
-                $('#control').html(controltr)
-                $('#pressure').html(pressuretr)
-            }
-        },
-        error: function(ret) {
-            console.log(JSON.stringify(ret))
+      url:'http://192.168.0.102/shop/src/alarm_signal.php',
+      type:'post',
+      dataType:'json',
+      data:{
+        type:4,
+        units_id:18,
+      },success:function (ret) {
+        console.log(JSON.stringify(ret))
+        var tr=""
+        if(ret.res){
+             $('#div').hide()
         }
+        $.each(ret.res,function (i,v) {
+          if(v.state=='未处理'){
+ tr+=`<tr class='text-center'><td>${v.alarm_signal}</td><td>${v.address}</td><td>${v.addtime}</td><td><button class="btn btn-primary" onclick=a(${v.id})>详情</button></td><tr>`
+          }else{
+            tr+=`<tr class='text-center'><td>${v.alarm_signal}</td><td>${v.address}</td><td>${v.addtime}</td><td><div class="btn1" >已处理</div></td><tr>`
+          }
+
+        })
+       $('#control').html(tr)
+
+     },error:function (ret) {
+         console.log(JSON.stringify(ret))
+     }
 
     })
-
-    function comeBack() {   
-  		api.historyBack({ }, function(ret, err) {     
-  			if (!ret.status) {       
-  				api.closeWin();     
-  			}  
-  		});
-  	}
-
-    function controlbj(time, alarm_content, Addr) {
-        api.openWin({
-            name: 'policeMessageSub',
-            url: './policeMessageSub.html',
-            pageParam: {
-                policeTime: time,
-                Addr: Addr,
-                alarm_content: alarm_content
-            }
-        });
-    }
-
-    function pressurebj(time, alarm_content, Addr ,parameter) {
-        api.openWin({
-            name: 'policeMessageSub',
-            url: './policeMessageSub.html',
-            pageParam: {
-                policeTime: time,
-                Addr: Addr,
-                alarm_content: alarm_content,
-                parameter: parameter
-            }
-        });
-    }
+function a(id) {
+  api.openWin({
+      name: 'policeMessage',
+      url: './policeMessageSub.html',
+      pageParam: {
+        id:id
+      }
+  });
+}
 </script>
 
 </html>

@@ -94,8 +94,8 @@
 <script type="text/javascript">
     apiready = function() {
         id = api.pageParam.id;
-        var ip = localStorage.getItem("ip")
-        var url = `http://${ip}/shop/src/maintz.php`
+        var url = localStorage.getItem("url")
+        var url = url+'maintz.php'
         $.ajax({
             url: url,
             dataType: 'json',

@@ -113,8 +113,8 @@
   <script type="text/javascript" src="../../script/api.js"></script>
   <script type="text/javascript">
       apiready = function(){
-        ip = localStorage.getItem("ip")
-        url = `http://${ip}/dutyList/src/ranking.php`
+        url = localStorage.getItem("url")
+        url = url+'ranking.php'
         user_id=localStorage.getItem("user_id")
         $.ajax({
             url: url,

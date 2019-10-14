@@ -128,10 +128,10 @@
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
-        var ip = localStorage.getItem("ip")
+        var url = localStorage.getItem("url")
         var id = api.pageParam.id
         var content = api.pageParam.content
-        var url = `http://${ip}/dutyList/src/workDisciplineList.php`
+        var url = url+'workDisciplineList.php'
         var tr = '';
         $('#title').html(content)
         $.ajax({

@@ -67,52 +67,46 @@
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
-        var AppId = api.pageParam.AppId
-        var Mtype=api.pageParam.Mtype
-        var Addr=api.pageParam.Addr
-        var ValueVal=api.pageParam.ValueVal
-        var DateT=api.pageParam.DateT
-        if (AppId == 0) {
+        var id = api.pageParam.id
+     console.log(id)
+        // if (AppId == 0) {
             $('.content').html(
                 `<div>
               <img src="../../img/jg.svg" alt="">
             </div>
             <h1>有一条火警信息</h1>
-             <button type="button" class="mui-btn mui-btn-danger" style="border-radius: 55px;" onclick="policeMessage('${Addr}','${Mtype}','${DateT}')">开始通知现场</button>
+             <button type="button" class="mui-btn mui-btn-danger" style="border-radius: 55px;" onclick="policeMessage(${id})">开始通知现场</button>
                <audio autoplay="autoplay" loop="true" src="../../audio/hj.mp3" ></audio>
              `
             )
-        }
-        if (AppId == 1) {
-            $('.content').css({
-                "box-shadow": "inset 1px 1px 5px blue"
-            })
-            $('.content').html(
-                `<div>
-             <img src="../../img/syjg.svg" alt="">
-           </div>
-           <h1>有一条水压信息</h1>
-            <button type="button" class="mui-btn mui-btn-primary" style="border-radius: 55px;" onclick="policeMessage('${Addr}','${Mtype}','${DateT}','${ValueVal}')">开始通知现场</button>
-              <audio autoplay="autoplay" loop="true" src="../../audio/hj.mp3"></audio>
-            `
-            )
-        }
-    };
-
+    //     }
+    //     if (AppId == 1) {
+    //         $('.content').css({
+    //             "box-shadow": "inset 1px 1px 5px blue"
+    //         })
+    //         $('.content').html(
+    //             `<div>
+    //          <img src="../../img/syjg.svg" alt="">
+    //        </div>
+    //        <h1>有一条水压信息</h1>
+    //         <button type="button" class="mui-btn mui-btn-primary" style="border-radius: 55px;" onclick="policeMessage()">开始通知现场</button>
+    //           <audio autoplay="autoplay" loop="true" src="../../audio/hj.mp3"></audio>
+    //         `
+    //         )
+    //     }
+    // };
+}
     let height = document.documentElement.clientHeight || document.body.clientHeight;
     $('.content').css({
         height: height
     })
 
-    function policeMessage(Addr,alarm_content,policeTime,parameter) {
+    function policeMessage(id) {
         api.openWin({
             name: 'policeMessage',
             url: './policeMessageSub.html',
             pageParam: {
-                 Addr:Addr,
-                 policeTime:policeTime,
-                 alarm_content:alarm_content,
-                 parameter:parameter
+              id:id
             }
         });
     }

@@ -207,8 +207,8 @@
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript">
   apiready = function(){
-   ip=localStorage.getItem("ip")
-   url=`http://${ip}/dutyList/src/user.php`
+   url=localStorage.getItem("url")
+   url=url+'user.php'
     $.ajax({
       url:url,
       dataType:'json',

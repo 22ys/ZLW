@@ -80,8 +80,8 @@
   <script type="text/javascript">
       apiready = function(){
             id= api.pageParam.id;
-        var ip=localStorage.getItem("ip")
-        var url=`http://${ip}/dutyList/src/dutylist.php`
+        var url=localStorage.getItem("url")
+        var url=url+'dutylist.php'
             $.ajax({
             url:url,
             dataType:'json',

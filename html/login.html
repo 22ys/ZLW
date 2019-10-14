@@ -92,6 +92,7 @@
         var pwd = $("#pwd").val();
         var ip = '118.25.5.116'
         localStorage.setItem("ip", ip)
+        localStorage.setItem("url", `http://${ip}/dutyList/src/`)
         var url = `http://${ip}/dutyList/src/login.php`
         $.ajax({
             url: url,
@@ -107,6 +108,7 @@
                 console.log(JSON.stringify(ret))
                 localStorage.setItem("user_id", ret.user_id)
                 localStorage.setItem("user_name", ret.msg)
+                 $.cookie('user_id',ret.user_id);
                 if (ret.code == 200) {
                     api.openWin({
                         name: 'index',

@@ -212,16 +212,24 @@
 				<input type="text" class="form-control" id="Addr" disabled placeholder="">
 			</div>
 		</div>
-		<div class="form-group" id="ValueVal_father">
+		<!-- <div class="form-group" id="ValueVal_father">
 			<label for="ValueVal" class=" control-label ">水压值</label>
 			<div class="">
 				<input type="text" class="form-control" id="ValueVal" disabled placeholder="">
 			</div>
-		</div>
+		</div> -->
 		<div class="form-group">
 			<label for="policeTime" class=" control-label ">报警时间</label>
 			<div class="">
 				<input type="text" class="form-control" id="policeTime" disabled placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="clfk" class=" control-label ">处理反馈</label>
+			<div class="">
+				<textarea class="form-control" id="lyfk" rows="5">
+
+				</textarea>
 			</div>
 		</div>
 		<input type="hidden" name="" value="" id="audio">
@@ -232,9 +240,9 @@
 			<button for="" id=sub type="button" class="btn btn-primary" style="margin-left:10px">
 			完成提交
 			</button>
-			<button for="" id=sub type="button" class="btn btn-primary" style="margin-left:10px">
+			<!-- <button for="" id=sub type="button" class="btn btn-primary" style="margin-left:10px">
 			误报
-			</button>
+			</button> -->
 		</div>
 	</form>
 	<div id="mask">
@@ -248,21 +256,28 @@
 <script type="text/javascript" src="../../script/api.js"></script>
 <script>
 	apiready = function() {
-		var ip = localStorage.getItem("ip")
-		var url = `http://${ip}/dutylist/src/add_temporary_task.php`
-		var policeTime = api.pageParam.policeTime;
-		var alarm_content = api.pageParam.alarm_content;
-		var ValueVal = api.pageParam.parameter;
-		var Addr = api.pageParam.Addr;
-		$('#policeTime').val(policeTime)
-		$('#Mtype').val(alarm_content)
-		$('#Addr').val(Addr)
+		var url = localStorage.getItem("url")
+		var url = url+'add_temporary_task.php'
+	  id = api.pageParam.id
+				console.log(id)
+	  $.ajax({
+			url:'http://192.168.0.102/shop/src/alarm_signal.php',
+			type:'post',
+			dataType:'json',
+			data:{
+				type:2,
+				id:id,
+
+			},success:function (ret) {
+				$('#Mtype').val(ret.res.alarm_signal)
+				$('#Addr').val(ret.res.address)
+				$('#policeTime').val(ret.res.addtime)
+
+
+			}
+
+		})
 		$('#ValueVal_father').hide()
-		if (ValueVal) {
-			$('#ValueVal_father').show()
-			$('#ValueVal').val(ValueVal)
-			$('h5').html('水压报警信息')
-		}
 	};
 	//录音
 	var recorder = new Recorder({
@@ -322,7 +337,23 @@
 		}, 500);
 
 	})
+   $('#sub').click(function () {
+		 $('#stop').click()
+		 console.log(id)
+		 $.ajax({
+			 url:'http://192.168.0.102/shop/src/alarm_signal.php',
+			 type:'post',
+			 dataType:'json',
+			 data:{
+				 type:3,
+				 id:id,
+				handle:$('#clfk').val()
+			 },success:function (ret) {
+         alert(JSON.stringify(ret.msg))
+			 }
 
+		 })
+   })
 	function comeBack() {
 			api.openWin({
 					name: 'policeMessageSub',
