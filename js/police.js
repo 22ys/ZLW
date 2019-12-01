@@ -1,19 +1,20 @@
 setInterval(function() {
+  // console.log(1)
     $.ajax({
-        url: 'http://192.168.0.102/mapbox/src/getwarnInfo.php',
+        url: 'http://192.168.43.183/mapbox/src/getwarnInfo.php',
         type: "post",
         dataType: 'json',
         data: {
 
         },
         success: function(ret) {
-            //  console.log(JSON.stringify(ret))
+             console.log(JSON.stringify(ret))
             if (ret) {
             //  console.log(JSON.stringify(ret))
                 if (ret.errorCode == 0) {
                     $.each(ret.result.data, function(i, v) {
                         $.ajax({
-                            url: 'http://192.168.0.102/shop/src/alarm_signal.php',
+                            url: 'http://192.168.43.183/shop/src/alarm_signal.php',
                             type: 'post',
                             dataType: "json",
                             data: {

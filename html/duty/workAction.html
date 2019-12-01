@@ -131,7 +131,7 @@
         var url = localStorage.getItem("url")
         var id = api.pageParam.id
         var content = api.pageParam.content
-        var url = url+'workDisciplineList.php'
+        var url = url+'app/duty_list.php'
         var tr = '';
         $('#title').html(content)
         $.ajax({
@@ -140,14 +140,15 @@
             type: 'post',
             data: {
                 duty_work_id: id,
-                type: 4,
+                type: 3,
                 user_id:localStorage.getItem("user_id")
             },
             success: function(ret) {
-                $.each(ret.work, function(index, value) {
+                $.each(ret, function(index, value) {
+                  console.log(JSON.stringify(value))
                     tr += `<tr class="text-center">
-          <td >${value.content}</td>
-          <td style="width:70px">${value.add_time}</td>
+          <td >${value.work_content}</td>
+          <td style="width:70px">${value.save_time}</td>
           <td style="width:70px">${value.score}</td>`
                 })
                 $('#tbody').html(tr)

@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" href="layui/css/layui.css" media="all" />
+
+    <style>
+        .btn {
+            font-size: 12px;
+            margin: 5px;
+        }
+
+        #app {
+            margin: 0 auto;
+            margin-top: 48px;
+        }
+
+        #jOrgChart {
+            position: relative;
+            top: 8px;
+        }
+
+
+        #header {
+            width: 100%;
+            background: url(../../images/navbar.png);
+            color: #f1f1f1;
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        .mui-title {
+            color: #f1f1f1;
+            text-shadow: 1px 1px 3px #000;
+        }
+        section{
+      width: 92%;
+      margin: 0 auto;
+  }
+  .work_msg{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #fff;
+  }
+  .work_msg>div{
+      width: 95%;
+      height: 200px;
+      display: flex;
+      background: rgba(233,233,233,.2);
+      margin: 10px auto;
+  }
+  .work_det{
+      flex-wrap: wrap;
+  }
+  /*.work_det>div{*/
+  /*height: 60%;*/
+  /*}*/
+  .work_det span{
+      width: 50%;
+      height: 50px;
+      display: flex;
+      align-items: center;
+  }
+  .work_det span>p:nth-of-type(1){
+      font-size: 14px;
+      font-weight: bold;
+      margin-left: 10px;
+      color: #666;
+      text-shadow: 1px 1px 2px #e3e3e3;
+  }
+  .work_det span>p:nth-of-type(2){
+      font-size: 11px;
+      color: #999;
+      margin-left: 5px;
+      text-shadow: 1px 1px 2px #e3e3e3;
+  }
+  .work_det>div{
+      width: 100%;
+      height: 50px;
+      display: flex;
+
+  }
+  .work_det>div>span:nth-of-type(1){
+      width: 68%;
+
+  }
+  .work_content{
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+  }
+  h4{
+      font-size: 14px;
+      font-weight: bold;
+      margin-left: 10px;
+      color: #666;
+      text-shadow: 1px 1px 2px #e3e3e3;
+  }
+  .work_content>div{
+      width: 90%;
+      height: 150px;
+      color: #999;
+      text-shadow: 1px 1px 2px #e3e3e3;
+      font-size: 12px;
+
+  }
+  .work_content>div>div{
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+  }
+  .work_content>div>div>p{
+      color: red;
+  }
+  section form .layui-btn{
+      margin-top: 10px;
+      font-size: 12px;
+      padding: 0 8px;
+  }
+  .file_list{
+    max-width: 100%;
+  }
+  #file_show{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  .layui-form-label{
+      width: 80px;
+  }
+  .btn{
+      width: 100%;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  .work_content_file  p{
+      width: 30%;
+  }
+  .work_content_file  p:nth-of-type(1){
+      width: 70%;
+  }
+    </style>
+
+</head>
+<script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../../js/cookie.js"></script>
+<script type="text/javascript" src="../template/bootstrap/bootstrap.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<body>
+  <header class="mui-bar mui-bar-nav" id="header">
+      <span class="mui-icon mui-icon-back mui-pull-left" onclick="comeBack()"></span>
+      <h1 class="mui-title">工作提交</h1>
+      <span class="mui-icon mui-icon-person mui-pull-right" onclick="personal()"></span>
+  </header>
+  <div id="app"></div>
+  <section>
+      <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+          <legend>任务信息</legend>
+      </fieldset>
+      <div class="work_msg">
+          <div class="work_det">
+              <span><p>任务编号:</p><p class="number"></p></span>
+              <span><p>分值:</p><p class="score"></p></span>
+              <span><p>主从责:</p><p class="master_slave"></p></span>
+              <span><p>任务等级:</p><p class="grade"></p></span>
+              <div> <span><p>任务指标1:</p><p class="data_name"></p></span> <span><p >得分比例:</p><p class="val_proportion"></p></span></div>
+              <div> <span><p>任务指标2</p><p class="data_name1"></p></span> <span><p class="">得分比例:</p><p class="val_proportion1"></p></span></div>
+          </div>
+          <div class="work_content">
+              <h4>任务内容</h4>
+              <div class="content">
+
+              </div>
+          </div>
+          <div class="work_content">
+              <h4>评分标准</h4>
+              <div class="basis">
+
+              </div>
+          </div>
+      </div>
+      <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+          <legend>任务提交</legend>
+      </fieldset>
+      <form class="work_msg layui-form" id="form" >
+          <div class="work_content">
+              <h4>完成情况描述</h4>
+              <div>
+                  <textarea class="layui-textarea" rows="6" name="work_explain"></textarea>
+              </div>
+          </div>
+          <div class="work_content" >
+              <h4>完成指标情况</h4>
+              <div >
+                  <div style="justify-content: flex-start">
+                      <label class="layui-form-label name"></label>
+                      <input type="text" class="layui-input name_input"  name="sub_data" style="display: none;width: 150px">
+                      <div style="display: none" class="name_normal1">
+                          <input type="radio" name="" value="1" title="是" checked>
+                          <input type="radio" name="" value="2" title="否">
+                      </div>
+                      <div style="display: none" class="name_normal2">
+                          <input type="radio" name="" value="1" title="有" checked>
+                          <input type="radio" name="" value="2" title="无">
+                      </div>
+                      <div style="display: none" class="name_rank1">
+                          <select >
+                              <option value="1">优</option>
+                              <option value="0.8">良</option>
+                              <option value="0.6">合格</option>
+                              <option value="0.3">不合格</option>
+                              <option value="0">差</option>
+                          </select>
+                      </div>
+                      <div style="display: none" class="name_rank2">
+                          <select >
+                              <option value="1">合格</option>
+                              <option value="0">不合格</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div style="justify-content: flex-start">
+                      <label class="layui-form-label name1 " ></label>
+                      <input type="text" class="layui-input name1_input "  name="sub_data1" style="display: none;width: 150px">
+                      <div style="display: none" class="name1_normal1">
+                          <input type="radio" name="" value="1" title="是" checked>
+                          <input type="radio" name="" value="2" title="否">
+                      </div>
+                      <div style="display: none" class="name1_normal2">
+                          <input type="radio" name="" value="1" title="有" checked>
+                          <input type="radio" name="" value="2" title="无">
+                      </div>
+                      <div style="display: none" class="name1_rank1">
+                          <select >
+                              <option value="1">优</option>
+                              <option value="0.8">良</option>
+                              <option value="0.6">合格</option>
+                              <option value="0.3">不合格</option>
+                              <option value="0">差</option>
+                          </select>
+                      </div>
+                      <div style="display: none" class="name1_rank2">
+                          <select >
+                              <option value="1">合格</option>
+                              <option value="0">不合格</option>
+                          </select>
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+          <div class="work_content">
+              <h4>佐证材料</h4>
+              <div>
+                  <input type="hidden"  name="type" value="2">
+                  <input type="hidden" class="user_id" name="user_id">
+                  <input type="hidden" class="work_id" name="work_id">
+                  <input type="file" style="display: none" multiple name="up_img[]" class="img" accept = 'image/*' >
+                  <input type="file"  style="display: none" multiple name="up_file[]"  class="text" accept="application/msexcel,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  >
+                  <input type="file" style="display: none" name="up_aud[]" class="audio" accept="audio/*" >
+                  <input type="file" style="display: none" name="up_vid[]" class="video" accept="video/*" >
+                  <div class="prove_file work_content_file" style="display: none"><p ></p><p class="file_num"></p></div>
+                  <div class="prove_img work_content_file" style="display: none"><p ></p><p  class="img_num"></p></div>
+                  <div class="prove_audio work_content_file" style="display: none"><p ></p><p  class="audio_num"></p></div>
+                  <div class="prove_video work_content_file" style="display: none"><p ></p><p  class="video_num"></p></div>
+                  <button type='button' class="layui-btn layui-btn-normal prove_file" style="display: none" onclick="upFile('.text',1)">文档上传</button>
+                  <button type='button' class="layui-btn layui-btn-normal prove_img"  style="display: none" onclick="upFile('.img',2)">图片上传</button>
+                  <button type='button' class="layui-btn layui-btn-normal prove_audio" style="display: none"  onclick="upFile('.audio',3)">音频上传</button>
+                  <button type='button' class="layui-btn layui-btn-normal prove_video" style="display: none"  onclick="upFile('.video',4)">视频上传</button>
+              </div>
+
+          </div>
+
+      </form>
+      <div class="file_show" style="margin-top: 5px;display: none">
+          <div style="width: 33%">
+              <div class="img">
+
+              </div>
+          </div>
+          <div style="width: 66.5%;align-items: flex-start;">
+
+              <table  class="layui-table">
+                  <thead >
+                  <tr >
+                      <th>序号</th>
+                      <th>文件名</th>
+                      <th>查看</th>
+                  </tr>
+                  </thead>
+                  <colgroup>
+                      <col width="20%">
+                      <col width="60%">
+                      <col width="20%">
+
+                  </colgroup>
+                  <tbody id="list1">
+
+                  </tbody>
+              </table>
+
+
+
+          </div>
+      </div>
+      <fieldset class="layui-elem-field layui-field-title audit" style="margin-top: 30px;display: none">
+          <legend>任务审核</legend>
+      </fieldset>
+      <form class="work_msg audit" id="form1" style="display: none">
+          <input type="hidden" class="work_id" name="work_id">
+          <input type="hidden" class="user_id" name="user_id">
+          <div class="work_content">
+              <h4>审核意见</h4>
+              <div>
+                  <textarea class="layui-textarea " name="audit_op" rows="6" ></textarea>
+              </div>
+
+          </div>
+          <div class="work_content layui-form" >
+              <h4>审核意见</h4>
+              <div>
+                  <div style="justify-content: flex-start">
+                      <label class="layui-form-label name"></label>
+                      <input type="text" class="layui-input name_input"  name="sub_data" style="display: none;width: 150px">
+                      <div style="display: none" class="name_normal1">
+                          <input type="radio" name="" value="1" title="是" checked>
+                          <input type="radio" name="" value="2" title="否">
+                      </div>
+                      <div style="display: none" class="name_normal2">
+                          <input type="radio" name="" value="1" title="有" checked>
+                          <input type="radio" name="" value="2" title="无">
+                      </div>
+                      <div style="display: none" class="name_rank1">
+                          <select >
+                              <option value="1">优</option>
+                              <option value="0.8">良</option>
+                              <option value="0.6">合格</option>
+                              <option value="0.3">不合格</option>
+                              <option value="0">差</option>
+                          </select>
+                      </div>
+                      <div style="display: none" class="name_rank2">
+                          <select >
+                              <option value="1">合格</option>
+                              <option value="0">不合格</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div style="justify-content: flex-start">
+                      <label class="layui-form-label name1 " ></label>
+                      <input type="text" class="layui-input name1_input "  name="sub_data1" style="display: none;width: 150px">
+                      <div style="display: none" class="name1_normal1">
+                          <input type="radio" name="" value="1" title="是" checked>
+                          <input type="radio" name="" value="2" title="否">
+                      </div>
+                      <div style="display: none" class="name1_normal2">
+                          <input type="radio" name="" value="1" title="有" checked>
+                          <input type="radio" name="" value="2" title="无">
+                      </div>
+                      <div style="display: none" class="name1_rank1">
+                          <select >
+                              <option value="1">优</option>
+                              <option value="0.8">良</option>
+                              <option value="0.6">合格</option>
+                              <option value="0.3">不合格</option>
+                              <option value="0">差</option>
+                          </select>
+                      </div>
+                      <div style="display: none" class="name1_rank2">
+                          <select >
+                              <option value="1">合格</option>
+                              <option value="0">不合格</option>
+                          </select>
+                      </div>
+
+                  </div>
+              </div>
+
+          </div>
+          <div class="work_content" style="background: #fff">
+              <!--<h4>审核意见</h4>-->
+              <!--<div>-->
+              <!--<textarea class="layui-textarea" rows="6" name="work_explain"></textarea>-->
+              <!--</div>-->
+
+          </div>
+      </form>
+      <div class="file_list">
+          <div class="layui-form">
+              <table  class="layui-table">
+                  <thead >
+                  <tr >
+                      <th>文档名称</th>
+
+                      <th>查看</th>
+                  </tr>
+                  </thead>
+                  <colgroup>
+                      <col width="70%">
+
+                      <col width="30%">
+                  </colgroup>
+                  <tbody id="list">
+
+                  </tbody>
+              </table>
+
+
+          </div>
+
+      </div>
+      <div class="btn">
+          <button class="layui-btn layui-btn-normal sub" >
+              提交
+          </button>
+          <button class="layui-btn layui-btn-normal audit_btn" style="display: none">
+              确认审核
+          </button>
+      </div>
+
+  </section>
+  <div id="file_show">
+      <img src="" alt="" id="img" style="width: 95%;height: 80%;display: none" >
+      <video src="" alt="" id="video" style="width: 95%;height: 80%;display: none" type="video/mp4" controls></video>
+  </div>
+  <script type="text/javascript" src="layui/layui.js"></script>
+  <script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+         url = localStorage.getItem("url")
+         url =url+'job.php'
+         id = api.pageParam.id
+        $('.work_id').val(id)
+       $('.user_id').val($.cookie("user_id"))
+        layui.use(['form', 'layedit', 'laydate'  ,'slider'], function () {
+        form = layui.form
+        layer = layui.layer
+        layedit = layui.layedit
+        laydate = layui.laydate
+        slider = layui.slider;
+        $.ajax({
+            url:url,
+            type:'post',
+            dataType:'json',
+            data:{
+                type:'1',
+                work_id:id,
+                user_id:$.cookie("user_id")
+
+            },
+            success:function (ret) {
+                // console.log(ret);
+                $('.number').html(ret.number)
+                $('.score').html(ret.score)
+                $('.content').html(ret.work_content)
+                $('.basis').html(ret.basis)
+                if(ret.master_slave==1){
+                    $('.master_slave').html('主责')
+                }else if(ret.master_slave==2){
+                    $('.master_slave').html('从责')
+                }
+                if(ret.grade==1){
+                    $('.grade').html('A级')
+                }else if(ret.grade==2){
+                    $('.grade').html('B级')
+                }else {
+                    $('.grade').html('C级')
+                }
+                //指标1
+                if(ret.data_name){
+                    $('.name').html(ret.data_name)
+                    // $('.data_name').html(ret.data_name)
+                    var data_name=ret.data_name
+                    var val_mode=''
+                    if(ret.val_situation==1){
+                        $('.name_input').show()
+                        $('.name_input').attr('name','sub_data')
+                        if(ret.val_mode.length==1){
+                            val_mode=data_name+' '+ret.val_mode+ret.val
+                        }else if(ret.val_mode.length==2){
+                            val_mode=ret.min_val+ret.val_mode.slice(0, 1)+data_name+ret.val_mode.slice(0, 1)+ret.max_val
+                        }
+                    }else if(ret.val_situation==2){
+                        if(ret.val_mode=='是否'){
+                            $('.name_normal1').show()
+                            $('.name_normal1 input').attr('name','sub_data')
+                            $('.name_input').attr('name','')
+                            if(ret.mode_normal==1){
+                                val_mode=data_name+' '+"(是)"
+                            }else {
+                                val_mode=data_name+' '+"(否)"
+                            }
+                        }else if(ret.val_mode=='有无'){
+                            $('.name_normal2').show()
+                            $('.name_normal2 input').attr('name','sub_data')
+                            $('.name_input').attr('name','')
+                            if(ret.mode_normal==1){
+                                val_mode=data_name+' '+"(有)"
+                            }else {
+                                val_mode=data_name+' '+"(无)"
+                            }
+                        }
+
+                    }else if(ret.val_situation==3){
+
+                        if(ret.val_mode==1){
+                            $('.name_rank2').show()
+                            $('.name_rank2 select').attr('name','sub_data')
+                            $('.name_input').attr('name','')
+                            val_mode=data_name+' '+"2级等级制"
+                        }else if(ret.val_mode==2){
+                            $('.name_rank1').show()
+                            $('.name_rank1 select').attr('name','sub_data')
+                            $('.name_input').attr('name','')
+                            val_mode=data_name+' '+"5级等级制"
+                        }
+
+                    }
+                    $('.data_name').html(val_mode)
+                    $('.val_proportion').html(ret.val_proportion+'%')
+                    $('.val_proportion1').html(100-ret.val_proportion+'%')
+                }
+                form.render()
+                //指标2
+                if(ret.data_name1){
+                    $('.name1').html(ret.data_name1)
+                    var data_name1=ret.data_name1
+                    var val_mode1=''
+                    if(ret.val_situation1==1){
+                        $('.name1_input').show()
+                        $('.name1_input').attr('name','sub_data1')
+                        if(ret.val_mode1.length==1){
+                            val_mode1=data_name1+' '+ret.val_mode1+ret.val1
+                        }else if(ret.val_mode1.length==2){
+                            val_mode1=ret.min_val1+ret.val_mode1.slice(0, 1)+data_name1+ret.val_mode1.slice(0, 1)+ret.max_val1
+                            // console.log(val_mode1);
+                        }
+                    }else if(ret.val_situation1==2){
+                        if(ret.val_mode1=='是否'){
+                            $('.name1_normal1').show()
+                            $('.name1_normal1 input').attr('name','sub_data1')
+                            $('.name1_input').attr('name','')
+                            if(ret.mode_normal1==1){
+                                val_mode1=data_name1+' '+"(是)"
+                            }else {
+                                val_mode1=data_name1+' '+"(否)"
+                            }
+                        }else if(ret.val_mode1=='有无'){
+                            $('.name1_normal2').show()
+                            $('.name1_normal2 input').attr('name','sub_data1')
+                            $('.name1_input').attr('name','')
+                            if(ret.mode_normal1==1){
+                                val_mode1=data_name1+' '+"(有)"
+                            }else {
+                                val_mode1=data_name1+' '+"(无)"
+                            }
+                        }
+
+                    }else if(ret.val_situation1==3){
+                        if(ret.val_mode1==1){
+                            $('.name1_rank2').show()
+                            $('.name1_rank2 select').attr('name','sub_data1')
+                            $('.name1_input').attr('name','')
+                            val_mode1=data_name1+' '+"2级等级制"
+                        }else if(ret.val_mode1==2){
+                            $('.name1_rank1').show()
+                            $('.name1_rank1 select').attr('name','sub_data1')
+                            $('.name1_input').attr('name','')
+                            val_mode1=data_name1+' '+"5级等级制"
+                        }
+
+                    }
+                    $('.data_name1').html(val_mode1)
+                }
+                if(ret.prove_file==1){
+                    if(ret.file_len==0){
+                        ret.file_len=''
+                    }
+                    $('.prove_file').show()
+                    $('.prove_file p').eq(0).html("文档需求："+ret.file_requ)
+                    $('.prove_file p').eq(1).html("数量："+ret.file_len)
+                }
+                if(ret.prove_img==1){
+                    if(ret.img_num==0){
+                        ret.img_num=''
+                    }
+                    $('.prove_img').show()
+                    $('.prove_img p').eq(0).html("图片需求："+ret.img_requ)
+                    $('.prove_img p').eq(1).html("数量："+ret.img_num)
+                }
+                if(ret.prove_audio==1){
+                    if(ret.audio_len==0){
+                        ret.audio_len=''
+                    }
+                    $('.prove_audio').show()
+                    $('.prove_audio p').eq(0).html("音频需求："+ret.audio_requ)
+                    $('.prove_audio p').eq(1).html("数量："+ret.audio_len)
+                }
+                if(ret.prove_video==1){
+
+                    if(ret.video_len==0){
+                        ret.video_len=''
+                    }
+                    $('.prove_video').show()
+                    $('.prove_video p').eq(0).html("视频需求："+ret.video_requ)
+                    $('.prove_video p').eq(1).html("数量："+ret.video_len)
+                }
+
+
+
+            }
+        })
+        form.render()
+        //已上传的数据
+        //已上传的数据
+        $.ajax({
+            url:'../../src/maintz.php',
+            type:'post',
+            dataType:'json',
+            data:{
+                type:'1',
+                id:sessionStorage.getItem('record_id'),
+
+            },
+            success: function (ret) {
+                if(ret.tz_action){
+                    $.each(ret.tz_action,function(i,v){
+                        // console.log(v)
+                        if(v.file_type=="img"){
+                            $('.img').append(`<img src="../../src/images/${v.file_path}" alt="点击放大查看">`)
+                        }else if(v.file_type=="vid"){
+                            $('.img').append(`<video src="../../src/video/${v.file_path}" type="video/mp4" controls></video>`)
+                        }
+                        else if(v.file_type=="file"){
+                            $('#list1').append(`
+                        <tr><td>${i+1}</td><td>${v.file_path}</td><td><a class='layui-btn' href='http://www.xdocin.com/xdoc?_func=to&amp;_format=html&amp;_cache=1&amp;_xdoc=http://118.25.5.116/qsrespon/src/file/${v.file_path}' target="_blank" rel="nofollow" >查看文档</a></td></tr>`)
+                        } else if(v.file_type=="aud"){
+                            $('#list1').append(`
+                        <tr><td>${i+1}</td><td>${v.file_path}</td><td><a class='layui-btn' href='http://www.xdocin.com/xdoc?_func=to&amp;_format=html&amp;_cache=1&amp;_xdoc=http://118.25.5.116/qsrespon/src/audio/${v.file_path}'>播放音频</a></td></tr>`)
+                        }
+                    })
+                    $('.img').viewer({
+                        url: 'src',
+                    });
+                }
+                if(ret.sub_data){
+                    $('.file_show').show()
+                    if($('#form [name=sub_data]').get(0).type=='select-one'){
+                        for(var i=0;i<$('#form [name=sub_data] option').length;i++){
+                            if($('#form [name=sub_data] option').eq(i).val()==ret.sub_data)
+                                $('#form [name=sub_data] option').get(i).selected=true
+                        }
+
+                    }else if($('#form [name=sub_data]').get(0).type=='radio'){
+                        $('#form [name=sub_data]').get(ret.sub_data-1).checked=true
+                    }else if($('#form [name=sub_data]').get(0).type=='text'){
+                        $('#form [name=sub_data]').val(ret.sub_data)
+                    }
+
+                    if($('#form [name=sub_data1]').get(0).type=='select-one'){
+                        for(var i=0;i<$('#form [name=sub_data1] option').length;i++){
+                            if($('#form [name=sub_data1] option').eq(i).val()==ret.sub_data1)
+                                $('#form [name=sub_data1] option').get(i).selected=true
+                        }
+
+
+                    }else if($('#form [name=sub_data1]').get(0).type=='radio'){
+                        $('#form [name=sub_data1]').get(ret.sub_data1-1).checked=true
+                    }else if($('#form [name=sub_data1]').get(0).type=='text'){
+                        $('#form [name=sub_data1]').val(ret.sub_data1)
+                    }
+                    $('#form [name=work_explain]').val(ret.work_explain)
+
+                    $('.sub').hide()
+                    $('.work_content button').hide()
+                    $('.file_list').hide()
+                    form.render()
+
+                }
+                if(ret.quality_mode==2){
+                    $('.audit').show()
+                    $('.audit_btn').show()
+
+                }
+            },
+            error: function (data) {
+
+                console.log(data);
+            }
+        })
+
+    })
+
+
+}
+
+
+
+    //上传文件
+    function upFile(el,id){
+        var list=''
+        var tr_name=''
+        var btn_name=''
+        if(id==1){
+            tr_name='file'
+            btn_name='查看文档'
+        }else if(id==2){
+            tr_name='img'
+            btn_name='查看图片'
+        }else if(id==3){
+            tr_name='audio'
+            btn_name='播放音频'
+        }else if(id==4){
+            tr_name='video'
+            btn_name='播放视频'
+        }
+        $(el).click()
+
+        $(el).unbind('change')
+        $(el).change(function () {
+
+            if(el=='.text'){
+                $('tr[name=file]').remove()
+
+            }
+            if(el=='.img'){
+                $('tr[name=img]').remove()
+
+            }
+            if(el=='.audio'){
+                $('tr[name=audio]').remove()
+
+            }
+            if(el=='.video'){
+                $('tr[name=video]').remove()
+
+            }
+            var file=this.files
+            $.each(file,function(key,value){
+                var fr = new FileReader();
+                fr.onload = function(){
+                    $('#list').append(`
+                        <tr name="${tr_name}">
+                       <td>${value.name}</td>
+
+                       <td><a class="layui-btn layui-btn-warm" onclick="file_show('${id}','${this.result}')">${btn_name}</a></td>
+                       </tr>
+
+        `)
+                }
+                fr.readAsDataURL(value);
+            })
+        })
+    }
+    //查看文件
+    function file_show(id,src) {
+        var title=''
+        if(id==1){
+            alert('暂时不支持查看文档')
+            title='查看文档'
+        }
+        if(id==2){
+            title='查看图片'
+            $('#video').hide()
+            $('#img').show()
+            $('#audio').hide()
+            $('#img').attr('src',src)
+        }
+        if(id==3){
+            title='查看音频'
+        }
+        if(id==4){
+            title='播放视频'
+            $('#video').show()
+            $('#img').hide()
+            $('#audio').hide()
+            $('#video').attr('src',src)
+        }
+        layui.use(['layer','form'],function () {
+            var layer = layui.layer,$=layui.$;
+            var form = layui.form
+            layer.open({
+                type:1,//类型
+                area:['300px','300px'],//定义宽和高
+                title:title,//题目
+                content: $('#file_show')//打开的内容
+                ,cancel: function(index, layero){
+                    if(confirm('确定要关闭么')){
+                        $('#img').hide()
+                        $('#audio').hide()
+                        $('#video').hide()
+                    }
+
+                }
+            });
+
+
+        })
+    }
+    $('.sub').click(function () {
+
+        var formData = new FormData($("#form")[0]);
+        if($('form [name=sub_data]').val()==''){
+            alert('指标数据是必填项')
+        }else{
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: formData,
+                processData: false,
+                dataType: "json",
+                contentType: false,
+                success: function (data) {
+                    if(data.code==200){
+                        alert("提交成功")
+                        comeBack()
+                    }else{
+                        alert(data.msg);
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            })
+        }
+
+    })
+    function comeBack() {   
+        api.historyBack({  }, function(ret, err) {     
+            if (!ret.status) {       
+                api.closeWin();     
+            }  
+        });
+    }
+</script>
+
+</html>

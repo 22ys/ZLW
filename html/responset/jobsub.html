@@ -7,8 +7,8 @@
     <title>title</title>
     <link rel="stylesheet" type="text/css" href="../../css/mui.css" />
     <link rel="stylesheet" type="text/css" href="../../css/api.css" />
-    <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="../../js/echarts.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../template/bootstrap/bootstrap.css" />
+
     <style>
         .btn {
             font-size: 12px;
@@ -25,72 +25,6 @@
             top: 8px;
         }
 
-        .table-bordered>tbody>tr>td,
-        .table-bordered>tbody>tr>th {
-            border: 1px solid #ddd;
-        }
-
-        table {
-            border-spacing: 0;
-            border-collapse: collapse;
-            text-align: center;
-            font-size: 12px;
-        }
-
-        .table {
-            width: 100%;
-            max-width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .table-bordered>thead>tr>th {
-            border: 1px solid #ddd;
-            border-bottom-width: 2px;
-        }
-
-        .table>thead>tr>th {
-            padding: 8px;
-            border-top: 1px solid #ddd;
-        }
-
-        .btn-danger {
-            color: #fff;
-            background-color: #d9534f;
-            border-color: #d43f3a;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 6px 12px;
-            font-size: 14px;
-            font-weight: 400;
-            line-height: 1.42857143;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: middle;
-            -ms-touch-action: manipulation;
-            touch-action: manipulation;
-            cursor: pointer;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            background-image: none;
-            border: 1px solid transparent;
-            border-radius: 4px;
-        }
-
-        .btn-success {
-            color: #fff;
-            background-color: #5cb85c;
-            border-color: #4cae4c;
-        }
-
-        .btn-warning {
-            color: #fff;
-            background-color: #f0ad4e;
-            border-color: #eea236;
-        }
 
         #header {
             width: 100%;
@@ -106,16 +40,18 @@
     </style>
 
 </head>
-
+<script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../../js/cookie.js"></script>
+<script type="text/javascript" src="../template/bootstrap/bootstrap.js"></script>
 <body>
-    <header class="mui-bar mui-bar-nav" id="header">
-        <span class="mui-icon mui-icon-back mui-pull-left" onclick="comeBack()"></span>
-        <h1 class="mui-title">日常工作提交</h1>
-        <span class="mui-icon mui-icon-person mui-pull-right" onclick="personal()"></span>
-    </header>
-    <div id="app">
+  <header class="mui-bar mui-bar-nav" id="header">
+      <span class="mui-icon mui-icon-back mui-pull-left" onclick="comeBack()"></span>
+      <h1 class="mui-title">工作提交</h1>
+      <span class="mui-icon mui-icon-person mui-pull-right" onclick="personal()"></span>
+  </header>
+  <div id="app">
 
-    </div>
+  </div>
     <div id="jOrgChart">
         <table class="table table-hover table-bordered ">
             <caption id="title" class="text-center" style="font-weight: bold;font-size: 16px">工作提交情况</caption>
@@ -131,140 +67,47 @@
             </tbody>
         </table>
     </div>
-</body>
-<script type="text/javascript" src="../../script/api.js"></script>
+
 <script type="text/javascript">
-    apiready = function() {
-        var ip = localStorage.getItem("ip")
-        var url = `http://${ip}/dutyList/src/job.php`
+
         var tr = '';
+        var url = localStorage.getItem("url")
+        var url =url+'app/duty_list.php'
         $.ajax({
             url: url,
             dataType: 'json',
             type: 'post',
             data: {
-                type: 1,
-                user_id:localStorage.getItem("user_id")
-
+                type: 0,
+                user_id:$.cookie("user_id")
             },
             success: function(ret) {
 
-                $.each(ret.data, function(index, val) {
+                $.each(ret, function(index, val) {
+                  if(val.tj_state==1){
+                      tr += `<tr style='display:none'><td >${val.score}</td><td>${val.work_content}</td><td class="text-center"><button class="btn btn-warning" onclick="btn(${val.id})">提交</button></td></tr>`
+                  }else{
+                      tr += `<tr><td >${val.score}</td><td>${val.work_content}</td><td class="text-center"><button class="btn btn-warning" onclick="btn(${val.id})">提交</button></td></tr>`
+                  }
 
-                    tr += `<tr><td >${val.score}</td><td>${val.content}</td><td class="text-center"><button class="btn btn-warning" onclick="btn(${val.id})">提交</button></td></tr>`
                 })
                 $('#tbody').html(tr)
             }
 
         })
-    };
+
     function btn(id) {
-        var ip = localStorage.getItem("ip")
-        var url = `http://${ip}/dutyList/src/job.php`
-        var work_id = id;
-        $.ajax({
-            url: url,
-            dataType: 'json',
-            type: 'post',
-            data: {
-                work_id: work_id,
-                type: 4
-            },
-            success: function(ret) {
-                if (ret.template == 400) {
-                    alert('未设置提交模板')
-                } else {
-                    var tem = "../template/" + ret.template + "?work_id=" + work_id + "&tz_type=0";
-                    api.openWin({
-                        name: 'jobsub' + work_id,
-                        url: tem,
-                        pageParam: {
-                            index: 'test'
-                        }
-                    });
-                }
-
+        api.openWin({
+            name: 'work_up' + id,
+            url: 'work_up.html',
+            pageParam: {
+              id:id
             }
         })
 
     }
 
-    function comeBack() {   
-      api.openWin({
-          name:'index',
-          url: '../index.html',
-          pageParam: {
-              index: 'test'
-          }
-      });
-    }
 
-    function score() {
-        $('#app').css({
-            "width": "95%",
-            "height": "200px"
-        })
-        var dataStyle = {
-            normal: {
-                label: {
-                    show: false
-                },
-                labelLine: {
-                    show: false
-                },
-                shadowBlur: 10,
-                shadowColor: 'rgba(40, 40, 40,0.5)',
-            }
-        };
-        option = {
-            color: ['#d9534f', '#5cb85c'],
-            tooltip: {
-                trigger: 'item',
-                formatter: "{a} <br/>{b}: {c}个 ({d}%)"
-            },
-            legend: {
-                orient: 'vertical',
-                x: 'left',
-                data: ['未提交', '已提交']
-            },
-            series: [{
-                name: '任务提交情况',
-                type: 'pie',
-                radius: ['50%', '70%'],
-                avoidLabelOverlap: false,
-                itemStyle: dataStyle,
-                label: {
-                    normal: {
-                        show: false,
-                        position: 'center'
-                    },
-                    emphasis: {
-                        show: true,
-                        textStyle: {
-                            fontSize: '16',
-                            fontWeight: 'bold'
-                        }
-                    }
-                },
-                labelLine: {
-                    normal: {
-                        show: false
-                    }
-                },
-                data: [{
-                    value: 15,
-                    name: '未提交'
-                }, {
-                    value: 5,
-                    name: '已提交'
-                }]
-            }]
-        };
-        var myChart = echarts.init(document.getElementById('app'));
-        myChart.setOption(option);
-    }
-
-    setInterval("score()", 1000);
 </script>
 
 </html>

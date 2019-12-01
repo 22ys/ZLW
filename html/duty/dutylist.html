@@ -138,8 +138,10 @@
         data = [];
         fraction = '';
         var url = localStorage.getItem("url")
-        var url = url+'dutylist.php'
+        var url = url+'app/duty_list.php'
+
         var tr = '';
+
         $.ajax({
             url: url,
             dataType: 'json',
@@ -150,21 +152,23 @@
             },
             success: function(ret) {
 
+              console.log(JSON.stringify(ret))
                 $.each(ret, function(index, value) {
+                  console.log(JSON.stringify(value))
                     if (parseInt(value.fraction) > 1000) {
                         fraction = 1000
                     }
                     data.push({
-                        name: value.Next_user.replace(/[ ]|[&nbsp;]/g, ''),
-                        value: value.fraction
+                        name: value.user_name,
+                        value: value.score
                     })
 
                     tr +=
                         `<tr class="text-center">
-          <td >${value.Content}</td>
+          <td >${value.title}</td>
           <td style="width:60px"> ${value.post_name}</td>
-          <td style="width:60px">${value.Next_user}</td>
-          <td style="width:60px"><button class="mui-btn mui-btn-primary" tapmode onclick="dutyGuiCheng('${value.List_Allot_ID}','${value.Content}')" style="font-size:10px">详情</button></td></tr>`
+          <td style="width:60px">${value.user_name}</td>
+          <td style="width:60px"><button class="mui-btn mui-btn-primary" tapmode onclick="dutyGuiCheng('${value.id}','${value.title}')" style="font-size:10px">详情</button></td></tr>`
                 })
                 $('#tbody').html(tr)
             }
