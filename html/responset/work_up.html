@@ -265,7 +265,7 @@
                   <input type="hidden"  name="type" value="2">
                   <input type="hidden" class="user_id" name="user_id">
                   <input type="hidden" class="work_id" name="work_id">
-                  <input type="file" style="display: none" multiple name="up_img[]" class="img" accept = 'image/*' >
+                  <!-- <input type="file" style="display: none" multiple name="up_img[]" class="img" accept = 'image/*' > -->
                   <input type="file"  style="display: none" multiple name="up_file[]"  class="text" accept="application/msexcel,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                   >
                   <input type="file" style="display: none" name="up_aud[]" class="audio" accept="audio/*" >
@@ -274,8 +274,8 @@
                   <div class="prove_img work_content_file" style="display: none"><p ></p><p  class="img_num"></p></div>
                   <div class="prove_audio work_content_file" style="display: none"><p ></p><p  class="audio_num"></p></div>
                   <div class="prove_video work_content_file" style="display: none"><p ></p><p  class="video_num"></p></div>
-                  <button type='button' class="layui-btn layui-btn-normal prove_file" style="display: none" onclick="upFile('.text',1)">文档上传</button>
-                  <button type='button' class="layui-btn layui-btn-normal prove_img"  style="display: none" onclick="upFile('.img',2)">图片上传</button>
+                  <button type='button' class="layui-btn layui-btn-normal prove_file" style="display: none" onclick="getp()">文档上传</button>
+                  <button type='button' class="layui-btn layui-btn-normal prove_img"  style="display: none" onclick="getp()">图片上传</button>
                   <button type='button' class="layui-btn layui-btn-normal prove_audio" style="display: none"  onclick="upFile('.audio',3)">音频上传</button>
                   <button type='button' class="layui-btn layui-btn-normal prove_video" style="display: none"  onclick="upFile('.video',4)">视频上传</button>
               </div>
@@ -441,6 +441,7 @@
          url = localStorage.getItem("url")
          url =url+'job.php'
          id = api.pageParam.id
+         record_id = api.pageParam.record_id
         $('.work_id').val(id)
        $('.user_id').val($.cookie("user_id"))
         layui.use(['form', 'layedit', 'laydate'  ,'slider'], function () {
@@ -624,13 +625,14 @@
         form.render()
         //已上传的数据
         //已上传的数据
+        console.log(record_id)
         $.ajax({
-            url:'../../src/maintz.php',
+            url:localStorage.getItem("url")+'app/duty_list.php',
             type:'post',
             dataType:'json',
             data:{
-                type:'1',
-                id:sessionStorage.getItem('record_id'),
+                type:'5',
+                id:record_id,
 
             },
             success: function (ret) {
@@ -808,9 +810,72 @@
 
         })
     }
+       var ipath=new Array();
+    function getp(){
+      var UIMediaScanner = api.require('UIMediaScanner');
+      UIMediaScanner.open({
+        type: 'picture',
+        column: 4,
+        classify: true,
+        max: 4,
+        sort: {
+            key: 'time',
+            order: 'desc'
+        },
+        texts: {
+            stateText: '已选择*项',
+            cancelText: '取消',
+            finishText: '完成'
+        },
+        styles: {
+            bg: '#fff',
+            mark: {
+                icon: '',
+                position: 'bottom_left',
+                size: 20
+            },
+            nav: {
+                bg: '#eee',
+                stateColor: '#000',
+                stateSize: 18,
+                cancelBg: 'rgba(0,0,0,0)',
+                cancelColor: '#000',
+                cancelSize: 18,
+                finishBg: 'rgba(0,0,0,0)',
+                finishColor: '#000',
+                finishSize: 18
+            }
+        },
+        scrollToBottom: {
+            intervalTime: 3,
+            anim: true
+        },
+        exchange: true,
+        rotation: true
+      }, function(ret) {
+        if (ret) {
+        // alert(JSON.stringify(ret))
+         var imgs = ret.list;
+
+         for (var i = 0; i < imgs.length; i++) {
+           alert(JSON.stringify(imgs[i]))
+            ipath[i]=imgs[i];
+         }
+        //  alert(ipath);
+
+        }
+      });
+    }
+
+
     $('.sub').click(function () {
 
         var formData = new FormData($("#form")[0]);
+        for(var i=0;i<ipath.length;i++){
+          formData.append('up_img[]',ipath[i])
+        }
+
+
         if($('form [name=sub_data]').val()==''){
             alert('指标数据是必填项')
         }else{

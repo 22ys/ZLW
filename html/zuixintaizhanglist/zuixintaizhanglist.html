@@ -75,8 +75,7 @@
             <thead>
                 <tr>
                     <th class="text-center">工作内容</th>
-                    <th class="text-center">责任人</th>
-                    <th class="text-center">状态</th>
+                    <th class="text-center">提交时间</th>
                     <th class="text-center">详情</th>
                 </tr>
             </thead>
@@ -95,25 +94,27 @@
     apiready = function() {
         id = api.pageParam.id;
         var url = localStorage.getItem("url")
-        var url = url+'maintz.php'
+        var url = url+'app/duty_list.php'
+        console.log(url)
         $.ajax({
             url: url,
             dataType: 'json',
             type: 'post',
             data: {
+              type:4,
               user_id:localStorage.getItem("user_id")
             },
             success: function(ret) {
-
+                   console.log(ret)
                 var tr = '';
                 $.each(ret, function(index, value) {
+              
                     tr +=
                         `
               <tr class="text-center">
-                   <td>${value.content}</td>
-                    <td style="width:60px">${value.user_name}</td>
-                    <td style="width:60px">${value.state}</td>
-                    <td style="width:60px"><button type="button" class="btn btn-primary" onclick="details(${value.Work_Parameter_ID})">详情</button></td>
+                   <td>${value.work_content}</td>
+                    <td style="width:60px">${value.sub_time}</td>
+                    <td style="width:60px"><button type="button" class="btn btn-primary" onclick="details('${value.work_id}','${value.id}')">详情</button></td>
                  </tr>
               `
                 })
@@ -202,6 +203,8 @@
 
                 })
 
+            },error:function (ret) {
+              console.log(JSON.stringify(ret))
             }
         })
     }
@@ -214,12 +217,14 @@
         });
     }
 
-    function details(id) {
+    function details(work_id,record_id) {
+
         api.openWin({
             name: 'details',
-            url: './taizhangdetails.html',
+            url: '../responset/work_up.html',
             pageParam: {
-                id: id
+                id: work_id,
+                record_id:record_id
             }
         });
 

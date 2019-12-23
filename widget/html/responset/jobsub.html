@@ -73,7 +73,6 @@
         var tr = '';
         var url = localStorage.getItem("url")
         var url =url+'app/duty_list.php'
-  
         $.ajax({
             url: url,
             dataType: 'json',
@@ -85,7 +84,7 @@
             success: function(ret) {
 
                 $.each(ret, function(index, val) {
-                  // console.log(JSON.stringify(val))
+                  console.log(JSON.stringify(val))
                   if(val.tj_state==1){
                       tr += `<tr style='display:none'><td >${val.score}</td><td>${val.work_content}</td><td class="text-center"><button class="btn btn-warning" onclick="btn(${val.id})">提交</button></td></tr>`
                   }else{
@@ -99,7 +98,6 @@
         })
 
     function btn(id) {
-      sessionStorage.setItem('record_id','')
         api.openWin({
             name: 'work_up' + id,
             url: 'work_up.html',
